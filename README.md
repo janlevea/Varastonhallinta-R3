@@ -1,6 +1,7 @@
 # Varastonhallinta-R3
-Varastonhallintasovellus, Ryhmä 3
+### Varastonhallintasovellus, Ryhmä 3
 
+***
 
 Tietoa projektista:
 
