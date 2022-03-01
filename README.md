@@ -3,7 +3,7 @@
 Jani, Janne, Juha, Petri P, Verneri, Wisam
 
 ***
-Kehityshaara
+Sovelluskehityksen päähaara
 ***
 
 Tietoa projektista:
