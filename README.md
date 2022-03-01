@@ -1,5 +1,6 @@
 # Varastonhallinta-R3
 ### Varastonhallintasovellus, Ryhmä 3
+Jani, Janne, Juha, Petri P, Verneri, Wisam
 
 ***
 
