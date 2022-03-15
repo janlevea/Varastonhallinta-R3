@@ -3,7 +3,7 @@
 Jani, Janne, Juha, Petri P, Verneri, Wisam
 
 ***
-Sovelluskehityksen päähaara
+Djangokehityksen haara
 ***
 
 Tietoa projektista:
