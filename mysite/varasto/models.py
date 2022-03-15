@@ -9,17 +9,17 @@ class Opiskelijat(models.Model):
         return f"Opiskelija: {self.opiskelijanro} {self.etunimi} {self.sukunimi}"
 
 class Tyokalut(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     nimi = models.CharField(max_length=60)
 
     def __str__(self):
-        return f"Työkalu: {self.tyokalunro} {self.nimi}"
+        return f"Työkalu: {self.id} {self.nimi}"
 
 class Lainaukset(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     opiskelija = models.ForeignKey(Opiskelijat, on_delete=models.PROTECT)
     tyokalu = models.ForeignKey(Tyokalut, on_delete=models.PROTECT)
     lainausaika = models.DateTimeField()
 
     def __str__(self):
-        return f"Lainaus {self.id}, Opiskelija {self.opiskelijanro}, Työkalu {self.tyokalunro}"
+        return f"Lainaus {self.id}, Opiskelija {self.opiskelija}, Työkalu {self.tyokalu}"
