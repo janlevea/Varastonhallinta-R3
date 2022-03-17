@@ -1,25 +1,36 @@
 from django.db import models
 
-class Opiskelijat(models.Model):
+class Opiskelija(models.Model):
     opiskelijanro = models.IntegerField(primary_key=True)
     etunimi = models.CharField(max_length=50)
     sukunimi = models.CharField(max_length=50)
 
-    def __str__(self):
-        return f"Opiskelija: {self.opiskelijanro} {self.etunimi} {self.sukunimi}"
+    class Meta:
+        verbose_name = "Opiskelija"
+        verbose_name_plural = "Opiskelijat"
 
-class Tyokalut(models.Model):
+    def __str__(self):
+        return f"{self.opiskelijanro} {self.etunimi} {self.sukunimi}"
+
+class Tyokalu(models.Model):
     id = models.AutoField(primary_key=True)
     nimi = models.CharField(max_length=60)
 
-    def __str__(self):
-        return f"Työkalu: {self.id} {self.nimi}"
+    class Meta:
+        verbose_name = "Työkalu"
+        verbose_name_plural = "Työkalut"
 
-class Lainaukset(models.Model):
+    def __str__(self):
+        return f"{self.id} {self.nimi}"
+
+class Lainaus(models.Model):
     id = models.AutoField(primary_key=True)
-    opiskelija = models.ForeignKey(Opiskelijat, on_delete=models.PROTECT)
-    tyokalu = models.ForeignKey(Tyokalut, on_delete=models.PROTECT)
+    opiskelijanro = models.ForeignKey(Opiskelija, on_delete=models.PROTECT)
+    tyokalu = models.ForeignKey(Tyokalu, on_delete=models.PROTECT)
     lainausaika = models.DateTimeField()
+    class Meta:
+        verbose_name = "Lainaus"
+        verbose_name_plural = "Lainaukset"
 
     def __str__(self):
-        return f"Lainaus {self.id}, Opiskelija {self.opiskelija}, Työkalu {self.tyokalu}"
+        return f"Lainaus: {self.id}, Opiskelija: {self.opiskelijanro}, Työkalu: {self.tyokalu}, Lainausaika: {self.lainausaika}"
