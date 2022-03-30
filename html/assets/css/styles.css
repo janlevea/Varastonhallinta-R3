@@ -1,0 +1,139 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Kanit:wght@800;900&family=Nunito+Sans:wght@300;400;600&display=swap');
+
+/* * {
+    border: 1px solid red;
+} */
+
+header .logo {
+    margin: 30px auto 10px auto;
+    width: 85.5%;
+}
+header .logo img {
+    height: 55px;
+    width: 246px;
+}
+
+header .top-bar {
+    height: 44px;
+    color: #1b3259;
+    opacity: 1;
+    margin-top: 1px;
+}
+
+main .title {
+    margin: 30px auto;
+}
+
+.btn-lg {
+    width: 500px;
+    text-align: left;
+    height: 74px;
+    border-style: none;
+    font-family: Kanit, sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.btn-lg .buttontext {
+    margin-top: 10px;
+}
+
+.button-red, .button-red:hover, .button-red:focus, .button-red:active, .button-red.active {
+    background: #df2070;
+}
+.button-blue, .button-blue:hover, .button-blue:focus, .button-blue:active, .button-blue.active {
+    background: #1b3259;
+}
+
+/* .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    background: #df2070;
+} */
+
+main {
+    margin: 0 auto; 
+    width: 84%;
+}
+
+h1 {
+    color:#1b3259; 
+    font-family: Kanit, sens-serif;
+    font-weight: 800;
+}
+
+h5 {
+    font-family: Nunito, sans-serif;
+    font-weight: 400;
+    font-size: 21px;
+}
+
+.buttons {
+    margin: 60px auto 0px auto;
+}
+
+.i-chevron-right, #i-search {
+    float:right;
+}
+
+/* raportit.html -- start */
+.search {
+    border-color: #1b3259;
+    display: inline-block;
+    width: 50%;
+}
+
+.search input {
+    height: 45px;
+    width: 90%;
+}
+
+.search .btn-lg {
+    width: 45%;
+}
+
+.search-attributes {
+    background-color: #ededed;
+    width: 50%;
+    height: 500px;
+    position: relative;
+    float: right;
+    top: 18px;
+}
+
+.search-attributes .title {
+    margin-top: 22px;
+    margin-left: 22px;
+}
+
+.search-attributes .parameters {
+    margin-left: 22px;
+}
+
+#searchtext {
+    margin-top: 20px;
+    border-color: #1b3259;
+}
+
+.form-switch {
+    font-size: 22px;
+}
+
+.form-switch h6, #first {
+    position: relative;
+    bottom: 4.5px;
+}
+
+.form-switch h6, #second {
+    position: relative;
+    bottom: 3px;
+}
+
+.form-select {
+    border: 2px solid #df2070;
+    width: 90%;
+    height: 52px;
+}
+
+#flexSwitchCheckDefault, #flexSwitchCheckDefault2 {
+    background-color: #df2070;
+}
