@@ -3,15 +3,30 @@ from django.db import models
 class Varastotyyppi(models.model):
     varastotyyppi_id = models.AutoField(primary_key=True, null=False)
     varastotyyppi_nimi = models.CharField(max_length=30, null=False)
+    class Meta:
+        verbose_name = "Varastotyyppi"
+        verbose_name_plural = "Varastotyypit"
+    def __str__(self):
+        return f"ID: {self.varastotyyppi_id}, Nimi: {self.varastotyyppi_nimi}"
 
 class Varasto(models.model):
     varasto_id = models.CharField(max_length=20, null=False, primary_key=True)
     varastotyyppi_id = models.ForeignKey(Varastotyyppi, null=False, on_delete=models.PROTECT)
     varaston_nimi = models.CharField(max_length=30, null=False)
+    class Meta:
+        verbose_name = "Varasto"
+        verbose_name_plural = "Varastot"
+    def __str__(self):
+        return f"ID: {self.varasto_id}, Tyyppi_ID: {self.varastotyyppi_id}, Nimi: {self.varaston_nimi}"
 
 class Tuoteryhma(models.model):
     tuoteryhma_id = models.AutoField(primary_key=True, null=False)
     tuoteryhma_nimi = models.CharField(max_length=50, null=False)
+    class Meta:
+        verbose_name = "Tuoteryhmä"
+        verbose_name_plural = "Tuoteryhmät"
+    def __str__(self):
+        return f"ID: {self.tuoteryhma_id}, Nimi: {self.tuoteryhma_nimi}"
 
 class Tuote(models.model):
     viivakoodi = models.CharField(max_length=30, null=False, primary_key=True)
@@ -21,14 +36,29 @@ class Tuote(models.model):
     hankintapaikka = models.CharField(max_length=50, null=False)
     kustannuspaikka = models.CharField(max_length=10, null=False)
     tuotekuva = models.BinaryField(null=False)
+    class Meta:
+        verbose_name = "Tuote"
+        verbose_name_plural = "Tuotteet"
+    def __str__(self):
+        return f"Tuote_ID: {self.tuote_id}, Tuoteryhma_ID: {self.tuoteryhma_id}, Nimike: {self.nimike}"
 
 class Rooli(models.model):
     roolinimitys = models.CharField(max_length=20, null=False, primary_key=True)
+    class Meta:
+        verbose_name = "Rooli"
+        verbose_name_plural = "Roolit"
+    def __str__(self):
+        return f"Roolinimitys: {self.roolinimitys}"
 
 class Henkilo(models.model):
     henkilo_id = models.CharField(max_length=50, null=False, primary_key=True)
     roolinimitys = models.ForeignKey(Rooli, max_length=20, null=False, on_delete=models.PROTECT)
     etunimi = models.CharField(max_length=35, null=False)
+    class Meta:
+        verbose_name = "Henkilö"
+        verbose_name_plural = "Henkilöt"
+    def __str__(self):
+        return f"ID: {self.henkilo_id}, Rooli: {self.roolinimitys}, Etunimi: {self.etunimi}"
 
 class Varastotapahtuma(models.model):
     tapahtuma_id = models.AutoField(primary_key=True, null=False)
@@ -40,8 +70,11 @@ class Varastotapahtuma(models.model):
     palautuspaiva = models.DateField(null=False)
     asiakas_id = models.ForeignKey(Henkilo, null=False, on_delete=models.PROTECT)
     varastonhoitaja_id = models.ForeignKey(Henkilo, null=False, on_delete=models.PROTECT)
-
-
+    class Meta:
+        verbose_name = "Varastotapahtuma"
+        verbose_name_plural = "Varastotapahtumat"
+    def __str__(self):
+        return f"Viivakoodi: {self.viivakoodi}, Määrä: {self.maara}, Asiakas: {self.asiakas_id}, Varastonhoitaja: {self.varastonhoitaja_id}"
 
 '''
 class Opiskelija(models.Model):
