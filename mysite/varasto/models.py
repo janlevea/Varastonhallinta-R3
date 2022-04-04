@@ -1,37 +1,39 @@
 from django.db import models
 
-class Varastotyyppi(models.model):
-    varastotyyppi_id = models.AutoField(primary_key=True, null=False)
-    varastotyyppi_nimi = models.CharField(max_length=30, null=False)
+# from django.utils.translation import gettext_lazy as _
+
+class Varastotyyppi(models.Model):
+    id = models.AutoField(primary_key=True, null=False)
+    nimi = models.CharField(max_length=30, null=False)
     class Meta:
         verbose_name = "Varastotyyppi"
         verbose_name_plural = "Varastotyypit"
     def __str__(self):
-        return f"ID: {self.varastotyyppi_id}, Nimi: {self.varastotyyppi_nimi}"
+        return f"ID: {self.id}, Nimi: {self.nimi}"
 
-class Varasto(models.model):
-    varasto_id = models.CharField(max_length=20, null=False, primary_key=True)
-    varastotyyppi_id = models.ForeignKey(Varastotyyppi, null=False, on_delete=models.PROTECT)
-    varaston_nimi = models.CharField(max_length=30, null=False)
+class Varasto(models.Model):
+    id = models.CharField(max_length=20, null=False, primary_key=True)
+    varastotyyppi = models.ForeignKey(Varastotyyppi, null=False, on_delete=models.PROTECT)
+    nimi = models.CharField(max_length=30, null=False)
     class Meta:
         verbose_name = "Varasto"
         verbose_name_plural = "Varastot"
     def __str__(self):
-        return f"ID: {self.varasto_id}, Tyyppi_ID: {self.varastotyyppi_id}, Nimi: {self.varaston_nimi}"
+        return f"ID: {self.id}, Tyyppi_ID: {self.varastotyyppi}, Nimi: {self.nimi}"
 
-class Tuoteryhma(models.model):
-    tuoteryhma_id = models.AutoField(primary_key=True, null=False)
-    tuoteryhma_nimi = models.CharField(max_length=50, null=False)
+class Tuoteryhma(models.Model):
+    id = models.AutoField(primary_key=True, null=False)
+    nimi = models.CharField(max_length=50, null=False)
     class Meta:
         verbose_name = "Tuoteryhmä"
         verbose_name_plural = "Tuoteryhmät"
     def __str__(self):
-        return f"ID: {self.tuoteryhma_id}, Nimi: {self.tuoteryhma_nimi}"
+        return f"ID: {self.id}, Nimi: {self.nimi}"
 
-class Tuote(models.model):
+class Tuote(models.Model):
     viivakoodi = models.CharField(max_length=30, null=False, primary_key=True)
-    tuote_id = models.AutoField(null=False)
-    tuoteryhma_id = models.ForeignKey(Tuoteryhma, null=False, on_delete=models.PROTECT)
+    id = models.IntegerField(null=False, default=1)
+    tuoteryhma = models.ForeignKey(Tuoteryhma, null=False, on_delete=models.PROTECT)
     nimike = models.CharField(max_length=50, null=False)
     hankintapaikka = models.CharField(max_length=50, null=False)
     kustannuspaikka = models.CharField(max_length=10, null=False)
@@ -40,9 +42,9 @@ class Tuote(models.model):
         verbose_name = "Tuote"
         verbose_name_plural = "Tuotteet"
     def __str__(self):
-        return f"Tuote_ID: {self.tuote_id}, Tuoteryhma_ID: {self.tuoteryhma_id}, Nimike: {self.nimike}"
+        return f"Tuote_ID: {self.id}, Tuoteryhma_ID: {self.tuoteryhma}, Nimike: {self.nimike}"
 
-class Rooli(models.model):
+class Rooli(models.Model):
     roolinimitys = models.CharField(max_length=20, null=False, primary_key=True)
     class Meta:
         verbose_name = "Rooli"
@@ -50,33 +52,33 @@ class Rooli(models.model):
     def __str__(self):
         return f"Roolinimitys: {self.roolinimitys}"
 
-class Henkilo(models.model):
-    henkilo_id = models.CharField(max_length=50, null=False, primary_key=True)
+class Henkilo(models.Model):
+    id = models.CharField(max_length=50, null=False, primary_key=True)
     roolinimitys = models.ForeignKey(Rooli, max_length=20, null=False, on_delete=models.PROTECT)
     etunimi = models.CharField(max_length=35, null=False)
     class Meta:
         verbose_name = "Henkilö"
         verbose_name_plural = "Henkilöt"
     def __str__(self):
-        return f"ID: {self.henkilo_id}, Rooli: {self.roolinimitys}, Etunimi: {self.etunimi}"
+        return f"ID: {self.id}, Rooli: {self.roolinimitys}, Etunimi: {self.etunimi}"
 
-class Varastotapahtuma(models.model):
-    tapahtuma_id = models.AutoField(primary_key=True, null=False)
+class Varastotapahtuma(models.Model):
+    id = models.AutoField(primary_key=True, null=False)
     arkistotunnus = models.CharField(max_length=50, null=False)
-    varasto_id = models.ForeignKey(Varasto, null=False, on_delete=models.PROTECT)
+    varasto = models.ForeignKey(Varasto, null=False, on_delete=models.PROTECT)
     viivakoodi = models.ForeignKey(Tuote, null=False, on_delete=models.PROTECT)
     maara = models.IntegerField(null=False)
     aikaleima = models.DateField(null=False)
     palautuspaiva = models.DateField(null=False)
-    asiakas_id = models.ForeignKey(Henkilo, null=False, on_delete=models.PROTECT)
-    varastonhoitaja_id = models.ForeignKey(Henkilo, null=False, on_delete=models.PROTECT)
+    asiakas = models.ForeignKey(Henkilo, null=False, related_name="asiakas", on_delete=models.PROTECT)
+    varastonhoitaja = models.ForeignKey(Henkilo, null=False, on_delete=models.PROTECT)
     class Meta:
         verbose_name = "Varastotapahtuma"
         verbose_name_plural = "Varastotapahtumat"
     def __str__(self):
-        return f"Viivakoodi: {self.viivakoodi}, Määrä: {self.maara}, Asiakas: {self.asiakas_id}, Varastonhoitaja: {self.varastonhoitaja_id}"
+        return f"Viivakoodi: {self.viivakoodi}, Määrä: {self.maara}, Asiakas: {self.asiakas}, Varastonhoitaja: {self.varastonhoitaja}"
 
-'''
+''' Vanha koodi:
 class Opiskelija(models.Model):
     opiskelijanro = models.IntegerField(primary_key=True)
     etunimi = models.CharField(max_length=50)

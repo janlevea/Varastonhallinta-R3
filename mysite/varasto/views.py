@@ -6,10 +6,13 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 
-from .models import Lainaus
+#from .models import Lainaus
 
 class IndexView(generic.ListView):
-    template_name = 'varasto/index.html'
+    template_name = "varasto/index.html"
+    def get_queryset(self):
+        return HttpResponse('varasto/index.html')
+    '''
     context_object_name = "viimeisimmat_lainaukset"
     
     def get_queryset(self):
@@ -19,11 +22,22 @@ class IndexView(generic.ListView):
 class LainausView(generic.DetailView):
     model = Lainaus
     template_name = "varasto/lainaus.html"    
+    '''
 
-'''
+class RaportitView(generic.View):
+    template_name = "varasto/raportit.html"
+    def get_queryset(self):
+        return HttpResponse('varasto/raportit.html')
+    
 
 # /varasto/ etusivu
-def index(request):
+# def index(request):
+#     pass
+
+# def raportit(request):
+#     pass
+
+    '''
     # Hae 5 viimeistä lainausta, viimeisin lainaus ensimmäisenä
     viimeisimmat_lainaukset = Lainaus.objects.order_by("-lainausaika")[:5]
     context = {
