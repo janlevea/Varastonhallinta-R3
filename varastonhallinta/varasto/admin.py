@@ -1,11 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
-'''
-# Register your models here.
-from .models import Opiskelija, Tyokalu, Lainaus
+from .models import Varasto, Tuoteryhma, Tuote, Varastotapahtuma
 
-admin.site.register(Opiskelija)
-admin.site.register(Tyokalu)
-admin.site.register(Lainaus)
-'''
+admin.site.register(Varasto)
+admin.site.register(Tuoteryhma)
+admin.site.register(Tuote)
+admin.site.register(Varastotapahtuma)
