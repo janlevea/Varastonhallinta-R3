@@ -165,6 +165,29 @@ h5 {
     width: 240px;
 }
 
+/* footer */
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    background-color: #1b3259;
+    color: white;
+    font-family: Nunito, sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+}
+footer .lefttext {
+    margin-top: 4px;
+    text-align: left;
+    margin-left: 10px;
+    opacity: 80%
+}
+footer span {
+    color: #df2070;
+}
+
 /* * {
     border: 1px solid red;
-} */
+}*/
