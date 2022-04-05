@@ -7,11 +7,16 @@ from django.urls import reverse
 from django.views import generic
 
 #from .models import Lainaus
+def index(request):
+    return render(request, "varasto/index.html")
 
-class IndexView(generic.ListView):
-    template_name = "varasto/index.html"
-    def get_queryset(self):
-        return HttpResponse('varasto/index.html')
+def raportit(request):
+    return render(request, "varasto/raportit.html")
+
+# class IndexView(generic.ListView):
+#     template_name = "varasto/index.html"
+#     def get_queryset(self):
+#         return HttpResponse('varasto/index.html')
     '''
     context_object_name = "viimeisimmat_lainaukset"
     
@@ -24,10 +29,13 @@ class LainausView(generic.DetailView):
     template_name = "varasto/lainaus.html"    
     '''
 
-class RaportitView(generic.View):
-    template_name = "varasto/raportit.html"
-    def get_queryset(self):
-        return HttpResponse('varasto/raportit.html')
+# def raportit(request_iter):
+#     return render(request_iter,'varasto/raportit.html')
+
+# class RaportitView(generic.View):
+#     template_name = "varasto/raportit.html"
+#     def get_queryset(self):
+#         return HttpResponse('varasto/raportit.html')
     
 
 # /varasto/ etusivu
