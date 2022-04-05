@@ -13,6 +13,15 @@ def index(request):
 def raportit(request):
     return render(request, "varasto/raportit.html")
 
+def uusiLainaus(request):
+    return render(request, "varasto/uusi_lainaus.html")
+
+def lainauksenPalautus(request):
+    return render(request, "varasto/lainauksen_palautus.html")
+
+def lisaaMuokkaa(request):
+    return render(request, "varasto/lisaa_muokkaa.html")
+
 # class IndexView(generic.ListView):
 #     template_name = "varasto/index.html"
 #     def get_queryset(self):

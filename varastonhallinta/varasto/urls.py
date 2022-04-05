@@ -10,8 +10,14 @@ urlpatterns = [
     # /varasto/
     path('', views.index, name="index"), 
     # varasto/raportit.html
-    path("raportit/", views.raportit, name="raportit")
-    
+    path("raportit/", views.raportit, name="raportit"),
+    # varasto/uusi_lainaus.html
+    path("uusi_lainaus/", views.uusiLainaus, name="uusiLainaus"),
+    # varasto/lainauksen_palautus.html
+    path("lainauksen_palautus/", views.lainauksenPalautus, name="lainauksenPalautus"),
+    # varasto/lainauksen_palautus.html
+    path("lisaa_muokkaa/", views.lisaaMuokkaa, name="lisaaMuokkaa"),
+
     # varasto/1/
     # path("<int:pk>/", views.LainausView.as_view(), name="lainaus"),
     # varasto/1/poista/
