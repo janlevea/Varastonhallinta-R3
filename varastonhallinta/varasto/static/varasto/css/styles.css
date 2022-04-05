@@ -137,3 +137,30 @@ h5 {
 #flexSwitchCheck1, #flexSwitchCheck2 {
     background-color: #df2070;
 }
+
+/* /uusi_lainaus/ */
+.uusilainaus {
+    width: 280px;
+}
+
+.uusilainaus label {
+    font-family: Nunito, sans-serif;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 35px;
+}
+
+.uusilainaus #varastonhoitaja, #lainaaja {
+    border: 2px solid #df2070;
+}
+
+.uusilainaus #tuote, #maara {
+    border: 2px solid #1b3259;
+}
+
+.uusilainaus #varastonhoitaja, #lainaaja, #tuote, #maara {
+    border-radius: 4px;
+    margin-bottom: 5px; 
+    height: 40px;
+    width: 240px;
+}
