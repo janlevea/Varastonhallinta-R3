@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 # from django.utils.translation import gettext_lazy as _
 
+from datetime import datetime, timedelta
+
 class Varasto(models.Model):
     id = models.CharField(max_length=20, null=False, primary_key=True)
     varastotyyppi = models.CharField(max_length=30, null=False)
@@ -36,14 +38,22 @@ class Tuote(models.Model):
         return f"Tuote_ID: {self.id}, Tuoteryhma_ID: {self.tuoteryhma}, Nimike: {self.nimike}"
 
 class Varastotapahtuma(models.Model):
-    arkistotunnus = models.CharField(primary_key=True, max_length=50, null=False)
-    varasto = models.ForeignKey(Varasto, null=False, on_delete=models.PROTECT)
-    tuote = models.ForeignKey(Tuote, null=False, on_delete=models.PROTECT)
-    maara = models.IntegerField(null=False)
-    aikaleima = models.DateField(null=False)
-    palautuspaiva = models.DateField(null=False)
-    asiakas = models.ForeignKey(User, null=False, related_name="asiakas", on_delete=models.PROTECT)
-    varastonhoitaja = models.ForeignKey(User, null=False, related_name="varastonhoitaja", on_delete=models.PROTECT)
+    datetime_current = datetime.now()
+    arkistotunnus = models.CharField(
+        primary_key=True, max_length=50, null=False, verbose_name="Arkistotunnus")
+    varasto = models.ForeignKey(
+        Varasto, null=False, on_delete=models.PROTECT, verbose_name="Varasto")
+    tuote = models.ForeignKey(
+        Tuote, null=False, on_delete=models.PROTECT, verbose_name="Tuote")
+    maara = models.IntegerField(null=False, verbose_name="Määrä")
+    aikaleima = models.DateTimeField(
+        null=False, default=datetime_current, editable=False, verbose_name="Aikaleima")
+    palautuspaiva = models.DateField(
+        null=False, default=datetime_current + timedelta(days=14), verbose_name="Palautuspäivä")
+    asiakas = models.ForeignKey(
+        User, null=False, related_name="asiakas", on_delete=models.PROTECT, verbose_name="Asiakas")
+    varastonhoitaja = models.ForeignKey(
+        User, null=False, related_name="varastonhoitaja", on_delete=models.PROTECT, verbose_name="Varastonhoitaja")
     class Meta:
         verbose_name = "Varastotapahtuma"
         verbose_name_plural = "Varastotapahtumat"
