@@ -8,21 +8,32 @@
             Lainauksen lisääminen tietokantaan.
         </h5>
         <br>
-        <form class="uusilainaus" method="POST">
-            <label for="varastonhoitaja">Varastonhoitaja</label><br>
-            <input type="text" id="varastonhoitaja" name="varastonhoitaja" required>
-            <br>
-            <label for="lainaaja">Lainaaja</label><br>
-            <input type="text" id="lainaaja" name="lainaaja" required>
-            <br><br>
-            <label for="tuote">Tuote</label><br>
-            <input type="text" id="tuote" name="tuote" required>
-            <br>
-            <label for="maara">Määrä</label><br>
-            <input type="number" id="maara" name="maara" min="1" max="999" required>
-            <br><br>
+        <form action="/uusi_lainaus/" method="post">
+            {% csrf_token %}
+            <div class="uusilainaus">
+                {{ form.as_p }}
+            </div>
             <input type="submit" value="Lisää">
         </form>
     </div>
 </main>
 {% endblock content %}
+
+{% comment %} 
+Normi html-form - old
+<form class="uusilainaus" method="POST">
+    <label for="varastonhoitaja">Varastonhoitaja</label><br>
+    <input type="text" id="varastonhoitaja" name="varastonhoitaja" required>
+    <br>
+    <label for="lainaaja">Lainaaja</label><br>
+    <input type="text" id="lainaaja" name="lainaaja" required>
+    <br><br>
+    <label for="tuote">Tuote</label><br>
+    <input type="text" id="tuote" name="tuote" required>
+    <br>
+    <label for="maara">Määrä</label><br>
+    <input type="number" id="maara" name="maara" min="1" max="999" required>
+    <br><br>
+    <input type="submit" value="Lisää">
+</form> 
+{% endcomment %}

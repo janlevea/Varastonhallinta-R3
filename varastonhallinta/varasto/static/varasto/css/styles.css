@@ -143,24 +143,37 @@ h5 {
     width: 280px;
 }
 
-.uusilainaus label {
+/* * {
+    border: 1px solid red;
+} */
+
+.uusilainaus p label {
     font-family: Nunito, sans-serif;
     font-weight: 400;
     font-size: 17px;
-    line-height: 35px;
 }
 
-.uusilainaus #varastonhoitaja, #lainaaja {
+.uusilainaus #id_varastonhoitaja, #id_asiakas {
     border: 2px solid #df2070;
 }
 
-.uusilainaus #tuote, #maara {
+.uusilainaus #id_asiakas, #id_maara, #id_palautuspaiva {
+    margin-bottom: 15px;
+}
+
+.uusilainaus #id_tuote, #id_maara {
     border: 2px solid #1b3259;
 }
 
-.uusilainaus #varastonhoitaja, #lainaaja, #tuote, #maara {
+.uusilainaus #id_aikaleima, #id_palautuspaiva {
+    border: 2px solid black;
+}
+
+.uusilainaus 
+#id_varastonhoitaja, #id_asiakas, 
+#id_tuote, #id_maara, 
+#id_aikaleima, #id_palautuspaiva {
     border-radius: 4px;
-    margin-bottom: 5px; 
     height: 40px;
     width: 240px;
 }

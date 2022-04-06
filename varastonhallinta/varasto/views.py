@@ -1,12 +1,12 @@
-from django.shortcuts import render
-
-from django.http import HttpResponse, HttpResponseRedirect, Http404
-
-from django.shortcuts import get_object_or_404, render
-from django.urls import reverse
-from django.views import generic
-
+#from django.urls import reverse
+#from django.views import generic
 #from .models import Lainaus
+
+from django.http import HttpResponseRedirect #, HttpResponse, Http404
+from django.shortcuts import render #, get_object_or_404
+
+from .forms import UusiLainaus
+
 def index(request):
     return render(request, "varasto/index.html")
 
@@ -14,7 +14,28 @@ def raportit(request):
     return render(request, "varasto/raportit.html")
 
 def uusiLainaus(request):
-    return render(request, "varasto/uusi_lainaus.html")
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = UusiLainaus(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            varastonhoitaja = form.cleaned_data["varastonhoitaja"]
+            asiakas = form.cleaned_data["asiakas"]
+            tuote = form.cleaned_data["tuote"]
+            maara = form.cleaned_data["maara"]
+            aikaleima = form.cleaned_data["aikaleima"]
+            palautuspaiva = form.cleaned_data["palautuspaiva"]
+            return HttpResponseRedirect('/lisaa_lainaus/')
+        # if a GET (or any other method) we'll create a blank form
+    else:
+        form = UusiLainaus()
+
+    return render(request, "varasto/uusi_lainaus.html", {"form": form})
+
 
 def lainauksenPalautus(request):
     return render(request, "varasto/lainauksen_palautus.html")
