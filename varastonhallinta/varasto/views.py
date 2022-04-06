@@ -4,6 +4,7 @@
 
 from django.http import HttpResponseRedirect #, HttpResponse, Http404
 from django.shortcuts import render #, get_object_or_404
+import datetime
 
 from .forms import UusiLainaus
 
@@ -14,6 +15,8 @@ def raportit(request):
     return render(request, "varasto/raportit.html")
 
 def uusiLainaus(request):
+    current_datetime = datetime.datetime.strftime(
+        datetime.datetime.now(), "%d.%m.%Y %H:%M:%S")
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -27,14 +30,15 @@ def uusiLainaus(request):
             asiakas = form.cleaned_data["asiakas"]
             tuote = form.cleaned_data["tuote"]
             maara = form.cleaned_data["maara"]
-            aikaleima = form.cleaned_data["aikaleima"]
+            aikaleima = current_datetime
             palautuspaiva = form.cleaned_data["palautuspaiva"]
             return HttpResponseRedirect('/lisaa_lainaus/')
         # if a GET (or any other method) we'll create a blank form
     else:
         form = UusiLainaus()
 
-    return render(request, "varasto/uusi_lainaus.html", {"form": form})
+    return render(request, "varasto/uusi_lainaus.html", 
+    {"form": form, "current_datetime": current_datetime})
 
 
 def lainauksenPalautus(request):
