@@ -14,7 +14,10 @@
                     <img id="raseko-logo" src="{% static 'varasto/img/raseko_vaaka.png' %}" alt="RASEKO logo">
                 </a>
             </div>
+
             <hr class="top-bar">
+            <h5 id="kirjautunut"><a href="/">{{ request.user }}</a>
+                <br><a href="/kirjaudu_ulos/">Kirjaudu ulos</a></h5>
         </header>
         <script src="{% static 'varasto/bootstrap/js/bootstrap.min.js' %}"></script>
 

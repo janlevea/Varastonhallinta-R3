@@ -67,6 +67,13 @@ h5 {
     font-size: 21px;
 }
 
+#kirjautunut {
+    position: absolute;
+    right: 8%;
+    top: 2.5%;
+    text-align: right;
+}
+
 .buttons {
     margin: 60px auto 0px auto;
 }
