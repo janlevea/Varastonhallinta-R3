@@ -8,7 +8,14 @@ from . import views
 app_name = "varasto"
 urlpatterns = [
     # /varasto/
-    path('', views.index, name="index"), 
+    path("", views.index, name="index"), 
+
+    # /varasto/profiili
+    # path("profiili/<str:username>/", views.profiili, name="profiili"),
+
+    # varasto/kirjaudu_ulos/
+    path("kirjaudu_ulos/", views.kirjauduUlos, name="kirjauduUlos"),
+
     # varasto/raportit.html
     path("raportit/", views.raportit, name="raportit"),
     # varasto/uusi_lainaus.html
