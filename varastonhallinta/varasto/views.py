@@ -3,13 +3,27 @@
 #from .models import Lainaus
 
 from django.http import HttpResponseRedirect #, HttpResponse, Http404
-from django.shortcuts import render #, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 import datetime
 
 from .forms import UusiLainaus
 
 def index(request):
     return render(request, "varasto/index.html")
+
+# def profiili(request, username=None):
+#     if username:
+#         post_owner = get_object_or_404(User, username=username)
+#     else:
+#         post_owner = request.user
+
+#     username = {
+#         'post_owner': post_owner,
+#     }
+#     return render(request, "varasto/profiili.html")
+    
+def kirjauduUlos(request):
+    return render(request, "varasto/kirjaudu_ulos.html")
 
 def raportit(request):
     return render(request, "varasto/raportit.html")
@@ -39,7 +53,6 @@ def uusiLainaus(request):
 
     return render(request, "varasto/uusi_lainaus.html", 
     {"form": form, "current_datetime": current_datetime})
-
 
 def lainauksenPalautus(request):
     return render(request, "varasto/lainauksen_palautus.html")
