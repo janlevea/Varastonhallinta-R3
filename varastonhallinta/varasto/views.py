@@ -6,6 +6,8 @@ from django.http import HttpResponseRedirect #, HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404
 import datetime
 
+from varasto.models import Varastotapahtuma
+
 from .forms import UusiLainaus
 
 def index(request):
@@ -56,6 +58,10 @@ def uusiLainaus(request):
 
 def lainauksenPalautus(request):
     return render(request, "varasto/lainauksen_palautus.html")
+
+# def lainaus(request, lainaus):
+#     laina = get_object_or_404(Varastotapahtuma, pk=lainaus)
+#     return render(request, "varasto/lainaus.html", {"laina": laina})
 
 def lisaaMuokkaa(request):
     return render(request, "varasto/lisaa_muokkaa.html")

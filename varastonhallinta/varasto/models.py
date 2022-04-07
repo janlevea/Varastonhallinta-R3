@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 # from django.utils.translation import gettext_lazy as _
 
 from datetime import datetime, timedelta
+from django.utils import timezone
 
 class Varasto(models.Model):
     id = models.CharField(max_length=20, null=False, primary_key=True)
@@ -39,6 +40,7 @@ class Tuote(models.Model):
 
 class Varastotapahtuma(models.Model):
     datetime_current = datetime.now()
+
     arkistotunnus = models.CharField(
         primary_key=True, max_length=50, null=False, verbose_name="Arkistotunnus")
     varasto = models.ForeignKey(
@@ -46,8 +48,8 @@ class Varastotapahtuma(models.Model):
     tuote = models.ForeignKey(
         Tuote, null=False, on_delete=models.PROTECT, verbose_name="Tuote")
     maara = models.IntegerField(null=False, verbose_name="Määrä")
-    aikaleima = models.DateTimeField(
-        null=False, default=datetime_current, editable=False, verbose_name="Aikaleima")
+    aikaleima = models.DateField(
+        null=False, default=timezone.now(), editable=False, verbose_name="Aikaleima")
     palautuspaiva = models.DateField(
         null=False, default=datetime_current + timedelta(days=14), verbose_name="Palautuspäivä")
     asiakas = models.ForeignKey(
@@ -58,7 +60,7 @@ class Varastotapahtuma(models.Model):
         verbose_name = "Varastotapahtuma"
         verbose_name_plural = "Varastotapahtumat"
     def __str__(self):
-        return f"Viivakoodi: {self.viivakoodi}, Määrä: {self.maara}, Asiakas: {self.asiakas}, Varastonhoitaja: {self.varastonhoitaja}"
+        return f"Määrä: {self.maara}, Asiakas: {self.asiakas}, Varastonhoitaja: {self.varastonhoitaja}"
 
 '''
 Käyttöön djangon käyttäjät tämän modelin sijaan

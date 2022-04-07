@@ -1,4 +1,7 @@
-<h1>{{ lainaus.tyokalu.nimi }}(id:{{ lainaus.tyokalu.id }})</h1>
+moi
+
+{% comment %} 
+<h1>{{ laina.tyokalu.nimi }}(id:{{ laina.tyokalu.id }})</h1>
 Lainattu:
 <div>{{ lainaus.lainausaika }}</div>
 Lainaaja:
@@ -8,7 +11,8 @@ Lainaaja:
     {{ lainaus.opiskelijanro.sukunimi }}
 </div>
 <br/>
-<div><button type="button">Poista wip</button></div>
+<div><button type="button">Poista wip</button></div> 
+{% endcomment %}
 
 {% comment %} 
 <form action="{% url 'poista' lainaus.id %}" method="post">
