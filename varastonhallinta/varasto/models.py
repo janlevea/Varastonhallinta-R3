@@ -40,16 +40,16 @@ class Tuote(models.Model):
 
 class Varastotapahtuma(models.Model):
     datetime_current = datetime.now()
-
+    id = models.AutoField(primary_key=True, null=False)
     arkistotunnus = models.CharField(
-        primary_key=True, max_length=50, null=False, verbose_name="Arkistotunnus")
+        max_length=50, null=False, verbose_name="Arkistotunnus")
     varasto = models.ForeignKey(
         Varasto, null=False, on_delete=models.PROTECT, verbose_name="Varasto")
     tuote = models.ForeignKey(
         Tuote, null=False, on_delete=models.PROTECT, verbose_name="Tuote")
     maara = models.IntegerField(null=False, verbose_name="Määrä")
     aikaleima = models.DateField(
-        null=False, default=timezone.now(), editable=False, verbose_name="Aikaleima")
+        null=False, default=timezone.now, editable=False, verbose_name="Aikaleima")
     palautuspaiva = models.DateField(
         null=False, default=datetime_current + timedelta(days=14), verbose_name="Palautuspäivä")
     asiakas = models.ForeignKey(
