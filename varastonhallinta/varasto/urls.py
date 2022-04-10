@@ -17,7 +17,7 @@ urlpatterns = [
     path("kirjaudu_ulos/", views.kirjauduUlos, name="kirjauduUlos"),
 
     # varasto/lainaus.html
-    #path("lainaus/<str:pk>,", views.lainaus, name="lainaus"),
+    path("lainaus/<int:pk>/", views.lainaus, name="lainaus"),
 
     # varasto/raportit.html
     path("raportit/", views.raportit, name="raportit"),

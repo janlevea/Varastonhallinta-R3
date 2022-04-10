@@ -59,9 +59,9 @@ def uusiLainaus(request):
 def lainauksenPalautus(request):
     return render(request, "varasto/lainauksen_palautus.html")
 
-# def lainaus(request, lainaus):
-#     laina = get_object_or_404(Varastotapahtuma, pk=lainaus)
-#     return render(request, "varasto/lainaus.html", {"laina": laina})
+def lainaus(request, pk):
+    laina = get_object_or_404(Varastotapahtuma, pk=pk)
+    return render(request, "varasto/lainaus.html", {"laina": laina})
 
 def lisaaMuokkaa(request):
     return render(request, "varasto/lisaa_muokkaa.html")
