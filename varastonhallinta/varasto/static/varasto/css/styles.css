@@ -5,6 +5,7 @@
     border: 1px solid red;
 } */
 
+/* base.html */
 header .logo {
     margin: 30px auto 10px auto;
     width: 85.5%;
@@ -21,10 +22,12 @@ header .top-bar {
     margin-top: 1px;
 }
 
+/* -------- */
 main .title {
     margin: 30px auto;
 }
 
+/* index.html - bootstrap buttons */
 .btn-lg {
     width: 500px;
     text-align: left;
@@ -45,10 +48,6 @@ main .title {
 .button-blue, .button-blue:hover, .button-blue:focus, .button-blue:active, .button-blue.active {
     background: #1b3259;
 }
-
-/* .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
-    background: #df2070;
-} */
 
 main {
     margin: 0 auto; 
@@ -183,6 +182,19 @@ h5 {
     border-radius: 4px;
     height: 40px;
     width: 240px;
+}
+
+/* */
+.container {
+    width: 60%;
+    margin-left: -1.4%;
+    border: 1px dashed #1b3259; 
+}
+
+.container .col{
+    border: 1px dashed #1b3259; 
+    padding-top: 9px;
+    padding-bottom: 9px;
 }
 
 /* footer */
