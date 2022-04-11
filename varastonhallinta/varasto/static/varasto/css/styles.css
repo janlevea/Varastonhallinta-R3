@@ -167,7 +167,7 @@ h5 {
     margin-bottom: 15px;
 }
 
-.uusilainaus #id_tuote, #id_maara {
+.uusilainaus #id_varasto, #id_tuote, #id_maara {
     border: 2px solid #1b3259;
 }
 
@@ -177,7 +177,7 @@ h5 {
 
 .uusilainaus 
 #id_varastonhoitaja, #id_asiakas, 
-#id_tuote, #id_maara, 
+#id_varasto, #id_tuote, #id_maara, 
 #id_aikaleima, #id_palautuspaiva {
     border-radius: 4px;
     height: 40px;

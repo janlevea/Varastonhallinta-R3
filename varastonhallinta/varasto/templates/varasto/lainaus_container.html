@@ -1,0 +1,61 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            Arkistotunnus
+        </div>
+        <div class="col">
+            {{ laina.arkistotunnus }}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+            Varasto
+        </div>
+        <div class="col">
+            id {{ laina.varasto.id }} / {{ laina.varasto.nimi }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            Tuote
+        </div>
+        <div class="col">
+            id {{ laina.tuote.id }} / {{ laina.tuote.nimike }} / Määrä: {{ laina.maara }}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+            Aikaleima
+        </div>
+        <div class="col">
+            {{ laina.aikaleima }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            Viim. palautuspäivä
+        </div>
+        <div class="col">
+            {{ laina.palautuspaiva }}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+            Lainaaja
+        </div>
+        <div class="col">
+            {{ laina.asiakas }} ({{ laina.asiakas.first_name }} {{ laina.asiakas.last_name }})
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            Varastonhoitaja
+        </div>
+        <div class="col">
+            {{ laina.varastonhoitaja }} ({{ laina.varastonhoitaja.first_name }} {{ laina.varastonhoitaja.last_name }})
+        </div>
+    </div>
+</div>

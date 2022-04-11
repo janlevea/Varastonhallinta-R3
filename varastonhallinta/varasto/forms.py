@@ -7,7 +7,12 @@ class UusiLainaus(forms.ModelForm):
         model = Varastotapahtuma
         fields = [
         "varastonhoitaja", "asiakas", 
+        "varasto",
         "tuote", "maara", "palautuspaiva"]
+# TODO: arkistotunnus täytyy luoda lainauksiin
+# tällä hetkellä aina tyhjä
+
+# TODO: Koodin kommentointi kaikissa tiedostoissa puutteellinen
 
 # Käsin tehty formi
 # class UusiLainaus(forms.Form):

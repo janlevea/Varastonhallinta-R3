@@ -18,11 +18,15 @@ urlpatterns = [
 
     # varasto/lainaus.html
     path("lainaus/<int:pk>/", views.lainaus, name="lainaus"),
+    # varasto/lisatty_lainaus.html
+    path("lisatty_lainaus/<int:pk>/", views.lisattyLainaus, name="lisattyLainaus"),
 
     # varasto/raportit.html
     path("raportit/", views.raportit, name="raportit"),
+    
     # varasto/uusi_lainaus.html
     path("uusi_lainaus/", views.uusiLainaus, name="uusiLainaus"),
+
     # varasto/lainauksen_palautus.html
     path("lainauksen_palautus/", views.lainauksenPalautus, name="lainauksenPalautus"),
     # varasto/lainauksen_palautus.html

@@ -2,8 +2,9 @@
 #from django.views import generic
 #from .models import Lainaus
 
+from http.client import HTTPResponse
 from django.http import HttpResponseRedirect #, HttpResponse, Http404
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 import datetime
 
 from varasto.models import Varastotapahtuma
@@ -24,6 +25,8 @@ def index(request):
 #     }
 #     return render(request, "varasto/profiili.html")
     
+# TODO: Login-sivu, @login_required...
+
 def kirjauduUlos(request):
     return render(request, "varasto/kirjaudu_ulos.html")
 
@@ -42,26 +45,34 @@ def uusiLainaus(request):
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
-            varastonhoitaja = form.cleaned_data["varastonhoitaja"]
-            asiakas = form.cleaned_data["asiakas"]
-            tuote = form.cleaned_data["tuote"]
-            maara = form.cleaned_data["maara"]
-            aikaleima = current_datetime
-            palautuspaiva = form.cleaned_data["palautuspaiva"]
-            return HttpResponseRedirect('/lisaa_lainaus/')
+            cleaned_data = {
+                "varastonhoitaja": form.cleaned_data["varastonhoitaja"],
+                "asiakas": form.cleaned_data["asiakas"],
+                "tuote": form.cleaned_data["tuote"],
+                "maara": form.cleaned_data["maara"],
+                "aikaleima": current_datetime,
+                "palautuspaiva": form.cleaned_data["palautuspaiva"],
+            }
+            form.save()
+            lainaus = Varastotapahtuma.objects.latest("id")
+            return redirect("../lainaus/" + str(lainaus.id))
         # if a GET (or any other method) we'll create a blank form
     else:
         form = UusiLainaus()
-
     return render(request, "varasto/uusi_lainaus.html", 
     {"form": form, "current_datetime": current_datetime})
-
-def lainauksenPalautus(request):
-    return render(request, "varasto/lainauksen_palautus.html")
 
 def lainaus(request, pk):
     laina = get_object_or_404(Varastotapahtuma, pk=pk)
     return render(request, "varasto/lainaus.html", {"laina": laina})
+
+def lisattyLainaus(request, pk):
+    laina = get_object_or_404(Varastotapahtuma, pk=pk)
+    return render(request, "varasto/lisatty_lainaus.html", {"laina": laina})
+
+def lainauksenPalautus(request):
+    return render(request, "varasto/lainauksen_palautus.html")
+
 
 def lisaaMuokkaa(request):
     return render(request, "varasto/lisaa_muokkaa.html")
