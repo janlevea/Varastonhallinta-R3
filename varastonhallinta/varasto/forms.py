@@ -11,4 +11,3 @@ class UusiLainaus(forms.ModelForm):
         "tuote", "maara", "palautuspaiva"]
 
 # TODO: arkistotunnus täytyy luoda lainauksiin, tällä hetkellä aina tyhjä
-# TODO: Koodin kommentointi kaikissa tiedostoissa puutteellinen
