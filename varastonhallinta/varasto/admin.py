@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+# Importoi modelit ja lisää ne näkymään admin-sivulla
 from .models import Varasto, Tuoteryhma, Tuote, Varastotapahtuma
 
 admin.site.register(Varasto)

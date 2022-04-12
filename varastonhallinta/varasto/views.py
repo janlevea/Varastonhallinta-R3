@@ -1,9 +1,9 @@
 #from django.urls import reverse
 #from django.views import generic
 #from .models import Lainaus
+# from http.client import HTTPResponse
+# from django.http import HttpResponseRedirect #, HttpResponse, Http404
 
-from http.client import HTTPResponse
-from django.http import HttpResponseRedirect #, HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 import datetime
 
@@ -53,6 +53,7 @@ def uusiLainaus(request):
                 "aikaleima": current_datetime,
                 "palautuspaiva": form.cleaned_data["palautuspaiva"],
             }
+            form.aikaleima = current_datetime
             form.save()
             lainaus = Varastotapahtuma.objects.latest("id")
             return redirect("../lainaus/" + str(lainaus.id))
@@ -73,67 +74,10 @@ def lisattyLainaus(request, pk):
 def lainauksenPalautus(request):
     return render(request, "varasto/lainauksen_palautus.html")
 
-
 def lisaaMuokkaa(request):
     return render(request, "varasto/lisaa_muokkaa.html")
-
-# class IndexView(generic.ListView):
-#     template_name = "varasto/index.html"
-#     def get_queryset(self):
-#         return HttpResponse('varasto/index.html')
-    '''
-    context_object_name = "viimeisimmat_lainaukset"
-    
-    def get_queryset(self):
-        # Return last 5 tool loans
-        return Lainaus.objects.order_by('-lainausaika')
-
-class LainausView(generic.DetailView):
-    model = Lainaus
-    template_name = "varasto/lainaus.html"    
-    '''
-
-# def raportit(request_iter):
-#     return render(request_iter,'varasto/raportit.html')
-
-# class RaportitView(generic.View):
-#     template_name = "varasto/raportit.html"
-#     def get_queryset(self):
-#         return HttpResponse('varasto/raportit.html')
-    
-
-# /varasto/ etusivu
-# def index(request):
-#     pass
-
-# def raportit(request):
-#     pass
-
-    '''
-    # Hae 5 viimeistä lainausta, viimeisin lainaus ensimmäisenä
-    viimeisimmat_lainaukset = Lainaus.objects.order_by("-lainausaika")[:5]
-    context = {
-        "viimeisimmat_lainaukset": viimeisimmat_lainaukset,
-    }
-    return render(request, "varasto/index.html", context)
-
-def lainaus(request, lainaus_id):
-    laina = get_object_or_404(Lainaus, pk=lainaus_id)
-    return render(request, "varasto/lainaus.html", {"laina": laina})
 
 # def poista(request, lainaus_id):
 #     laina = get_object_or_404(Lainaus, pk=lainaus_id)
 #     laina.delete(lainaus_id)
 #     return HttpResponse("Lainaus", lainaus_id, "poistettu.")
-
-def lainaukset(request):
-    return HttpResponse(f"WORK IN PROGRESS")
-
-def tyokalut(request):
-    return HttpResponse(f"WORK IN PROGRESS")
-
-# WIP
-# Lainaukset tänään ... Lainaukset tällä viikolla ... 
-# Vanhat lainaukset ... Lisää lainaus ... Lisää työkalu
-
-'''

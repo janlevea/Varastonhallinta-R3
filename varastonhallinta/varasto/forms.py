@@ -1,7 +1,7 @@
 from django import forms
-from varasto.models import Varasto, Tuoteryhma, Tuote, Varastotapahtuma
+from varasto.models import Varastotapahtuma #, Varasto, Tuoteryhma, Tuote
 
-# Modelista tehty formi
+# Varastotapahtuma modelista tehty formi uusi_lainaus -sivulle
 class UusiLainaus(forms.ModelForm):
     class Meta:
         model = Varastotapahtuma
@@ -9,16 +9,6 @@ class UusiLainaus(forms.ModelForm):
         "varastonhoitaja", "asiakas", 
         "varasto",
         "tuote", "maara", "palautuspaiva"]
-# TODO: arkistotunnus täytyy luoda lainauksiin
-# tällä hetkellä aina tyhjä
 
+# TODO: arkistotunnus täytyy luoda lainauksiin, tällä hetkellä aina tyhjä
 # TODO: Koodin kommentointi kaikissa tiedostoissa puutteellinen
-
-# Käsin tehty formi
-# class UusiLainaus(forms.Form):
-#     varastonhoitaja = forms.CharField(label="Varastonhoitaja", max_length=35, required=True)
-#     asiakas = forms.CharField(label="Asiakas", max_length=35, required=True)
-#     tuote = forms.CharField(label="Tuote", max_length=35, required=True)
-#     maara = forms.IntegerField(label="Määrä", required=True) # help_text="Kuinka monta?"
-#     aikaleima = forms.DateField(label="Aikaleima", required=True)
-#     palautuspaiva = forms.DateField(label="Palautuspäivä", required=True)
