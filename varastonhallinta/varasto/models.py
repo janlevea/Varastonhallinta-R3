@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # from django.utils.translation import gettext_lazy as _
 
 # Importoi date/time-kirjastot käytettäväksi aikaleimoissa/palautuspäivässä
-from datetime import datetime, timedelta
+from datetime import timedelta
 from django.utils import timezone
 
 class Varasto(models.Model):
@@ -40,8 +40,7 @@ class Tuote(models.Model):
     def __str__(self):
         return f"Tuote_ID: {self.id}, Tuoteryhma_ID: {self.tuoteryhma}, Nimike: {self.nimike}"
 
-class Varastotapahtuma(models.Model):
-    datetime_current = datetime.now()
+class Varastotapahtuma(models.Model):   
     id = models.AutoField(primary_key=True, null=False)
     arkistotunnus = models.CharField(
         max_length=50, null=False, verbose_name="Arkistotunnus")
@@ -50,10 +49,10 @@ class Varastotapahtuma(models.Model):
     tuote = models.ForeignKey(
         Tuote, null=False, on_delete=models.PROTECT, verbose_name="Tuote")
     maara = models.IntegerField(null=False, verbose_name="Määrä")
-    aikaleima = models.DateField(
-        null=False, default=timezone.now, editable=False, verbose_name="Aikaleima") # TODO: Tämä tallentaa pelkän päivämäärän, ei kellonaikaa
+    aikaleima = models.DateTimeField(auto_now_add=True,
+        null=False, editable=False, verbose_name="Aikaleima")
     palautuspaiva = models.DateField(
-        null=False, default=datetime_current + timedelta(days=14), verbose_name="Palautuspäivä")
+        null=False, default=(timezone.now() + timedelta(days=14)), verbose_name="Palautuspäivä")
     asiakas = models.ForeignKey(
         User, null=False, related_name="asiakas", on_delete=models.PROTECT, verbose_name="Asiakas")
     varastonhoitaja = models.ForeignKey(

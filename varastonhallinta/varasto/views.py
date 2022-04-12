@@ -5,7 +5,7 @@
 # from django.http import HttpResponseRedirect #, HttpResponse, Http404
 
 from django.shortcuts import render, get_object_or_404, redirect
-import datetime
+from django.utils import timezone
 
 from varasto.models import Varastotapahtuma
 
@@ -34,8 +34,7 @@ def raportit(request):
     return render(request, "varasto/raportit.html")
 
 def uusiLainaus(request):
-    current_datetime = datetime.datetime.strftime(
-        datetime.datetime.now(), "%d.%m.%Y %H:%M:%S")
+    current_datetime = timezone.now
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -45,18 +44,19 @@ def uusiLainaus(request):
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
-            cleaned_data = {
-                "varastonhoitaja": form.cleaned_data["varastonhoitaja"],
-                "asiakas": form.cleaned_data["asiakas"],
-                "tuote": form.cleaned_data["tuote"],
-                "maara": form.cleaned_data["maara"],
-                "aikaleima": current_datetime,
-                "palautuspaiva": form.cleaned_data["palautuspaiva"],
-            }
-            form.aikaleima = current_datetime
+
+            # cleaned_data = {
+            #     "varastonhoitaja": form.cleaned_data["varastonhoitaja"],
+            #     "asiakas": form.cleaned_data["asiakas"],
+            #     "tuote": form.cleaned_data["tuote"],
+            #     "maara": form.cleaned_data["maara"],
+            #     "palautuspaiva": form.cleaned_data["palautuspaiva"],
+            # }
+
+            # TODO: form cleaning
             form.save()
             lainaus = Varastotapahtuma.objects.latest("id")
-            return redirect("../lainaus/" + str(lainaus.id))
+            return redirect("../lisatty_lainaus/" + str(lainaus.id))
         # if a GET (or any other method) we'll create a blank form
     else:
         form = UusiLainaus()
