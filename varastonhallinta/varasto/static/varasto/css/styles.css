@@ -1,9 +1,12 @@
-/* Fonts */
+/* Fontit */
 @import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Kanit:wght@800;900&family=Nunito+Sans:wght@300;400;600&display=swap');
 
-/* * {
+/*  Tarvittaessa punainen reunaviiva kaikille elementeille
+    kehitysvaiheessa elementtien asetteluun
+* {
     border: 1px solid red;
-} */
+} 
+*/
 
 /* base.html */
 header .logo {
@@ -27,7 +30,7 @@ main .title {
     margin: 30px auto;
 }
 
-/* index.html - bootstrap buttons */
+/* index.html - bootstrap-nappulat */
 .btn-lg {
     width: 500px;
     text-align: left;
@@ -48,12 +51,14 @@ main .title {
 .button-blue, .button-blue:hover, .button-blue:focus, .button-blue:active, .button-blue.active {
     background: #1b3259;
 }
+/* ---- */
 
 main {
     margin: 0 auto; 
     width: 84%;
 }
 
+/* Yläotsikot */
 h1 {
     color:#1b3259; 
     font-family: Kanit, sens-serif;
@@ -66,6 +71,8 @@ h5 {
     font-size: 21px;
 }
 
+/*  kirjautunut käyttäjä + kirjaudu ulos linkit
+    ruudun oikeaan yläreunaan */
 #kirjautunut {
     position: absolute;
     right: 8%;
@@ -77,11 +84,12 @@ h5 {
     margin: 60px auto 0px auto;
 }
 
+/* nuolet index.html nappuloiden oikeissa reunoissa */
 .i-chevron-right, #i-search {
     float:right;
 }
 
-/* raportit.html -- start */
+/* raportit.html -- alkaa */
 .search {
     border-color: #1b3259;
     display: inline-block;
@@ -120,6 +128,7 @@ h5 {
     border-color: #1b3259;
 }
 
+/* raportit.html -- hallinta */
 .form-switch {
     font-size: 22px;
 }
@@ -149,42 +158,47 @@ h5 {
     width: 280px;
 }
 
-/* * {
-    border: 1px solid red;
-} */
-
 .uusilainaus p {
     font-family: Nunito, sans-serif;
     font-weight: 400;
     font-size: 17px;
 }
 
+/* -- raseko-punainen reunaviiva käyttäjä kenttiin */
 .uusilainaus #id_varastonhoitaja, #id_asiakas {
     border: 2px solid #df2070;
 }
 
+/* -- erota varastonhoitaja, asiakas -- 
+varasto, tuote, määrä -- palautuspäivä -- marginaaleilla */ 
 .uusilainaus #id_asiakas, #id_maara, #id_palautuspaiva {
     margin-bottom: 15px;
 }
 
+/* -- raseko-sininen reunaviiva tuotekenttiin */
 .uusilainaus #id_varasto, #id_tuote, #id_maara {
     border: 2px solid #1b3259;
 }
 
-.uusilainaus #id_aikaleima, #id_palautuspaiva {
+/* -- musta reunaviiva palautuspäivä-kenttään */
+.uusilainaus #id_palautuspaiva {
     border: 2px solid black;
 }
 
+/* -- pyöristetyt reunat kaikille reunaviivoille
+      uusilainaus sivulla + suurempi koko kentille 
+*/
 .uusilainaus 
 #id_varastonhoitaja, #id_asiakas, 
 #id_varasto, #id_tuote, #id_maara, 
-#id_aikaleima, #id_palautuspaiva {
+#id_palautuspaiva {
     border-radius: 4px;
     height: 40px;
     width: 240px;
 }
 
-/* */
+/*  yksittäisten lainausten tiedot containerissa
+    @ /lainaus/1/, /lisatty_lainaus/1/ */
 .container {
     width: 800px;
     margin-left: -1.4%;
@@ -197,7 +211,7 @@ h5 {
     padding-bottom: 9px;
 }
 
-/* footer */
+/* staattinen raseko-sininen footer joka sivulle */
 footer {
     position: fixed;
     left: 0;

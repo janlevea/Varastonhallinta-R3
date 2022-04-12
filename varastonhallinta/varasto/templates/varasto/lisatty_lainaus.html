@@ -7,6 +7,7 @@
         <h5>id: {{ laina.id }}</h5>
     </div>
     <br/>
+    {% comment %} Lataa lainauksen tiedot containeriin {% endcomment %}
     {% include "varasto/lainaus_container.html" %}
 </main>
 {% endblock content %}

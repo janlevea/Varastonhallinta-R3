@@ -2,21 +2,29 @@
 <!DOCTYPE html>
 <html lang="fi">
     <head>
+        {% comment %} Lataa Bootstrap {% endcomment %}
         <link rel="stylesheet" href="{% static 'varasto/bootstrap/css/bootstrap.min.css' %}">
+        {% comment %} Lataa oma CSS {% endcomment %}
         <link rel="stylesheet" href="{% static 'varasto/css/styles.css' %}">
         <meta charset="UTF-8">
         <title>RASEKO Varastonhallinta</title>
     </head>
     <body>
         <header>
+            {% comment %} Raseko logo headerissa, linkittää takaisin /index.html:ään {% endcomment %}
             <div class="logo">
                 <a href="/">
                     <img id="raseko-logo" src="{% static 'varasto/img/raseko_vaaka.png' %}" alt="RASEKO logo">
                 </a>
             </div>
-
+            {% comment %} Raseko-sininen yläpalkki {% endcomment %}
             <hr class="top-bar">
-            <h5 id="kirjautunut"><a href="/">{{ request.user }}</a>
+            {% comment %} Näytä kirjautunut käyttäjä ja kirjaudu-ulos hyperlinkki
+                          yläoikealla.
+
+            TODO: Linkitä käyttäjäsivulle painaessa kirjautuneen käyttäjän nimeä
+            {% endcomment %}
+            <h5 id="kirjautunut"><a href="/">{{ request.user }}</a> 
                 <br><a href="/kirjaudu_ulos/">Kirjaudu ulos</a></h5>
         </header>
         <script src="{% static 'varasto/bootstrap/js/bootstrap.min.js' %}"></script>

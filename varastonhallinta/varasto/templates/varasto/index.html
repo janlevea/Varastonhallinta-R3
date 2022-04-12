@@ -1,6 +1,7 @@
 {% extends "varasto/base.html" %}
 {% load static %}
 {% block content %}
+{% comment %} Etusivu {% endcomment %}
 <main>
     <div class="title">
         <h1>Rasekon varastonhallinta ja lainausjärjestelmä</h1>
@@ -8,10 +9,12 @@
             Valitse toiminto alta. Tietojen lisäys tai muokkaus ja raportit vaativat käyttäjätunnuksen ja salasanan.
         </h5>
     </div>
+    {% comment %} Painikkeet muille sivuille navigointiin {% endcomment %}
     <div class="buttons">
         <a href="uusi_lainaus" class="btn btn-primary btn-lg button-red" role="button">
             <div class="buttontext">
                 Uusi lainaus
+                {% comment %} svg - nuolet painikkeiden oikeassa reunassa {% endcomment %}
                 <svg class="i-chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="50" height="35" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5">
                     <path d="M12 30 L24 16 12 2" />
                 </svg>
@@ -45,6 +48,7 @@
             </div>
         </a>
     </div>
+    {% comment %} wipstuff {% endcomment %}
     <br>WIP:<br>Yksittäisen lainauksen sivu, esim: <a href=/lainaus/1>/lainaus/1/</a>
 </main>
 {% endblock content %}
