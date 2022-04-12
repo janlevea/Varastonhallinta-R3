@@ -35,29 +35,16 @@ def raportit(request):
 
 def uusiLainaus(request):
     current_datetime = timezone.now
-    # if this is a POST request we need to process the form data
+    # if POST request - process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form = UusiLainaus(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-
-            # cleaned_data = {
-            #     "varastonhoitaja": form.cleaned_data["varastonhoitaja"],
-            #     "asiakas": form.cleaned_data["asiakas"],
-            #     "tuote": form.cleaned_data["tuote"],
-            #     "maara": form.cleaned_data["maara"],
-            #     "palautuspaiva": form.cleaned_data["palautuspaiva"],
-            # }
-
-            # TODO: form cleaning
-            form.save()
-            lainaus = Varastotapahtuma.objects.latest("id")
+            lainaus = Varastotapahtuma.objects.create(**form.cleaned_data, **{"varastonhoitaja": request.user})
+            lainaus.save()
             return redirect("../lisatty_lainaus/" + str(lainaus.id))
-        # if a GET (or any other method) we'll create a blank form
+    # if a GET (or any other method) we'll create a blank form
     else:
         form = UusiLainaus()
     return render(request, "varasto/uusi_lainaus.html", 

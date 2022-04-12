@@ -96,4 +96,16 @@ context = {
     "viimeisimmat_lainaukset": viimeisimmat_lainaukset,
 }
 return render(request, "varasto/index.html", context)
+
+# vanhaa koodia
+cleaned_data = {
+    "varastonhoitaja": form.cleaned_data["varastonhoitaja"],
+    "asiakas": form.cleaned_data["asiakas"],
+    "tuote": form.cleaned_data["tuote"],
+    "maara": form.cleaned_data["maara"],
+    "palautuspaiva": form.cleaned_data["palautuspaiva"],
+}
+lainaus = Varastotapahtuma.objects.latest("id")
+form.cleaned_data
+form.save()
 '''

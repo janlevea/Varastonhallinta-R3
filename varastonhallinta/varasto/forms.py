@@ -6,8 +6,8 @@ class UusiLainaus(forms.ModelForm):
     class Meta:
         model = Varastotapahtuma
         fields = [
-        "varastonhoitaja", "asiakas", 
-        "varasto",
-        "tuote", "maara", "palautuspaiva"]
+        "asiakas", 
+        "varasto","tuote", "maara", 
+        "palautuspaiva"]
 
 # TODO: arkistotunnus täytyy luoda lainauksiin, tällä hetkellä aina tyhjä
