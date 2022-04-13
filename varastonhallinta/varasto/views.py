@@ -9,7 +9,7 @@ from django.utils import timezone
 
 from django.contrib.auth.decorators import login_required
 
-from varasto.models import Varastotapahtuma
+from varasto.models import Varasto, Varastotapahtuma
 from .forms import UusiLainaus
 
 @login_required
@@ -26,8 +26,6 @@ def index(request):
 #         'post_owner': post_owner,
 #     }
 #     return render(request, "varasto/profiili.html")
-    
-# TODO: Login-sivu, @login_required...
 
 @login_required
 def raportit(request):
@@ -74,14 +72,16 @@ def lainausPoistettu(request):
     return render(request, "varasto/lainaus_poistettu.html")
 
 @login_required
+def lainaukset(request):
+    queryset = Varastotapahtuma.objects.all()
+    lainaukset = {"object_list": queryset}
+    return render(request, "varasto/lainaukset.html", lainaukset)
+
+@login_required
 def lainauksenPalautus(request):
     return render(request, "varasto/lainauksen_palautus.html")
 
 @login_required
 def lisaaMuokkaa(request):
     return render(request, "varasto/lisaa_muokkaa.html")
-
-# def poista(request, lainaus_id):
-#     laina = get_object_or_404(Lainaus, pk=lainaus_id)
-#     laina.delete(lainaus_id)
-#     return HttpResponse("Lainaus", lainaus_id, "poistettu.")
+    

@@ -22,6 +22,9 @@ urlpatterns = [
     path("poista_lainaus/<int:pk>", views.poistaLainaus, name="poistaLainaus"),
     path("lainaus_poistettu/", views.lainausPoistettu, name="lainausPoistettu"),
 
+    # varasto/lainaukset.html - Kaikki avoimet lainaukset
+    path("lainaukset/", views.lainaukset, name="lainaukset"),
+
     # varasto/raportit.html
     path("raportit/", views.raportit, name="raportit"),
     

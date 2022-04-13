@@ -1,0 +1,23 @@
+{% extends "varasto/base.html" %}
+{% load static %}
+{% block content %}
+<main>
+    <div class="title">
+        <h1>Avoimet lainaukset</h1>
+        {% if object_list %}
+            <h5>Määrä: {{ object_list|length }}</h5>
+        {% endif %}
+    </div>
+    <br/>
+    {% comment %} Lataa lainaukset {% endcomment %}
+    {% for instance in object_list %}
+        <p><a href="/varasto/lainaus/{{ instance.id }}">
+            id({{ instance.id }}):<br/>
+            {{ instance.tuote.tuoteryhma.nimi }}/{{ instance.tuote.nimike }}({{ instance.maara }}kpl)<br/>
+            {{ instance.aikaleima|date:"H:i d.m.Y" }}-{{ instance.palautuspaiva|date:"d.m.Y" }}<br/>
+            Lainaaja[{{ instance.asiakas }}] - Varastonhoitaja:[{{ instance.varastonhoitaja }}]
+        </a></p>
+    {% endfor %}
+    <br/>
+</main>
+{% endblock content %}
