@@ -58,6 +58,16 @@ def lisattyLainaus(request, pk):
     laina = get_object_or_404(Varastotapahtuma, pk=pk)
     return render(request, "varasto/lisatty_lainaus.html", {"laina": laina})
 
+def poistaLainaus(request, pk):
+    laina = get_object_or_404(Varastotapahtuma, pk=pk)
+    if request.method == 'POST':
+        laina.delete()
+        return redirect("../lainaus_poistettu/")
+    return render(request, "varasto/poista_lainaus.html", {"laina": laina})
+
+def lainausPoistettu(request):
+    return render(request, "varasto/lainaus_poistettu.html")
+
 def lainauksenPalautus(request):
     return render(request, "varasto/lainauksen_palautus.html")
 

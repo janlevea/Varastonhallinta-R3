@@ -9,5 +9,4 @@ class UusiLainaus(forms.ModelForm):
         "asiakas", 
         "varasto","tuote", "maara", 
         "palautuspaiva"]
-
 # TODO: arkistotunnus täytyy luoda lainauksiin, tällä hetkellä aina tyhjä
