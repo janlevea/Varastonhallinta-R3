@@ -127,5 +127,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # MEDIA_URL = '/varasto/img/'
 
 # Kirjautuessa siirry osoitteeseen:
+LOGIN_URL = "/varasto/tili/login"
 LOGIN_REDIRECT_URL = "/varasto/"
 LOGOUT_REDIRECT_URL = "/varasto/tili/login"

@@ -7,10 +7,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 
-from varasto.models import Varastotapahtuma
+from django.contrib.auth.decorators import login_required
 
+from varasto.models import Varastotapahtuma
 from .forms import UusiLainaus
 
+@login_required
 def index(request):
     return render(request, "varasto/index.html")
 
@@ -27,9 +29,11 @@ def index(request):
     
 # TODO: Login-sivu, @login_required...
 
+@login_required
 def raportit(request):
     return render(request, "varasto/raportit.html")
 
+@login_required
 def uusiLainaus(request):
     current_datetime = timezone.now
     # if POST request - process the form data
@@ -47,14 +51,17 @@ def uusiLainaus(request):
     return render(request, "varasto/uusi_lainaus.html", 
     {"form": form, "current_datetime": current_datetime})
 
+@login_required
 def lainaus(request, pk):
     laina = get_object_or_404(Varastotapahtuma, pk=pk)
     return render(request, "varasto/lainaus.html", {"laina": laina})
 
+@login_required
 def lisattyLainaus(request, pk):
     laina = get_object_or_404(Varastotapahtuma, pk=pk)
     return render(request, "varasto/lisatty_lainaus.html", {"laina": laina})
 
+@login_required
 def poistaLainaus(request, pk):
     laina = get_object_or_404(Varastotapahtuma, pk=pk)
     if request.method == 'POST':
@@ -62,12 +69,15 @@ def poistaLainaus(request, pk):
         return redirect("../lainaus_poistettu/")
     return render(request, "varasto/poista_lainaus.html", {"laina": laina})
 
+@login_required
 def lainausPoistettu(request):
     return render(request, "varasto/lainaus_poistettu.html")
 
+@login_required
 def lainauksenPalautus(request):
     return render(request, "varasto/lainauksen_palautus.html")
 
+@login_required
 def lisaaMuokkaa(request):
     return render(request, "varasto/lisaa_muokkaa.html")
 
