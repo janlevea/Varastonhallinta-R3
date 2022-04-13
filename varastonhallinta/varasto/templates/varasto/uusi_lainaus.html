@@ -8,7 +8,7 @@
             Lainauksen lisääminen tietokantaan.
         </h5>
         <br>
-        <form action="/uusi_lainaus/" method="post">
+        <form action="../uusi_lainaus/" method="post">
             {% csrf_token %}
             <div class="uusilainaus">
                 <p class="aikaleima">Aika: {{current_datetime}}</p>

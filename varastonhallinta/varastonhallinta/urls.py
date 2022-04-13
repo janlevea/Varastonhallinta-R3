@@ -16,7 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+#from django.http import HttpResponseRedirect
+from varastonhallinta.views import index
+
 urlpatterns = [
-    path('', include('varasto.urls')),
+    path('', index),
+    path('varasto/', include('varasto.urls')),
     path('admin/', admin.site.urls),
 ]
