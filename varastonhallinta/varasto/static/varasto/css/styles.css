@@ -154,18 +154,19 @@ h5 {
 }
 
 /* /uusi_lainaus/ */
-.uusilainaus {
+.uusilainaus, .kirjautumisform {
     width: 280px;
 }
 
-.uusilainaus p {
+.uusilainaus p .kirjautumisform {
     font-family: Nunito, sans-serif;
     font-weight: 400;
     font-size: 17px;
 }
 
 /* -- raseko-punainen reunaviiva käyttäjä kenttiin */
-.uusilainaus #id_varastonhoitaja, #id_asiakas {
+.uusilainaus #id_varastonhoitaja, #id_asiakas,
+.kirjautumisform #id_username, #id_password  {
     border: 2px solid #df2070;
 }
 
@@ -191,7 +192,9 @@ varasto, tuote, määrä -- palautuspäivä -- marginaaleilla */
 .uusilainaus 
 #id_varastonhoitaja, #id_asiakas, 
 #id_varasto, #id_tuote, #id_maara, 
-#id_palautuspaiva {
+#id_palautuspaiva,
+.kirjautumisform
+#id_username, #id_password {
     border-radius: 4px;
     height: 40px;
     width: 240px;
@@ -209,6 +212,11 @@ varasto, tuote, määrä -- palautuspäivä -- marginaaleilla */
     border: 1px dashed #1b3259; 
     padding-top: 9px;
     padding-bottom: 9px;
+}
+
+/* login-sivu */
+.kirjautumisform label {
+    margin-bottom: 5px;
 }
 
 /* staattinen raseko-sininen footer joka sivulle */

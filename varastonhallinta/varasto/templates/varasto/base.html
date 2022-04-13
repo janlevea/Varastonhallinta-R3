@@ -24,8 +24,16 @@
 
             TODO: Linkitä käyttäjäsivulle painaessa kirjautuneen käyttäjän nimeä
             {% endcomment %}
-            <h5 id="kirjautunut"><a href="/">{{ request.user }}</a> 
-                <br><a href="/varasto/kirjaudu_ulos/">Kirjaudu ulos</a></h5>
+
+            {% if user.is_authenticated %}
+                <h5 id="kirjautunut"><a href="/">{{ user.username }}</a> 
+                <br/><a href="/varasto/tili/logout">Kirjaudu ulos</a></h5>
+            {% else %}
+                <h5 id="kirjautunut">
+                <br/><a href="/varasto/tili/login">Kirjaudu sisään</a></h5>
+            {% endif %}
+
+                
         </header>
         <script src="{% static 'varasto/bootstrap/js/bootstrap.min.js' %}"></script>
 

@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 #from django.conf.urls import url
 #from django.views.generic.base import TemplateView
 
@@ -10,11 +10,9 @@ urlpatterns = [
     path("", views.index, name="index"), 
 
     # /varasto/profiili - # TODO: Tee profiilisivu
+    path('tili/', include("django.contrib.auth.urls")),
     # path("profiili/<str:username>/", views.profiili, name="profiili"),
-
-    # varasto/kirjaudu_ulos/
-    path("kirjaudu_ulos/", views.kirjauduUlos, name="kirjauduUlos"),
-
+    
     # Yksittäisten lainausten tiedot:
     # varasto/lainaus.html
     path("lainaus/<int:pk>/", views.lainaus, name="lainaus"),

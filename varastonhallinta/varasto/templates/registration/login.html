@@ -1,0 +1,17 @@
+{% extends "varasto/base.html" %}
+{% load static %}
+{% block content %}
+<main>
+    <div class="title">
+        <h1>Kirjaudu sisään</h1>
+        <h5>Käyttääksesi varastonhallintaa</h5>
+    </div>
+    <div class=kirjautumisform>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Kirjaudu</button>
+        </form>
+    </div>
+</main>
+{% endblock content %}

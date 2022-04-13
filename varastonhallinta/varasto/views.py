@@ -27,9 +27,6 @@ def index(request):
     
 # TODO: Login-sivu, @login_required...
 
-def kirjauduUlos(request):
-    return render(request, "varasto/kirjaudu_ulos.html")
-
 def raportit(request):
     return render(request, "varasto/raportit.html")
 
