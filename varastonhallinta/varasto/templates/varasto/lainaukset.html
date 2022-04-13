@@ -9,14 +9,45 @@
         {% endif %}
     </div>
     <br/>
-    {% comment %} Lataa lainaukset {% endcomment %}
+    {% comment %} Lataa lainaukset containereihin {% endcomment %}
     {% for instance in object_list %}
-        <p><a href="/varasto/lainaus/{{ instance.id }}">
-            id({{ instance.id }}):<br/>
-            {{ instance.tuote.tuoteryhma.nimi }}/{{ instance.tuote.nimike }}({{ instance.maara }}kpl)<br/>
-            {{ instance.aikaleima|date:"H:i d.m.Y" }}-{{ instance.palautuspaiva|date:"d.m.Y" }}<br/>
-            Lainaaja[{{ instance.asiakas }}] - Varastonhoitaja:[{{ instance.varastonhoitaja }}]
-        </a></p>
+    <div class="container" id="lainaukset_container">
+        {% comment %} Lataa lainausten tiedot containeriin lainaus.html/lisatty_lainaus.html:ssä {% endcomment %}
+        <div class="row">
+            <div class="col">
+                <a href="/varasto/lainaus/{{ instance.id }}">
+                    id({{ instance.id }}) / ark.tunnus: {{ instance.arkistotunnus }}
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {% comment %} #TODO: Linkitys tuoteryhmä/tuotesivuille {% endcomment %}
+                {{ instance.tuote.tuoteryhma.nimi }}/{{ instance.tuote.nimike }} 
+            </div>
+            <div class="col">
+                {{ instance.maara }}kpl
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                Aika: {{ instance.aikaleima|date:"H:i d.m.Y" }}
+            </div>
+            <div class="col">
+                Palautus: {{ instance.palautuspaiva|date:"d.m.Y" }}
+            </div>
+        </div>
+        <div class="row">
+            {% comment %} TODO: Linkitys profiilisivuille {% endcomment %}
+            <div class="col">
+                Lainaaja: {{ instance.asiakas }}
+            </div>
+            <div class="col">
+                Varastonhoitaja: {{ instance.varastonhoitaja }}
+            </div>
+        </div>
+    </div>
+    <br/>
     {% endfor %}
     <br/>
 </main>
