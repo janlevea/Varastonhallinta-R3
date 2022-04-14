@@ -16,3 +16,6 @@ Meidän materiaali:
 <br/>
 RASEKO-materiaali:
 [GitHub/Raision-seudun-koulutuskuntayhtyma/Varastohallinta/](https://github.com/Raision-seudun-koulutuskuntayhtyma/Varastohallinta/) & [/Wiki/](https://github.com/Raision-seudun-koulutuskuntayhtyma/Varastohallinta/wiki)
+<br/>
+Mika/VarastoGUI:
+[GitHub/MV/VarastoGUI](https://github.com/MikaVainio/VarastoGUI)
