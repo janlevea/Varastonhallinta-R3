@@ -2,6 +2,9 @@
 ### Varastonhallintasovellus, Ryhmä 3
 Jani, Janne, Juha, Petri P, Verneri, Wisam
 
+<img src="https://github.com/janlevea-git/Varastonhallinta-R3/blob/main/Documents/warehouses.jpg" 
+alt="Varasto" width="450px" height="150px">
+
 ***
 Tietokantakehityksen haara
 ***
