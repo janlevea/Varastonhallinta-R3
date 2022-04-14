@@ -8,6 +8,8 @@ Sovelluskehityksen päähaara
 
 Tietoa projektista:
 
-https://github.com/Raision-seudun-koulutuskuntayhtyma/Varastohallinta/
-
-https://github.com/Raision-seudun-koulutuskuntayhtyma/Varastohallinta/wiki
+Meidän materiaali:
+[GitHub/Varastonhallinta-R3/wiki](https://github.com/janlevea-git/Varastonhallinta-R3/wiki)
+<br/>
+RASEKO-materiaali:
+[GitHub/Raision-seudun-koulutuskuntayhtyma/Varastonhallinta/](https://github.com/Raision-seudun-koulutuskuntayhtyma/Varastohallinta/) & [/Wiki/](https://github.com/Raision-seudun-koulutuskuntayhtyma/Varastohallinta/wiki)
