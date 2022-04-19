@@ -48,7 +48,9 @@
             Lainaaja
         </div>
         <div class="col">
-            {{ laina.asiakas }} ({{ laina.asiakas.first_name }} {{ laina.asiakas.last_name }})
+            <a href="/varasto/profiili/{{ laina.asiakas }}">
+                {{ laina.asiakas }} ({{ laina.asiakas.get_full_name }})
+            </a>
         </div>
     </div>
     <div class="row">
@@ -56,7 +58,9 @@
             Varastonhoitaja
         </div>
         <div class="col">
-            {{ laina.varastonhoitaja }} ({{ laina.varastonhoitaja.first_name }} {{ laina.varastonhoitaja.last_name }})
+            <a href="/varasto/profiili/{{ laina.varastonhoitaja }}">
+                {{ laina.varastonhoitaja }} ({{ laina.varastonhoitaja.get_full_name }})
+            </a>
         </div>
     </div>
 </div>

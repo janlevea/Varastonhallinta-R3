@@ -19,9 +19,9 @@
             </div>
             {% comment %} Raseko-sininen yläpalkki {% endcomment %}
             <hr class="top-bar">
-            
+
             {% if user.is_authenticated %}
-                <h5 id="kirjautunut"><a href="/varasto/profiili/">{{ user.username }}</a> 
+                <h5 id="kirjautunut"><a href="/varasto/profiili/{{ user.username }}">{{ user.username }}</a> 
                 <br/><a href="/varasto/tili/logout">Kirjaudu ulos</a></h5>
             {% else %}
                 <h5 id="kirjautunut">

@@ -42,10 +42,10 @@
         <div class="row">
             {% comment %} TODO: Linkitys profiilisivuille {% endcomment %}
             <div class="col">
-                Lainaaja: {{ instance.asiakas }}
+                Lainaaja: <a href="/varasto/profiili/{{ instance.asiakas }}">{{ instance.asiakas }}</a>
             </div>
             <div class="col">
-                Varastonhoitaja: {{ instance.varastonhoitaja }}
+                Varastonhoitaja: <a href="/varasto/profiili/{{ instance.varastonhoitaja }}">{{ instance.varastonhoitaja }}</a>
             </div>
         </div>
     </div>

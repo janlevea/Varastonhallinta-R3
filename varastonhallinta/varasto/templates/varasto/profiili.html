@@ -4,7 +4,7 @@
 <main>
     <div class="title">
         <h1>Profiilisivu</h1>
-        <h5>Käyttäjälle: {{user.username}}</h5>
+        <h5>Käyttäjälle: {{ kayttaja }}</h5>
     </div>
     <div class="container" id="kayttajatiedot_container">
         <div class="row">
@@ -12,7 +12,7 @@
                 Nimi:
             </div>
             <div class="col">
-                {{ user.get_full_name }}
+                {{ kayttaja.get_full_name }}
             </div>
         </div>
         <div class="row">
@@ -20,7 +20,7 @@
                 Sähköposti:
             </div>
             <div class="col">
-                {{ user.email }}
+                {{ kayttaja.email }}
             </div>
         </div>
         <div class="row">
@@ -28,7 +28,7 @@
                 Kirjautunut:
             </div>
             <div class="col">
-                {{ user.last_login|date:"d.m.Y H:i" }}
+                {{ kayttaja.last_login|date:"d.m.Y H:i" }}
             </div>
         </div>
         <div class="row">
@@ -36,13 +36,13 @@
                 Liittynyt:
             </div>
             <div class="col">
-                {{ user.date_joined|date:"d.m.Y H:i" }}
+                {{ kayttaja.date_joined|date:"d.m.Y H:i" }}
             </div>
         </div>
         <div class="row">
             <div class="col">
                 Ryhmät:
-                {% for group in user.groups.all %}
+                {% for group in kayttaja.groups.all %}
                     &ensp;[{{ group }}]
                     {% if not forloop.last %}
                     ,

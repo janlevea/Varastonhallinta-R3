@@ -10,7 +10,7 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 # from django.contrib import messages
 
-from varasto.models import Varasto, Varastotapahtuma
+from varasto.models import Varasto, Varastotapahtuma, User
 from .forms import UusiLainaus
 
 @login_required
@@ -87,8 +87,9 @@ def lisaaMuokkaa(request):
     return render(request, "varasto/lisaa_muokkaa.html")
 
 @login_required
-def profiili(request):
-    return render(request, "varasto/profiili.html")
+def profiili(request, username):
+    kayttaja = get_object_or_404(User, username=username)
+    return render(request, "varasto/profiili.html", {"kayttaja": kayttaja})
 
 '''
 def profiili(request):
