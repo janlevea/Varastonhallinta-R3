@@ -5,7 +5,51 @@
     <div class="title">
         <h1>Profiilisivu</h1>
         <h5>Käyttäjälle: {{user.username}}</h5>
-        <br>
+    </div>
+    <div class="container" id="kayttajatiedot_container">
+        <div class="row">
+            <div class="col">
+                Nimi:
+            </div>
+            <div class="col">
+                {{ user.get_full_name }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                Sähköposti:
+            </div>
+            <div class="col">
+                {{ user.email }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                Kirjautunut:
+            </div>
+            <div class="col">
+                {{ user.last_login|date:"d.m.Y H:i" }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                Liittynyt:
+            </div>
+            <div class="col">
+                {{ user.date_joined|date:"d.m.Y H:i" }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                Ryhmät:
+                {% for group in user.groups.all %}
+                    &ensp;[{{ group }}]
+                    {% if not forloop.last %}
+                    ,
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
     </div>
 </main>
 {% endblock content %}

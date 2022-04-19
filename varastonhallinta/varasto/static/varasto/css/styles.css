@@ -225,6 +225,11 @@ varasto, tuote, määrä -- palautuspäivä -- marginaaleilla */
     padding-bottom: 2px;
     border: 1px solid #1b3259;
 }
+*/
+
+#kayttajatiedot_container {
+    width: 500px;
+}
 
 /* login-sivu */
 .kirjautumisform label {
