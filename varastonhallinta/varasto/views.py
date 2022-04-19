@@ -84,4 +84,7 @@ def lainauksenPalautus(request):
 @login_required
 def lisaaMuokkaa(request):
     return render(request, "varasto/lisaa_muokkaa.html")
-    
+
+@login_required
+def profiili(request):
+    return render(request, "varasto/profiili.html")

@@ -10,7 +10,8 @@ urlpatterns = [
     path("", views.index, name="index"), 
 
     # /varasto/profiili - # TODO: Tee profiilisivu
-    path('tili/', include("django.contrib.auth.urls")),
+    path("tili/", include("django.contrib.auth.urls")),
+    path("profiili/", views.profiili, name="profiili"),
     # path("profiili/<str:username>/", views.profiili, name="profiili"),
     
     # Yksittäisten lainausten tiedot:

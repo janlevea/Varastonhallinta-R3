@@ -128,8 +128,8 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# MEDIA_ROOT = 'varasto/img'
-# MEDIA_URL = '/varasto/img/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
 
 # Kirjautuessa siirry osoitteeseen:
 LOGIN_URL = "/varasto/tili/login"
