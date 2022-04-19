@@ -8,6 +8,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 
 from django.contrib.auth.decorators import login_required
+# from django.contrib import messages
 
 from varasto.models import Varasto, Varastotapahtuma
 from .forms import UusiLainaus
@@ -88,3 +89,17 @@ def lisaaMuokkaa(request):
 @login_required
 def profiili(request):
     return render(request, "varasto/profiili.html")
+
+'''
+def profiili(request):
+if request.method == 'POST':
+    form = MuutaProfiilia(request.POST, request.FILES, instance=request.user)
+
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Profiilikuva päivitetty.')
+        return redirect(to='profiili')
+else:
+    form = MuutaProfiilia()
+return render(request, 'varasto/profiili.html', {'form': form})
+'''

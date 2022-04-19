@@ -64,6 +64,7 @@ class Varastotapahtuma(models.Model):
     def __str__(self):
         return f"Määrä: {self.maara}, Asiakas: {self.asiakas}, Varastonhoitaja: {self.varastonhoitaja}"
 
+'''
 class Profiili(models.Model):
     kayttaja = models.OneToOneField(User, on_delete=models.CASCADE)
     kuva = models.ImageField(default="oletus.jpg", upload_to="profiilikuvat")
@@ -72,3 +73,4 @@ class Profiili(models.Model):
         verbose_name_plural = "Profiilit"
     def __str__(self):
         return self.kayttaja.username
+'''
