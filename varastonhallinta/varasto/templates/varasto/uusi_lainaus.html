@@ -5,14 +5,14 @@
     <div class="title">
         <h1>Uusi lainaus</h1>
         <h5>
-            Lainauksen lisääminen tietokantaan.
+            Aika: {{current_datetime|date:"d.m.Y H:i"}}
         </h5>
         <br>
         <form action="../uusi_lainaus/" method="post">
             {% csrf_token %}
             <div class="uusilainaus">
-                <p class="aikaleima">Aika: {{current_datetime}}</p>
-                <p class="varastonhoitaja">Varastonhoitaja:<br/>{{request.user}} ({{request.user.get_full_name}})</p>
+                <p class="varastonhoitaja">Varastonhoitaja:<br/>
+                <a href="/varasto/profiili/{{ request.user }}">{{request.user}} ({{request.user.get_full_name}})</a></p>
                 {{ form.as_p }}
             </div>
             <input type="submit" value="Lisää"/>&emsp;&emsp;&emsp;&emsp;<a href="/">Palaa etusivulle</a>

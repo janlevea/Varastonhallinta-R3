@@ -84,7 +84,8 @@ def lainaukset(request):
 
 @login_required
 def lainauksenPalautus(request):
-    return render(request, "varasto/lainauksen_palautus.html")
+    current_datetime = timezone.now
+    return render(request, "varasto/lainauksen_palautus.html", {"current_datetime": current_datetime})
 
 @login_required
 def lisaaMuokkaa(request):
