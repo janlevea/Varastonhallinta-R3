@@ -44,7 +44,7 @@ class Tuote(models.Model):
 class Varastotapahtuma(models.Model):   
     id = models.AutoField(primary_key=True, null=False)
     arkistotunnus = models.CharField(
-        max_length=50, null=False, verbose_name="Arkistotunnus")
+        max_length=37, null=False, verbose_name="Arkistotunnus")
     varasto = models.ForeignKey(
         Varasto, null=False, on_delete=models.PROTECT, verbose_name="Varasto")
     tuote = models.ForeignKey(

@@ -13,6 +13,9 @@ from django.contrib.auth.decorators import login_required
 from varasto.models import Varasto, Varastotapahtuma, User
 from .forms import UusiLainaus
 
+# UUID arkistotunnuksen luontia varten
+import uuid
+
 @login_required
 def index(request):
     return render(request, "varasto/index.html")
@@ -41,7 +44,8 @@ def uusiLainaus(request):
         form = UusiLainaus(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            lainaus = Varastotapahtuma.objects.create(**form.cleaned_data, **{"varastonhoitaja": request.user})
+            lainaus = Varastotapahtuma.objects.create(**form.cleaned_data,
+            **{"varastonhoitaja": request.user, "arkistotunnus": uuid.uuid1()})
             lainaus.save()
             return redirect("../lisatty_lainaus/" + str(lainaus.id))
     # if a GET (or any other method) we'll create a blank form
