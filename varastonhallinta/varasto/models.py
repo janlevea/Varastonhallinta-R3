@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # from django.utils.translation import gettext_lazy as _
-from django.urls import reverse
 
 # Importoi date/time-kirjastot käytettäväksi aikaleimoissa/palautuspäivässä
 from datetime import timedelta
@@ -10,8 +9,8 @@ from django.utils import timezone
 
 class Varasto(models.Model):
     id = models.CharField(max_length=20, null=False, primary_key=True)
-    varastotyyppi = models.CharField(max_length=30, null=False)
-    nimi = models.CharField(max_length=30, null=False)
+    varastotyyppi = models.CharField(max_length=30, null=False, verbose_name="Varastotyyppi")
+    nimi = models.CharField(max_length=30, null=False, verbose_name="Nimi")
     class Meta:
         verbose_name = "Varasto"
         verbose_name_plural = "Varastot"
@@ -20,7 +19,7 @@ class Varasto(models.Model):
 
 class Tuoteryhma(models.Model):
     id = models.AutoField(primary_key=True, null=False)
-    nimi = models.CharField(max_length=50, null=False)
+    nimi = models.CharField(max_length=50, null=False, verbose_name="Nimi")
     class Meta:
         verbose_name = "Tuoteryhmä"
         verbose_name_plural = "Tuoteryhmät"
@@ -29,12 +28,12 @@ class Tuoteryhma(models.Model):
 
 class Tuote(models.Model):
     id = models.AutoField(primary_key=True, null=False)
-    viivakoodi = models.CharField(max_length=30, null=False)
-    tuoteryhma = models.ForeignKey(Tuoteryhma, null=False, on_delete=models.PROTECT)
-    nimike = models.CharField(max_length=50, null=False)
-    hankintapaikka = models.CharField(max_length=50, null=False)
-    kustannuspaikka = models.CharField(max_length=10, null=False)
-    tuotekuva = models.BinaryField(null=False)
+    viivakoodi = models.CharField(max_length=30, null=False, verbose_name="Viivakoodi")
+    tuoteryhma = models.ForeignKey(Tuoteryhma, null=False, on_delete=models.PROTECT, verbose_name="Tuoteryhmä")
+    nimike = models.CharField(max_length=50, null=False, verbose_name="Nimike")
+    hankintapaikka = models.CharField(max_length=50, null=False, verbose_name="Hankintapaikka")
+    kustannuspaikka = models.CharField(max_length=10, null=False, verbose_name="Kustannuspaikka")
+    tuotekuva = models.BinaryField(null=False, verbose_name="Tuotekuva")
     class Meta:
         verbose_name = "Tuote"
         verbose_name_plural = "Tuotteet"
@@ -63,14 +62,3 @@ class Varastotapahtuma(models.Model):
         verbose_name_plural = "Varastotapahtumat"
     def __str__(self):
         return f"Määrä: {self.maara}, Asiakas: {self.asiakas}, Varastonhoitaja: {self.varastonhoitaja}"
-
-'''
-class Profiili(models.Model):
-    kayttaja = models.OneToOneField(User, on_delete=models.CASCADE)
-    kuva = models.ImageField(default="oletus.jpg", upload_to="profiilikuvat")
-    class Meta:
-        verbose_name = "Profiili"
-        verbose_name_plural = "Profiilit"
-    def __str__(self):
-        return self.kayttaja.username
-'''

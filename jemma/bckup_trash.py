@@ -108,4 +108,6 @@ cleaned_data = {
 lainaus = Varastotapahtuma.objects.latest("id")
 form.cleaned_data
 form.save()
+
+
 '''

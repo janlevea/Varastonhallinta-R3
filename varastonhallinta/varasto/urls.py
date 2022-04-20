@@ -1,6 +1,4 @@
 from django.urls import path, include
-#from django.conf.urls import url
-#from django.views.generic.base import TemplateView
 
 from . import views
 
@@ -9,9 +7,8 @@ urlpatterns = [
     # /varasto/ - etusivu
     path("", views.index, name="index"), 
 
-    # /varasto/profiili
+    # /varasto/profiili/
     path("tili/", include("django.contrib.auth.urls")),
-    #path("profiili/", views.profiili, name="profiili"),
     path("profiili/<str:username>/", views.profiili, name="profiili"),
     
     # Yksittäisten lainausten tiedot:
@@ -21,6 +18,7 @@ urlpatterns = [
     path("lisatty_lainaus/<int:pk>/", views.lisattyLainaus, name="lisattyLainaus"),
     # varasto/poista_lainaus.html
     path("poista_lainaus/<int:pk>", views.poistaLainaus, name="poistaLainaus"),
+    # varasto/lainaus_poistettu.html
     path("lainaus_poistettu/", views.lainausPoistettu, name="lainausPoistettu"),
 
     # varasto/lainaukset.html - Kaikki avoimet lainaukset

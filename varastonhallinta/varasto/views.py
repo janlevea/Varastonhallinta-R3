@@ -1,16 +1,9 @@
-#from django.urls import reverse
-#from django.views import generic
-#from .models import Lainaus
-# from http.client import HTTPResponse
-# from django.http import HttpResponseRedirect #, HttpResponse, Http404
-
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 
 from django.contrib.auth.decorators import login_required
-# from django.contrib import messages
 
-from varasto.models import Varasto, Varastotapahtuma, User
+from varasto.models import Varastotapahtuma, User
 from .forms import UusiLainaus
 
 # UUID arkistotunnuksen luontia varten
@@ -19,17 +12,6 @@ import uuid
 @login_required
 def index(request):
     return render(request, "varasto/index.html")
-
-# def profiili(request, username=None):
-#     if username:
-#         post_owner = get_object_or_404(User, username=username)
-#     else:
-#         post_owner = request.user
-
-#     username = {
-#         'post_owner': post_owner,
-#     }
-#     return render(request, "varasto/profiili.html")
 
 @login_required
 def raportit(request):
@@ -95,17 +77,3 @@ def lisaaMuokkaa(request):
 def profiili(request, username):
     kayttaja = get_object_or_404(User, username=username)
     return render(request, "varasto/profiili.html", {"kayttaja": kayttaja})
-
-'''
-def profiili(request):
-if request.method == 'POST':
-    form = MuutaProfiilia(request.POST, request.FILES, instance=request.user)
-
-    if form.is_valid():
-        form.save()
-        messages.success(request, 'Profiilikuva päivitetty.')
-        return redirect(to='profiili')
-else:
-    form = MuutaProfiilia()
-return render(request, 'varasto/profiili.html', {'form': form})
-'''
