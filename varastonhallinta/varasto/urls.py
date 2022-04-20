@@ -34,4 +34,7 @@ urlpatterns = [
     path("lainauksen_palautus/", views.lainauksenPalautus, name="lainauksenPalautus"),
     # varasto/lisaa_muokkaa.html
     path("lisaa_muokkaa/", views.lisaaMuokkaa, name="lisaaMuokkaa"),
+
+    # varasto/tili/rekisteroidy
+    path("tili/rekisteroidy/", views.rekisteroidy, name="rekisteroidy")
 ]

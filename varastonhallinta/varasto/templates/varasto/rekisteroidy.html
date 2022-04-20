@@ -1,0 +1,17 @@
+{% extends "varasto/base.html" %}
+{% load static %}
+{% block content %}
+<main>
+    <div class="title">
+        <h1>Rekisteröidy</h1>
+        <h5>Varastonhallintaan</h5>
+    </div>
+    <div class="rekisteroidyform">
+        <form action="../rekisteroidy/" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Rekisteröidy</button>&emsp;<a href="/varasto/tili/login">Kirjaudu sisään</a>
+        </form>
+    </div>
+</main>
+{% endblock content %}

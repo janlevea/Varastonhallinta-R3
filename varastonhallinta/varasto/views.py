@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 
 from varasto.models import Varastotapahtuma, User
-from .forms import UusiLainaus
+from .forms import UusiLainaus, Rekisteroidy
 
 # UUID arkistotunnuksen luontia varten
 import uuid
@@ -77,3 +77,18 @@ def lisaaMuokkaa(request):
 def profiili(request, username):
     kayttaja = get_object_or_404(User, username=username)
     return render(request, "varasto/profiili.html", {"kayttaja": kayttaja})
+
+# TODO: Tee rekisteröintisivu valmiiksi
+def rekisteroidy(request):
+    if request.method == "POST":
+        form = Rekisteroidy(request.POST)
+        #if form.password != form.password_repeat:
+        #    return HTTPResponse("Salasanat eivät täsmää.")
+        if form.is_valid():
+            uusikayttaja = User.objects.create(**form.cleaned_data)
+            uusikayttaja.username = uusikayttaja.email
+            uusikayttaja.save()
+            return redirect("../login/")
+    else:
+        form = Rekisteroidy()
+    return render(request, "varasto/rekisteroidy.html", {"form": form})

@@ -6,11 +6,11 @@
         <h1>Kirjaudu sisään</h1>
         <h5>Käyttääksesi varastonhallintaa</h5>
     </div>
-    <div class=kirjautumisform>
+    <div class="kirjautumisform">
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Kirjaudu</button>
+            <button type="submit">Kirjaudu</button>&emsp;&emsp;&emsp;&emsp;<a href="/varasto/tili/rekisteroidy/">Rekisteröidy</a>
         </form>
     </div>
 </main>
