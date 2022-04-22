@@ -9,7 +9,7 @@ urlpatterns = [
 
     # /varasto/profiili/
     path("tili/", include("django.contrib.auth.urls")),
-    path("profiili/<str:username>/", views.profiili, name="profiili"),
+    path("profiili/<str:opiskelijanumero>/", views.profiili, name="profiili"),
     
     # Yksittäisten lainausten tiedot:
     # varasto/lainaus.html

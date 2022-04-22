@@ -2,11 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Kanit:wght@800;900&family=Nunito+Sans:wght@300;400;600&display=swap');
 
 /*  Tarvittaessa punainen reunaviiva kaikille elementeille
-    kehitysvaiheessa elementtien asetteluun
+    kehitysvaiheessa elementtien asetteluun */
+/*
 * {
     border: 1px solid red;
 } 
-*/
+*/ 
 
 /* base.html */
 header .logo {
@@ -165,9 +166,9 @@ h5 {
 }
 
 /* -- raseko-punainen reunaviiva käyttäjä kenttiin */
-.uusilainaus #id_varastonhoitaja, #id_asiakas,
 .kirjautumisform #id_username, #id_password,
-.rekisteroidyform #id_username, #id_password, #id_password_repeat, #id_email, #id_first_name, #id_last_name  {
+.rekisteroidyform #id_opiskelijanumero, #id_email, #id_etunimi, #id_sukunimi,
+.uusilainaus #id_varastonhoitaja, #id_asiakas {
     border: 2px solid #df2070;
 }
 
@@ -178,7 +179,8 @@ varasto, tuote, määrä -- palautuspäivä -- marginaaleilla */
 }
 
 /* -- raseko-sininen reunaviiva tuotekenttiin */
-.uusilainaus #id_varasto, #id_tuote, #id_maara {
+.uusilainaus #id_varasto, #id_tuote, #id_maara,
+.rekisteroidyform #id_password, #id_password_repeat {
     border: 2px solid #1b3259;
 }
 
@@ -197,7 +199,7 @@ varasto, tuote, määrä -- palautuspäivä -- marginaaleilla */
 .kirjautumisform
 #id_username, #id_password,
 .rekisteroidyform
-#id_username, #id_password, #id_password_repeat, #id_email, #id_first_name, #id_last_name 
+#id_opiskelijanumero, #id_email, #id_etunimi, #id_sukunimi, #id_password, #id_password_repeat
 {
     border-radius: 4px;
     height: 40px;

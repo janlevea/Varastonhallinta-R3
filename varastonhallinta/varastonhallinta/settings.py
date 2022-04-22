@@ -10,6 +10,9 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
+from django.conf.locale.fi import formats as fi_formats
+fi_formats.DATETIME_FORMAT = "d.m.Y H:i"
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -36,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+AUTH_USER_MODEL = "varasto.Kayttaja" # vaihtaa käyttäjämodelin kustomoituun
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
