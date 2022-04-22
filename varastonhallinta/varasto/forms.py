@@ -45,6 +45,8 @@ class Rekisteroidy(forms.ModelForm):
         else:
             return password
 
+    # TODO: Lisää validointi opiskelijanumerolle
+
 class UserAdminCreationForm(forms.ModelForm):
     """
     A form for creating new users. Includes all the required
