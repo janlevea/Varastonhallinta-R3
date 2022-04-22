@@ -10,8 +10,11 @@ class UusiLainaus(forms.ModelForm):
         model = Varastotapahtuma
         fields = [
         "asiakas", 
-        "varasto","tuote", "maara", 
+        "tuote", "maara", 
         "palautuspaiva"]
+# TODO: Asiakkaan nimi näkyviin asiakas kenttään
+# TODO: Tuote-valinnasta id pois
+
 
 class Rekisteroidy(forms.ModelForm):
     email = forms.EmailField(

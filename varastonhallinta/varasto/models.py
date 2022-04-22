@@ -7,6 +7,9 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, User
 from datetime import timedelta
 from django.utils import timezone
 
+# UUID arkistotunnuksen luontia varten
+import uuid
+
 class UserManager(BaseUserManager):
     def create_user(self, opiskelijanumero, email, etunimi, sukunimi, password=None, is_aktiivinen=True, is_staff=False, is_admin=False):
         if not opiskelijanumero:
@@ -63,9 +66,9 @@ class Kayttaja(AbstractBaseUser):
     etunimi = models.CharField(max_length=64)
     sukunimi = models.CharField(max_length=64)
     email = models.EmailField(max_length=200, unique=True, verbose_name="Sähköposti")
-    aktiivinen = models.BooleanField(default=True) # voi kirjautua
+    aktiivinen = models.BooleanField(default=True, verbose_name="Aktiivinen") # voi kirjautua
     staff = models.BooleanField(default=False, verbose_name="Henkilökunta") # staff, not superuser
-    admin = models.BooleanField(default=False) # superuser
+    admin = models.BooleanField(default=False, verbose_name="Admin") # superuser
     liittynyt = models.DateTimeField(auto_now_add=True)
 
     USERNAME_FIELD = "opiskelijanumero"
@@ -100,8 +103,10 @@ class Kayttaja(AbstractBaseUser):
     def __str__(self):
         return f"{self.opiskelijanumero}"
 
+'''
+# Onko tämä tarpeellinen???
 class Varasto(models.Model):
-    id = models.CharField(max_length=20, null=False, primary_key=True)
+    id = models.AutoField(primary_key=True, null=False)
     varastotyyppi = models.CharField(max_length=30, null=False, verbose_name="Varastotyyppi")
     nimi = models.CharField(max_length=30, null=False, verbose_name="Nimi")
     class Meta:
@@ -109,6 +114,7 @@ class Varasto(models.Model):
         verbose_name_plural = "Varastot"
     def __str__(self):
         return f"ID: {self.id}, Tyyppi: {self.varastotyyppi}, Nimi: {self.nimi}"
+'''
 
 class Tuoteryhma(models.Model):
     id = models.AutoField(primary_key=True, null=False)
@@ -117,7 +123,7 @@ class Tuoteryhma(models.Model):
         verbose_name = "Tuoteryhmä"
         verbose_name_plural = "Tuoteryhmät"
     def __str__(self):
-        return f"ID: {self.id}, Nimi: {self.nimi}"
+        return f"id({self.id}) {self.nimi}"
 
 class Tuote(models.Model):
     id = models.AutoField(primary_key=True, null=False)
@@ -131,14 +137,15 @@ class Tuote(models.Model):
         verbose_name = "Tuote"
         verbose_name_plural = "Tuotteet"
     def __str__(self):
-        return f"Tuote_ID: {self.id}, Tuoteryhma_ID: {self.tuoteryhma}, Nimike: {self.nimike}"
+        return f"id({self.id}) {self.tuoteryhma.nimi}/{self.nimike}"
 
 class Varastotapahtuma(models.Model):   
     id = models.AutoField(primary_key=True, null=False)
     arkistotunnus = models.CharField(
-        max_length=37, null=False, verbose_name="Arkistotunnus")
-    varasto = models.ForeignKey(
-        Varasto, null=False, on_delete=models.PROTECT, verbose_name="Varasto")
+        default=uuid.uuid1(), editable=False, max_length=37, null=False, blank=False, unique=True, verbose_name="Arkistotunnus")
+
+    #varasto = models.ForeignKey(
+    #    Varasto, null=False, on_delete=models.PROTECT, verbose_name="Varasto")
     tuote = models.ForeignKey(
         Tuote, null=False, on_delete=models.PROTECT, verbose_name="Tuote")
     maara = models.IntegerField(null=False, verbose_name="Määrä")
@@ -154,4 +161,4 @@ class Varastotapahtuma(models.Model):
         verbose_name = "Varastotapahtuma"
         verbose_name_plural = "Varastotapahtumat"
     def __str__(self):
-        return f"Määrä: {self.maara}, Asiakas: {self.asiakas}, Varastonhoitaja: {self.varastonhoitaja}"
+        return f"id({self.id}) {self.tuote.nimike} {self.maara}kpl, Asiakas: {self.asiakas}, Varastonhoitaja: {self.varastonhoitaja}"
