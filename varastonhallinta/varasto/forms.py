@@ -45,9 +45,15 @@ class Rekisteroidy(forms.ModelForm):
         else:
             return password
 
-    # TODO: Lisää validointi opiskelijanumerolle
     def clean_opiskelijanumero(self, *args, **kwargs):
-        pass
+        opiskelijanumero = self.cleaned_data.get("opiskelijanumero")
+        if not opiskelijanumero.isdigit():
+            raise forms.ValidationError("Opiskelijanumero voi sisältää vain numeroita.")
+        elif not len(opiskelijanumero) == 5:
+            raise forms.ValidationError("Opiskelijanumeron täytyy olla 5 merkkiä pitkä.")
+        else:
+            return opiskelijanumero
+
 
 class UserAdminCreationForm(forms.ModelForm):
     """
