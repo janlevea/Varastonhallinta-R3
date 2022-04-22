@@ -43,12 +43,11 @@
             </div>
         </div>
         <div class="row">
-            {% comment %} TODO: Linkitys profiilisivuille {% endcomment %}
             <div class="col">
-                Lainaaja: <a href="/varasto/profiili/{{ instance.asiakas }}">{{ instance.asiakas }}</a>
+                Lainaaja: <a href="/varasto/profiili/{{ instance.asiakas.opiskelijanumero }}">{{ instance.asiakas.get_kokonimi }} ({{ instance.asiakas.opiskelijanumero }})</a>
             </div>
             <div class="col">
-                Varastonhoitaja: <a href="/varasto/profiili/{{ instance.varastonhoitaja }}">{{ instance.varastonhoitaja }}</a>
+                Varastonhoitaja: <a href="/varasto/profiili/{{ instance.varastonhoitaja.opiskelijanumero }}">{{ instance.varastonhoitaja.get_kokonimi }} ({{ instance.varastonhoitaja.opiskelijanumero }})</a>
             </div>
         </div>
     </div>

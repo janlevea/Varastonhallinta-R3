@@ -9,6 +9,8 @@
         </div>
     </div>
     <br>
+
+{% comment %}     
     <div class="row">
         <div class="col">
             Varasto
@@ -16,13 +18,15 @@
         <div class="col">
             id {{ laina.varasto.id }} / {{ laina.varasto.nimi }}
         </div>
-    </div>
+    </div> 
+{% endcomment %}
+
     <div class="row">
         <div class="col">
             Tuote
         </div>
         <div class="col">
-            id {{ laina.tuote.id }} / {{ laina.tuote.nimike }} / Määrä: {{ laina.maara }}
+            id({{ laina.tuote.id }}) {{ laina.tuote.tuoteryhma.nimi }}/{{ laina.tuote.nimike }}/{{ laina.maara }}kpl
         </div>
     </div>
     <br>
@@ -31,7 +35,7 @@
             Aikaleima
         </div>
         <div class="col">
-            {{ laina.aikaleima }}
+            {{ laina.aikaleima|date:"d.m.Y H:i" }}
         </div>
     </div>
     <div class="row">
@@ -39,7 +43,7 @@
             Viim. palautuspäivä
         </div>
         <div class="col">
-            {{ laina.palautuspaiva }}
+            {{ laina.palautuspaiva|date:"d.m.Y" }}
         </div>
     </div>
     <br>
@@ -48,8 +52,8 @@
             Lainaaja
         </div>
         <div class="col">
-            <a href="/varasto/profiili/{{ laina.asiakas }}">
-                {{ laina.asiakas }} ({{ laina.asiakas.get_full_name }})
+            <a href="/varasto/profiili/{{ laina.asiakas.opiskelijanumero }}">
+                {{ laina.asiakas.get_kokonimi }} ({{ laina.asiakas.opiskelijanumero }})
             </a>
         </div>
     </div>
@@ -58,8 +62,8 @@
             Varastonhoitaja
         </div>
         <div class="col">
-            <a href="/varasto/profiili/{{ laina.varastonhoitaja }}">
-                {{ laina.varastonhoitaja }} ({{ laina.varastonhoitaja.get_full_name }})
+            <a href="/varasto/profiili/{{ laina.varastonhoitaja.opiskelijanumero }}">
+                {{ laina.varastonhoitaja.get_kokonimi }} ({{ laina.varastonhoitaja.opiskelijanumero }})
             </a>
         </div>
     </div>
