@@ -8,7 +8,7 @@ from django.contrib.auth import get_user_model
 from .forms import UserAdminCreationForm, UserAdminChangeForm
 
 # Importoi modelit ja lisää ne näkymään admin-sivulla
-from .models import Varasto, Tuoteryhma, Tuote, Varastotapahtuma
+from .models import Tuoteryhma, Tuote, Varastotapahtuma
 
 Kayttaja = get_user_model()
 
@@ -21,7 +21,7 @@ class UserAdmin(BaseUserAdmin):
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ['opiskelijanumero', 'admin']
+    list_display = ['opiskelijanumero', 'sukunimi', 'etunimi', 'admin']
     list_filter = ['admin', 'staff', 'aktiivinen']
 
     fieldsets = (
@@ -47,7 +47,7 @@ class UserAdmin(BaseUserAdmin):
 
 admin.site.register(Kayttaja, UserAdmin)
 
-admin.site.register(Varasto)
+# admin.site.register(Varasto)
 admin.site.register(Tuoteryhma)
 admin.site.register(Tuote)
 admin.site.register(Varastotapahtuma)
