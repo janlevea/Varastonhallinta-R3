@@ -46,6 +46,8 @@ class Rekisteroidy(forms.ModelForm):
             return password
 
     # TODO: Lisää validointi opiskelijanumerolle
+    def clean_opiskelijanumero(self, *args, **kwargs):
+        pass
 
 class UserAdminCreationForm(forms.ModelForm):
     """
