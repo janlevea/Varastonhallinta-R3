@@ -79,10 +79,16 @@ def profiili(request, opiskelijanumero):
     return render(request, "varasto/profiili.html", {"user": kayttaja})
 
 def rekisteroidy(request):
+    if request.user.is_authenticated: # Jos käyttäjä on kirjautunut, ohjaa takas varaston etusivulle
+        return redirect("/")
+
     if request.method == "POST":
         form = Rekisteroidy(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save(commit=False)
+            password = form.cleaned_data['password']
+            user.set_password(password)
+            user.save()
             return redirect("../login/")
     else:
         form = Rekisteroidy()
