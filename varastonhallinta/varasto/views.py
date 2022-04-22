@@ -78,6 +78,11 @@ def profiili(request, opiskelijanumero):
     kayttaja = get_object_or_404(Kayttaja, opiskelijanumero=opiskelijanumero)
     return render(request, "varasto/profiili.html", {"user": kayttaja})
 
+def kayttajat(request):
+    queryset = Kayttaja.objects.all()
+    kayttajat = {"object_list": queryset}
+    return render(request, "varasto/kayttajat.html", kayttajat)
+
 def rekisteroidy(request):
     if request.user.is_authenticated: # Jos käyttäjä on kirjautunut, ohjaa takas varaston etusivulle
         return redirect("/")

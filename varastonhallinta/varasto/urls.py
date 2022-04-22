@@ -36,5 +36,6 @@ urlpatterns = [
     path("lisaa_muokkaa/", views.lisaaMuokkaa, name="lisaaMuokkaa"),
 
     # varasto/tili/rekisteroidy
-    path("tili/rekisteroidy/", views.rekisteroidy, name="rekisteroidy")
+    path("tili/rekisteroidy/", views.rekisteroidy, name="rekisteroidy"),
+    path("kayttajat/", views.kayttajat, name="kayttajat"),
 ]

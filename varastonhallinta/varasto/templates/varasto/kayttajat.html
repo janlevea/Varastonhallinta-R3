@@ -1,0 +1,68 @@
+{% extends "varasto/base.html" %}
+{% load static %}
+{% block content %}
+<main>
+    <div class="title">
+        <h1>Käyttäjätilit</h1>
+        {% if object_list %}
+            <h5>Määrä: {{ object_list|length }}</h5>
+        {% endif %}
+    </div>
+    <br/>
+    {% comment %} 
+        # TODO: käyttäjien järjestäminen eri parametreillä
+    {% endcomment %}
+    {% comment %} Lataa käyttäjät containereihin {% endcomment %}
+    {% for instance in object_list %}
+    <div class="container" id="kayttajat_container">
+        <div class="row">
+            <div class="col">
+                <a href="/varasto/profiili/{{ instance.opiskelijanumero }}">
+                    {{ instance.get_kokonimi }} ({{ instance.opiskelijanumero }})
+                </a>
+            </div>
+            <div class="col">
+                {{ instance.email }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                Liittynyt: {{ instance.liittynyt }}
+            </div>
+            <div class="col">
+                Kirjautunut viimeksi: {{ instance.last_login }}
+            </div>
+        </div>
+        <div class="row">
+            {% if instance.is_aktiivinen %}
+            <div class="col">
+                Aktiivinen
+                <svg id="i-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <path d="M2 20 L12 28 30 4" />
+                </svg>
+            </div>
+            {% endif %}
+            {% if instance.is_staff %}
+            <div class="col">
+                Henkilökunta
+                <svg id="i-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <path d="M2 20 L12 28 30 4" />
+                </svg>
+            </div>
+            {% endif %}
+            {% if instance.is_admin %}
+            <div class="col">
+                Admin 
+                <svg id="i-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <path d="M2 20 L12 28 30 4" />
+                </svg>
+                
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <br/>
+    {% endfor %}
+    <br/>
+</main>
+{% endblock content %}
