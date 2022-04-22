@@ -11,7 +11,7 @@ from django.utils import timezone
 import uuid
 
 class UserManager(BaseUserManager):
-    def create_user(self, opiskelijanumero, email, etunimi, sukunimi, password=None, is_aktiivinen=True, is_staff=False, is_admin=False):
+    def create_user(self, opiskelijanumero, email, etunimi, sukunimi, password, is_aktiivinen=True, is_staff=False, is_admin=False):
         if not opiskelijanumero:
             raise ValueError("Käyttäjällä täytyy olla opiskelijanumero")
         if not email:
@@ -36,7 +36,7 @@ class UserManager(BaseUserManager):
         user_obj.save(using=self._db)
         return user_obj
 
-    def create_staffuser(self, opiskelijanumero, email, etunimi, sukunimi, password=None):
+    def create_staffuser(self, opiskelijanumero, email, etunimi, sukunimi, password):
         user = self.create_user(
             opiskelijanumero,
             email,
@@ -47,7 +47,7 @@ class UserManager(BaseUserManager):
         )
         return user
 
-    def create_superuser(self, opiskelijanumero, email, etunimi, sukunimi, password=None):
+    def create_superuser(self, opiskelijanumero, email, etunimi, sukunimi, password):
         user = self.create_user(
             opiskelijanumero,
             email,
