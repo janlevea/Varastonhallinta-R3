@@ -9,7 +9,7 @@ alt="Varasto" width="450px" height="150px">
 Tietoa projektista:
 
 Meidän materiaali:
-[GitHub/Varastonhallinta-R3/wiki](https://github.com/janlevea-git/Varastonhallinta-R3/wiki)
+[GitHub/Varastonhallinta-R3/wiki](https://github.com/janlevea/Varastonhallinta-R3/wiki)
 <br/>
 RASEKO-materiaali:
 [GitHub/Raision-seudun-koulutuskuntayhtyma/Varastohallinta](https://github.com/Raision-seudun-koulutuskuntayhtyma/Varastohallinta/) & [/Wiki/](https://github.com/Raision-seudun-koulutuskuntayhtyma/Varastohallinta/wiki)
