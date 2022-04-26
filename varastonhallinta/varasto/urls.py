@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 
 from . import views
 
@@ -6,10 +6,6 @@ app_name = "varasto"
 urlpatterns = [
     # /varasto/ - etusivu
     path("", views.index, name="index"), 
-
-    # /varasto/profiili/
-    path("tili/", include("django.contrib.auth.urls")),
-    path("profiili/<str:opiskelijanumero>/", views.profiili, name="profiili"),
     
     # Yksittäisten lainausten tiedot:
     # varasto/lainaus.html
@@ -39,8 +35,4 @@ urlpatterns = [
     path("tuotteet/", views.tuotteet, name="tuotteet"),
     # varasto/tuote.html
     path("tuote/<int:pk>", views.tuote, name="tuote"),
-
-    # varasto/tili/rekisteroidy
-    path("tili/rekisteroidy/", views.rekisteroidy, name="rekisteroidy"),
-    path("kayttajat/", views.kayttajat, name="kayttajat"),
 ]

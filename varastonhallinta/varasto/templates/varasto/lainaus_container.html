@@ -9,18 +9,6 @@
         </div>
     </div>
     <br>
-
-{% comment %}     
-    <div class="row">
-        <div class="col">
-            Varasto
-        </div>
-        <div class="col">
-            id {{ laina.varasto.id }} / {{ laina.varasto.nimi }}
-        </div>
-    </div> 
-{% endcomment %}
-
     <div class="row">
         <div class="col">
             Tuote
@@ -52,7 +40,7 @@
             Lainaaja
         </div>
         <div class="col">
-            <a href="/varasto/profiili/{{ laina.asiakas.opiskelijanumero }}">
+            <a href="/varasto/kayttajat/profiili/{{ laina.asiakas.opiskelijanumero }}">
                 {{ laina.asiakas.get_kokonimi }} ({{ laina.asiakas.opiskelijanumero }})
             </a>
         </div>
@@ -62,7 +50,7 @@
             Varastonhoitaja
         </div>
         <div class="col">
-            <a href="/varasto/profiili/{{ laina.varastonhoitaja.opiskelijanumero }}">
+            <a href="/varasto/kayttajat/profiili/{{ laina.varastonhoitaja.opiskelijanumero }}">
                 {{ laina.varastonhoitaja.get_kokonimi }} ({{ laina.varastonhoitaja.opiskelijanumero }})
             </a>
         </div>

@@ -3,8 +3,8 @@ from django.utils import timezone
 
 from django.contrib.auth.decorators import login_required
 
-from varasto.models import Kayttaja, Varastotapahtuma, Tuote #, User
-from .forms import UusiLainaus, Rekisteroidy
+from varasto.models import Varastotapahtuma, Tuote
+from .forms import UusiLainaus
 
 # UUID arkistotunnuksen luontia varten
 import uuid
@@ -83,29 +83,3 @@ def tuotteet(request):
 def tuote(request, pk):
     tuote = get_object_or_404(Tuote, pk=pk)
     return render(request, "varasto/tuote.html", {"tuote": tuote})
-
-@login_required
-def profiili(request, opiskelijanumero):
-    kayttaja = get_object_or_404(Kayttaja, opiskelijanumero=opiskelijanumero)
-    return render(request, "varasto/profiili.html", {"user": kayttaja})
-
-def kayttajat(request):
-    queryset = Kayttaja.objects.all()
-    kayttajat = {"object_list": queryset}
-    return render(request, "varasto/kayttajat.html", kayttajat)
-
-def rekisteroidy(request):
-    if request.user.is_authenticated: # Jos käyttäjä on kirjautunut, ohjaa takas varaston etusivulle
-        return redirect("/")
-
-    if request.method == "POST":
-        form = Rekisteroidy(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            password = form.cleaned_data['password']
-            user.set_password(password)
-            user.save()
-            return redirect("../login/")
-    else:
-        form = Rekisteroidy()
-    return render(request, "varasto/rekisteroidy.html", {"form": form})

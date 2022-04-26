@@ -1,3 +1,32 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 
-# Create your views here.
+from django.contrib.auth.decorators import login_required
+
+from kayttajat.models import Kayttaja
+from .forms import Rekisteroidy
+
+@login_required
+def profiili(request, opiskelijanumero):
+    kayttaja = get_object_or_404(Kayttaja, opiskelijanumero=opiskelijanumero)
+    return render(request, "varasto/profiili.html", {"user": kayttaja})
+
+def kayttajat(request):
+    queryset = Kayttaja.objects.all()
+    kayttajat = {"object_list": queryset}
+    return render(request, "varasto/kayttajat.html", kayttajat)
+
+def rekisteroidy(request):
+    if request.user.is_authenticated: # Jos käyttäjä on kirjautunut, ohjaa takas varaston etusivulle
+        return redirect("/")
+
+    if request.method == "POST":
+        form = Rekisteroidy(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            password = form.cleaned_data['password']
+            user.set_password(password)
+            user.save()
+            return redirect("../login/")
+    else:
+        form = Rekisteroidy()
+    return render(request, "varasto/rekisteroidy.html", {"form": form})
