@@ -130,6 +130,7 @@ class Tuote(models.Model):
     viivakoodi = models.CharField(max_length=30, null=False, verbose_name="Viivakoodi")
     tuoteryhma = models.ForeignKey(Tuoteryhma, null=False, on_delete=models.PROTECT, verbose_name="Tuoteryhmä")
     nimike = models.CharField(max_length=50, null=False, verbose_name="Nimike")
+    maara = models.IntegerField(verbose_name="Määrä")
     hankintapaikka = models.CharField(max_length=50, null=False, verbose_name="Hankintapaikka")
     kustannuspaikka = models.CharField(max_length=10, null=False, verbose_name="Kustannuspaikka")
     tuotekuva = models.BinaryField(null=False, verbose_name="Tuotekuva")

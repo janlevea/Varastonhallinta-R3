@@ -3,7 +3,7 @@ from django.utils import timezone
 
 from django.contrib.auth.decorators import login_required
 
-from varasto.models import Varastotapahtuma, Kayttaja #, User
+from varasto.models import Kayttaja, Varastotapahtuma, Tuote #, User
 from .forms import UusiLainaus, Rekisteroidy
 
 # UUID arkistotunnuksen luontia varten
@@ -72,6 +72,17 @@ def lainauksenPalautus(request):
 @login_required
 def lisaaMuokkaa(request):
     return render(request, "varasto/lisaa_muokkaa.html")
+
+@login_required
+def tuotteet(request):
+    queryset = Tuote.objects.all()
+    tuotteet = {"object_list": queryset}
+    return render(request, "varasto/tuotteet.html", tuotteet)
+
+@login_required
+def tuote(request, pk):
+    tuote = get_object_or_404(Tuote, pk=pk)
+    return render(request, "varasto/tuote.html", {"tuote": tuote})
 
 @login_required
 def profiili(request, opiskelijanumero):

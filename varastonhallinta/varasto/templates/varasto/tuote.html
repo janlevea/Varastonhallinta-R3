@@ -1,0 +1,39 @@
+{% extends "varasto/base.html" %}
+{% load static %}
+{% block content %}
+<main>
+    <div class="title">
+        <h1>Tuote</h1>
+        <h5>id: {{ tuote.id }}</h5>
+    </div>
+    <br/>
+    {% comment %} Lataa tuotteen tiedot containeriin {% endcomment %}
+    <div class="container" id="tuote_container">
+        <div class="row">
+            <div class="col">
+                    Viivakoodi: {{ tuote.viivakoodi }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {% comment %} 
+                #TODO: Linkitys tuoteryhmä sivulle
+                {% endcomment %}
+                {{ tuote.tuoteryhma.nimi }}/{{ tuote.nimike }} 
+            </div>
+            <div class="col">
+                {{ tuote.maara }}kpl
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                Hankintapaikka: {{ tuote.hankintapaikka }}
+            </div>
+            <div class="col">
+                Kustannuspaikka: {{ tuote.kustannuspaikka }}
+            </div>
+        </div>
+    </div>
+    <br/>
+</main>
+{% endblock content %}

@@ -1,0 +1,49 @@
+{% extends "varasto/base.html" %}
+{% load static %}
+{% block content %}
+<main>
+    <div class="title">
+        <h1>Tuotteet</h1>
+        {% if object_list %}
+            <h5>Määrä: {{ object_list|length }}</h5>
+        {% endif %}
+    </div>
+    <br/>
+    {% comment %} 
+        # TODO: tuotteiden järjestäminen parametrien mukaan
+    {% endcomment %}
+    {% comment %} Lataa tuotteet containereihin {% endcomment %}
+    {% for instance in object_list %}
+    <div class="container" id="tuotteet_container">
+        <div class="row">
+            <div class="col">
+                <a href="/varasto/tuote/{{ instance.id }}">
+                    id({{ instance.id }}) / viivakoodi: {{ instance.viivakoodi }}
+                </a> 
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {% comment %} 
+                #TODO: Linkitys tuoteryhmä sivulle
+                {% endcomment %}
+                {{ instance.tuoteryhma.nimi }}/{{ instance.nimike }} 
+            </div>
+            <div class="col">
+                {{ instance.maara }}kpl
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                Hankintapaikka: {{ instance.hankintapaikka }}
+            </div>
+            <div class="col">
+                Kustannuspaikka: {{ instance.kustannuspaikka }}
+            </div>
+        </div>
+    </div>
+    <br/>
+    {% endfor %}
+    <br/>
+</main>
+{% endblock content %}
