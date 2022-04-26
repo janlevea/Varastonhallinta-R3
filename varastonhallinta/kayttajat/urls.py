@@ -8,5 +8,5 @@ urlpatterns = [
     path("", include(django.contrib.auth.urls)),
     path("profiili/<str:opiskelijanumero>/", views.profiili, name="profiili"),
     path("rekisteroidy/", views.rekisteroidy, name="rekisteroidy"),
-    path("lista/", views.kayttajat, name="kayttajat"),
+    path("lista/", views.kayttajalista, name="kayttajalista"),
 ]
