@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'varasto.apps.VarastoConfig',
+    'kayttajat.apps.KayttajatConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -112,6 +113,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Kirjautumisurlit
-LOGIN_URL = "/varasto/tili/login/"
+LOGIN_URL = "/varasto/kayttajat/login/"
 LOGIN_REDIRECT_URL = "/varasto/"
-LOGOUT_REDIRECT_URL = "/varasto/tili/login/"
+LOGOUT_REDIRECT_URL = "/varasto/kayttajat/login/"
