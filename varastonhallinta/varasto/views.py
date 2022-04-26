@@ -26,13 +26,14 @@ def uusiLainaus(request):
         form = UusiLainaus(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            lainaus = Varastotapahtuma.objects.create(**form.cleaned_data,
+            lainaustapahtuma = Varastotapahtuma.objects.create(**form.cleaned_data,
             **{
                 "varastonhoitaja": request.user, 
                 "arkistotunnus": uuid.uuid1()
             })
-            lainaus.save()
-            return redirect("../lisatty_lainaus/" + str(lainaus.id))
+            lainaustapahtuma.save()
+            return lainaus(request, lainaustapahtuma.id, juuriLisatty=True)
+            #return redirect("../lisatty_lainaus/" + str(lainaus.id))
     # if a GET (or any other method) we'll create a blank form
     else:
         form = UusiLainaus()
@@ -42,14 +43,18 @@ def uusiLainaus(request):
 # (juuriLisatty = True)
 
 @login_required
-def lainaus(request, pk):
+def lainaus(request, pk, juuriLisatty=False):
     laina = get_object_or_404(Varastotapahtuma, pk=pk)
-    return render(request, "varasto/lainaus.html", {"laina": laina})
+    if not juuriLisatty:
+        return render(request, "varasto/lainaus.html", {"laina": laina})
+    else:
+        return render(request, "varasto/lisatty_lainaus.html", {"laina": laina, "juuriLisatty": True})
 
-@login_required
-def lisattyLainaus(request, pk):
-    laina = get_object_or_404(Varastotapahtuma, pk=pk)
-    return render(request, "varasto/lisatty_lainaus.html", {"laina": laina})
+
+# @login_required
+# def lisattyLainaus(request, pk):
+#     laina = get_object_or_404(Varastotapahtuma, pk=pk)
+#     return render(request, "varasto/lisatty_lainaus.html", {"laina": laina})
 
 @login_required
 def poistaLainaus(request, pk):
