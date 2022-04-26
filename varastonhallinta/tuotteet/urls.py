@@ -9,5 +9,5 @@ urlpatterns = [
     # tuotteet/lista/
     path("lista/", views.lista, name="lista"),
     # varasto/tuote.html
-    path("tuote/<int:pk>", views.tuote, name="tuote"),
+    path("tuote/<int:pk>/", views.tuote, name="tuote"),
 ]
