@@ -27,7 +27,10 @@ def uusiLainaus(request):
         # check whether it's valid:
         if form.is_valid():
             lainaus = Varastotapahtuma.objects.create(**form.cleaned_data,
-            **{"varastonhoitaja": request.user, "arkistotunnus": uuid.uuid1()})
+            **{
+                "varastonhoitaja": request.user, 
+                "arkistotunnus": uuid.uuid1()
+            })
             lainaus.save()
             return redirect("../lisatty_lainaus/" + str(lainaus.id))
     # if a GET (or any other method) we'll create a blank form
