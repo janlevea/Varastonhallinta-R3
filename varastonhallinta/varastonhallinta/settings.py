@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'kayttajat.apps.KayttajatConfig',
+    'tuotteet.apps.TuotteetConfig',
     'varasto.apps.VarastoConfig',
     'django.contrib.admin',
     'django.contrib.auth',

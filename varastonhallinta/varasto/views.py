@@ -3,7 +3,7 @@ from django.utils import timezone
 
 from django.contrib.auth.decorators import login_required
 
-from varasto.models import Varastotapahtuma, Tuote
+from varasto.models import Varastotapahtuma
 from .forms import UusiLainaus
 
 # UUID arkistotunnuksen luontia varten
@@ -35,6 +35,8 @@ def uusiLainaus(request):
         form = UusiLainaus()
     return render(request, "varasto/uusi_lainaus.html", 
     {"form": form, "current_datetime": current_datetime})
+# TODO: "/lisatty_lainaus" -> /lainaus/<pk>, ei tarvitse 2 viewiä. Contextissa voi kertoa lainauksen olevan uusi
+# (juuriLisatty = True)
 
 @login_required
 def lainaus(request, pk):
@@ -68,18 +70,3 @@ def lainaukset(request):
 def lainauksenPalautus(request):
     current_datetime = timezone.now
     return render(request, "varasto/lainauksen_palautus.html", {"current_datetime": current_datetime})
-
-@login_required
-def lisaaMuokkaa(request):
-    return render(request, "varasto/lisaa_muokkaa.html")
-
-@login_required
-def tuotteet(request):
-    queryset = Tuote.objects.all()
-    tuotteet = {"object_list": queryset}
-    return render(request, "varasto/tuotteet.html", tuotteet)
-
-@login_required
-def tuote(request, pk):
-    tuote = get_object_or_404(Tuote, pk=pk)
-    return render(request, "varasto/tuote.html", {"tuote": tuote})
