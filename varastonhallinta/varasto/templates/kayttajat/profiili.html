@@ -32,9 +32,15 @@
             <div class="col">
                 Kirjautunut:
             </div>
+            {% if not user.last_login == none %}
             <div class="col">
                 {{ user.last_login|date:"d.m.Y H:i" }}
             </div>
+            {% else %}
+            <div class="col">
+                Ei koskaan
+            </div>
+            {% endif %}
         </div>
         <div class="row">
             <div class="col">
