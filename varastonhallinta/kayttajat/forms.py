@@ -3,7 +3,7 @@ from django import forms
 from kayttajat.models import Kayttaja
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
-from varastonhallinta.varasto import forms
+#from varasto import forms
 
 class Rekisteroidy(forms.ModelForm):
     email = forms.EmailField(

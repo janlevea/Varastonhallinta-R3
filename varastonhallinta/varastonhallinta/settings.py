@@ -31,8 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'varasto.apps.VarastoConfig',
     'kayttajat.apps.KayttajatConfig',
+    'varasto.apps.VarastoConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-AUTH_USER_MODEL = "varasto.Kayttaja" # vaihtaa käyttäjämodelin kustomoituun
+AUTH_USER_MODEL = "kayttajat.Kayttaja" # vaihtaa käyttäjämodelin kustomoituun
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
