@@ -8,12 +8,12 @@ from .forms import Rekisteroidy
 @login_required
 def profiili(request, opiskelijanumero):
     kayttaja = get_object_or_404(Kayttaja, opiskelijanumero=opiskelijanumero)
-    return render(request, "varasto/profiili.html", {"user": kayttaja})
+    return render(request, "kayttajat/profiili.html", {"user": kayttaja})
 
 def kayttajalista(request):
     queryset = Kayttaja.objects.all()
     kayttajalista = {"object_list": queryset}
-    return render(request, "varasto/kayttajat.html", kayttajalista)
+    return render(request, "kayttajat/kayttajat.html", kayttajalista)
 
 def rekisteroidy(request):
     if request.user.is_authenticated: # Jos käyttäjä on kirjautunut, ohjaa takas varaston etusivulle
@@ -29,4 +29,4 @@ def rekisteroidy(request):
             return redirect("../login/")
     else:
         form = Rekisteroidy()
-    return render(request, "varasto/rekisteroidy.html", {"form": form})
+    return render(request, "kayttajat/rekisteroidy.html", {"form": form})
