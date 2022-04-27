@@ -5,11 +5,10 @@
     <div class="title">
         {% if not juuriLisatty %}
             <h1>Lainaus</h1>
-            <h5>id: {{ laina.id }}</h5>
         {% else %}
             <h1>Lainaus lisätty!</h1>
-            <h5>id: {{ laina.id }}</h5>
         {% endif %}
+        <h5>id: {{ laina.id }}</h5>
     </div>
     <br/>
     {% comment %} Lataa lainauksen tiedot containeriin {% endcomment %}
