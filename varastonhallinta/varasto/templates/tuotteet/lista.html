@@ -8,7 +8,8 @@
             <h5>Määrä: {{ object_list|length }}</h5>
         {% endif %}
     </div>
-    <br/>
+    <a href="/varasto/tuotteet/lisaa/">Lisää tuote</a>&emsp;&emsp;&emsp;&emsp;
+    <br/><br/>
     {% comment %} 
         # TODO: tuotteiden järjestäminen parametrien mukaan
     {% endcomment %}
@@ -44,8 +45,5 @@
     </div>
     <br/>
     {% endfor %}
-
-    <a href="/varasto/tuotteet/lisaa/">Lisää tuote</a>
-&emsp;&emsp;&emsp;&emsp;
 </main>
 {% endblock content %}
