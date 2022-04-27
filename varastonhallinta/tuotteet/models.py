@@ -15,6 +15,7 @@ class Tuoteryhma(models.Model):
     def __str__(self):
         return f"id({self.id}) {self.nimi}"
 
+# TODO: Tuotekuva & viivakoodi_img toiminnallisuus
 class Tuote(models.Model):
     id = models.AutoField(primary_key=True, null=False)
     tuoteryhma = models.ForeignKey(Tuoteryhma, null=False, on_delete=models.PROTECT, verbose_name="Tuoteryhmä")
