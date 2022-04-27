@@ -3,11 +3,11 @@
 
 /*  Tarvittaessa punainen reunaviiva kaikille elementeille
     kehitysvaiheessa elementtien asetteluun */
-/*
+
 * {
     border: 1px solid red;
 } 
-*/ 
+
 
 /* base.html */
 header .logo {
@@ -57,6 +57,7 @@ main .title {
 main {
     margin: 0 auto; 
     width: 84%;
+    margin-bottom: 20px;
 }
 
 /* Yläotsikot */
