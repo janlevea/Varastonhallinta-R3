@@ -7,6 +7,9 @@ from tuotteet.models import Tuote
 # UUID arkistotunnuksen luontia varten
 import uuid
 
+# TODO: Viivakoodit kuvana tietokantaan - svg järkevin?
+# TODO: Tuotekuvat suoraan tietokantaan?
+
 class Varastotapahtuma(models.Model):   
     id = models.AutoField(primary_key=True, null=False)
     arkistotunnus = models.CharField(
