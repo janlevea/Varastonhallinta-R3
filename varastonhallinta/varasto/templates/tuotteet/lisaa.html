@@ -10,7 +10,7 @@
         <br>
         <form action="../lisaa/" method="post">
             {% csrf_token %}
-            <div class="uusituote">
+            <div class="perusform1">
                 <p class="varastonhoitaja">Varastonhoitaja:<br/>
                 <a href="/varasto/kayttajat/profiili/{{ request.user.opiskelijanumero }}">{{request.user.opiskelijanumero}} ({{request.user.get_kokonimi}})</a></p>
                 {{ form.as_p }}

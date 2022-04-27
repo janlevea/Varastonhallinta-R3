@@ -6,12 +6,12 @@
         <h1>Kirjaudu sisään</h1>
         <h5>Käyttääksesi varastonhallintaa</h5>
     </div>
-    <div class="kirjautumisform">
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Kirjaudu</button>&emsp;&emsp;&emsp;&emsp;<a href="/varasto/tili/rekisteroidy/">Rekisteröidy</a>
-        </form>
+    <div class="perusform1">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Kirjaudu</button>&emsp;&emsp;&emsp;&emsp;<a href="/varasto/kayttajat/rekisteroidy/">Rekisteröidy</a>
+        </div>
     </div>
 </main>
 {% endblock content %}

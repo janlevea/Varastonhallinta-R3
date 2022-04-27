@@ -26,6 +26,16 @@ class Rekisteroidy(forms.ModelForm):
             "password"
         ]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['opiskelijanumero'].widget.attrs.update({'class': 'roundedborder rasekoredborder'})
+        self.fields['email'].widget.attrs.update({'class': 'roundedborder rasekoredborder'})
+        self.fields['etunimi'].widget.attrs.update({'class': 'roundedborder rasekoredborder'})
+        self.fields['sukunimi'].widget.attrs.update({'class': 'roundedborder rasekoredborder'})
+        self.fields['password'].widget.attrs.update({'class': 'roundedborder rasekoblueborder', 'id': 'regpass'})
+        self.fields['password_repeat'].widget.attrs.update({'class': 'roundedborder rasekoblueborder'})
+    
     def clean_password_repeat(self, *args, **kwargs):
         password = self.cleaned_data.get("password")
         password_repeat = self.cleaned_data.get("password_repeat")

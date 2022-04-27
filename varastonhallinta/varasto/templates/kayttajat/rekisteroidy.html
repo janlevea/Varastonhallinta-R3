@@ -6,11 +6,11 @@
         <h1>Rekisteröidy</h1>
         <h5>Varastonhallintaan</h5>
     </div>
-    <div class="rekisteroidyform">
+    <div class="perusform1">
         <form action="../rekisteroidy/" method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Rekisteröidy</button>&emsp;<a href="/varasto/tili/login">Kirjaudu sisään</a>
+            <button type="submit">Rekisteröidy</button>&emsp;<a href="/varasto/kayttajat/login">Kirjaudu sisään</a>
         </form>
     </div>
 </main>

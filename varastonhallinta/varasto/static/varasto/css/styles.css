@@ -3,7 +3,6 @@
 
 /*  Tarvittaessa punainen reunaviiva kaikille elementeille
     kehitysvaiheessa elementtien asetteluun */
-
 /*
 * {
     border: 1px solid red;
@@ -52,8 +51,8 @@ main .title {
 .button-blue, .button-blue:hover, .button-blue:focus, .button-blue:active, .button-blue.active {
     background: #1b3259;
 }
-/* ---- */
 
+/* ---- */
 main {
     margin: 0 auto; 
     width: 84%;
@@ -88,7 +87,7 @@ h5 {
 
 /* nuolet index.html nappuloiden oikeissa reunoissa */
 .i-chevron-right, #i-search {
-    float:right;
+    float: right;
 }
 
 /* raportit.html -- alkaa */
@@ -155,66 +154,47 @@ h5 {
     background-color: #df2070;
 }
 
-/* /uusi_lainaus/ */
-.uusilainaus, .uusituote, .kirjautumisform, .rekisteroidyform {
+/* perusform1 leveys */
+.perusform1 {
     width: 280px;
 }
-
-.uusilainaus p, .uusituote p, .kirjautumisform, .rekisteroidyform {
+/* -- fontti */
+.perusform1, .perusform1 p {
     font-family: Nunito, sans-serif;
     font-weight: 400;
     font-size: 17px;
 }
 
-/* TODO: .css siistiminen! */
-
-/* -- raseko-punainen reunaviiva käyttäjä kenttiin */
-.kirjautumisform #id_username, #id_password,
-.rekisteroidyform #id_opiskelijanumero, #id_email, #id_etunimi, #id_sukunimi,
-.uusilainaus #id_varastonhoitaja, #id_asiakas,
-.uusituote #id_tuoteryhma, #id_nimike, .uusituote #id_maara {
+/* -- raseko-punainen reunaviiva - formeissa */
+.perusform1 #id_username, .perusform1 #id_password, /* kirjautuminen */
+.rasekoredborder {
     border: 2px solid #df2070;
 }
 
-/* -- erota varastonhoitaja, asiakas -- 
-varasto, tuote, määrä -- palautuspäivä -- marginaaleilla */ 
-.uusilainaus #id_asiakas, #id_maara, #id_palautuspaiva,
-.uusituote #id_maara, #id_kustannuspaikka {
+/* margin-bottom form kenttien erotukseen */
+.perusform1 .bottom-marg {
     margin-bottom: 15px;
 }
 
-/* -- raseko-sininen reunaviiva tuotekenttiin */
-.uusilainaus #id_varasto, #id_tuote, #id_maara,
-.rekisteroidyform #id_password, #id_password_repeat,
-.uusituote #id_hankintapaikka, #id_kustannuspaikka {
+/* -- raseko-sininen reunaviiva - formeissa */
+.rasekoblueborder, #id_regpass {
     border: 2px solid #1b3259;
 }
 
-/* -- musta reunaviiva palautuspäivä-kenttään */
-.uusilainaus #id_palautuspaiva,
-.uusituote #id_viivakoodi_string {
+/* -- vähän käytetty musta reunaviiva - formeissa */
+.blackborder {
     border: 2px solid black;
 }
 
-/* -- pyöristetyt reunat kaikille reunaviivoille
-      uusilainaus sivulla + suurempi koko kentille 
-*/
-.uusilainaus 
-#id_varastonhoitaja, #id_asiakas, 
-#id_varasto, #id_tuote, #id_maara, 
-#id_palautuspaiva,
-.kirjautumisform
-#id_username, #id_password,
-.rekisteroidyform
-#id_opiskelijanumero, #id_email, #id_etunimi, #id_sukunimi, #id_password, #id_password_repeat,
-.lisaatuote #id_tuoteryhma, #id_nimike, #id_maara, #id_hankintapaikka, #id_kustannuspaikka, #id_viivakoodi_string
-{
+/* -- pyöristetyt reunat formkenttiin + suurempi koko niille */
+.roundedborder, #id_username, #id_password {
     border-radius: 4px;
     height: 40px;
     width: 240px;
 }
 
-.uusituote #id_tuoteryhma {
+/* tuotteet/lisaa - tuoteryhmä valinta - koko */
+.perusform1 #id_tuoteryhma {
     width: 240px;
     height: 40px;
 }
@@ -237,8 +217,7 @@ varasto, tuote, määrä -- palautuspäivä -- marginaaleilla */
     width: 500px;
 }
 
-/* login-sivu */
-.kirjautumisform, .rekisteroidyform label {
+.perusform1 label {
     margin-bottom: 5px;
 }
 

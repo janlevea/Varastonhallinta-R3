@@ -19,5 +19,12 @@ class UusiLainaus(forms.ModelForm):
         "asiakas", 
         "tuote", "maara", 
         "palautuspaiva"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['asiakas'].widget.attrs.update({'class': 'rasekoredborder roundedborder bottom-marg'})
+        self.fields['tuote'].widget.attrs.update({'class': 'rasekoblueborder roundedborder'})
+        self.fields['maara'].widget.attrs.update({'class': 'rasekoblueborder roundedborder bottom-marg'})
+        self.fields['palautuspaiva'].widget.attrs.update({'class': 'blackborder roundedborder bottom-marg'})
 # TODO: Asiakkaan nimi näkyviin asiakas kenttään
 # TODO: Tuote-valinnasta id pois
