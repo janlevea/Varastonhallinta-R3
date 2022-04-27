@@ -1,8 +1,14 @@
 from django.db import models
 
+from kayttajat.models import Kayttaja
+
 class Tuoteryhma(models.Model):
     id = models.AutoField(primary_key=True, null=False)
     nimi = models.CharField(max_length=50, null=False, verbose_name="Nimi")
+    lisaaja = models.ForeignKey(
+        Kayttaja, null=False, on_delete=models.PROTECT, verbose_name="Lisääjä"
+    )
+    lisaysaika = models.DateTimeField(auto_now_add=True, null=False, editable=False, verbose_name="Lisäysaika")
     class Meta:
         verbose_name = "Tuoteryhmä"
         verbose_name_plural = "Tuoteryhmät"
@@ -11,13 +17,18 @@ class Tuoteryhma(models.Model):
 
 class Tuote(models.Model):
     id = models.AutoField(primary_key=True, null=False)
-    viivakoodi = models.CharField(max_length=30, null=False, verbose_name="Viivakoodi")
     tuoteryhma = models.ForeignKey(Tuoteryhma, null=False, on_delete=models.PROTECT, verbose_name="Tuoteryhmä")
     nimike = models.CharField(max_length=50, null=False, verbose_name="Nimike")
     maara = models.IntegerField(verbose_name="Määrä")
     hankintapaikka = models.CharField(max_length=50, null=False, verbose_name="Hankintapaikka")
     kustannuspaikka = models.CharField(max_length=10, null=False, verbose_name="Kustannuspaikka")
     tuotekuva = models.BinaryField(null=False, verbose_name="Tuotekuva")
+    viivakoodi_string = models.CharField(max_length=30, null=False, verbose_name="Viivakoodi")
+    viivakoodi_img = models.BinaryField(null=False, verbose_name="Viivakoodi")
+    lisaaja = models.ForeignKey(
+        Kayttaja, null=False, on_delete=models.PROTECT, verbose_name="Lisääjä"
+    )
+    lisaysaika = models.DateTimeField(auto_now_add=True, null=False, editable=False, verbose_name="Lisäysaika")
     class Meta:
         verbose_name = "Tuote"
         verbose_name_plural = "Tuotteet"

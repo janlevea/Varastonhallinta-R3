@@ -4,10 +4,10 @@ from . import views
 app_name = "tuotteet"
 
 urlpatterns = [
-    # tuotteet/lisaa_muokkaa/
-    path("lisaa_muokkaa/", views.lisaaMuokkaa, name="lisaaMuokkaa"), # TODO: Onko tarpeellinen? Lisää/Muokkaa toiminnallisuus voi olla /lista/ & /tuote/ sivulla
-    # tuotteet/lista/
+    # tuotteet/lista.html
     path("lista/", views.lista, name="lista"),
-    # varasto/tuote.html
+    # tuotteet/tuote.html
     path("tuote/<int:pk>/", views.tuote, name="tuote"),
+    # tuotteet/lisaa.html
+    path("lisaa/", views.lisaa, name="lisaa"),
 ]
