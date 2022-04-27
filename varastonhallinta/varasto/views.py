@@ -32,29 +32,17 @@ def uusiLainaus(request):
                 "arkistotunnus": uuid.uuid1()
             })
             lainaustapahtuma.save()
-            return lainaus(request, lainaustapahtuma.id, juuriLisatty=True)
-            #return redirect("../lisatty_lainaus/" + str(lainaus.id))
+            return render(request, "varasto/lainaus.html",  {"laina": lainaustapahtuma, "juuriLisatty": True})
     # if a GET (or any other method) we'll create a blank form
     else:
         form = UusiLainaus()
     return render(request, "varasto/uusi_lainaus.html", 
     {"form": form, "current_datetime": current_datetime})
-# TODO: "/lisatty_lainaus" -> /lainaus/<pk>, ei tarvitse 2 viewiä. Contextissa voi kertoa lainauksen olevan uusi
-# (juuriLisatty = True)
 
 @login_required
-def lainaus(request, pk, juuriLisatty=False):
+def lainaus(request, pk):
     laina = get_object_or_404(Varastotapahtuma, pk=pk)
-    if not juuriLisatty:
-        return render(request, "varasto/lainaus.html", {"laina": laina})
-    else:
-        return render(request, "varasto/lisatty_lainaus.html", {"laina": laina, "juuriLisatty": True})
-
-
-# @login_required
-# def lisattyLainaus(request, pk):
-#     laina = get_object_or_404(Varastotapahtuma, pk=pk)
-#     return render(request, "varasto/lisatty_lainaus.html", {"laina": laina})
+    return render(request, "varasto/lainaus.html", {"laina": laina, "juuriLisatty": False})
 
 @login_required
 def poistaLainaus(request, pk):

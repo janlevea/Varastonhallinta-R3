@@ -10,9 +10,6 @@ urlpatterns = [
     # Yksittäisten lainausten tiedot:
     # varasto/lainaus.html
     path("lainaus/<int:pk>/", views.lainaus, name="lainaus"),
-    
-    # varasto/lisatty_lainaus.html
-    #path("lisatty_lainaus/<int:pk>/", views.lisattyLainaus, name="lisattyLainaus"),
 
     # varasto/poista_lainaus.html
     path("poista_lainaus/<int:pk>", views.poistaLainaus, name="poistaLainaus"),

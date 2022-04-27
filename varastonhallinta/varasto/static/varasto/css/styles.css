@@ -207,7 +207,7 @@ varasto, tuote, määrä -- palautuspäivä -- marginaaleilla */
 }
 
 /*  yksittäisten lainausten tiedot containerissa
-    @ /lainaus/1/, /lisatty_lainaus/1/ */
+    @ /lainaus/1/ */
 .container {
     width: 800px;
     margin-left: -1.4%;
