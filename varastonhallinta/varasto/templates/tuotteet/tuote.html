@@ -3,7 +3,11 @@
 {% block content %}
 <main>
     <div class="title">
-        <h1>Tuote</h1>
+        {% if not juuriLisatty %}
+            <h1>Tuote</h1>
+        {% else %}
+            <h1>Tuote lisätty!</h1>
+        {% endif %}
         <h5>id: {{ tuote.id }}</h5>
     </div>
     <br/>

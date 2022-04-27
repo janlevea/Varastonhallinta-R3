@@ -155,37 +155,43 @@ h5 {
 }
 
 /* /uusi_lainaus/ */
-.uusilainaus, .kirjautumisform, .rekisteroidyform {
+.uusilainaus, .uusituote, .kirjautumisform, .rekisteroidyform {
     width: 280px;
 }
 
-.uusilainaus p, .kirjautumisform, .rekisteroidyform {
+.uusilainaus p, .uusituote p, .kirjautumisform, .rekisteroidyform {
     font-family: Nunito, sans-serif;
     font-weight: 400;
     font-size: 17px;
 }
 
+/* TODO: .css siistiminen! */
+
 /* -- raseko-punainen reunaviiva käyttäjä kenttiin */
 .kirjautumisform #id_username, #id_password,
 .rekisteroidyform #id_opiskelijanumero, #id_email, #id_etunimi, #id_sukunimi,
-.uusilainaus #id_varastonhoitaja, #id_asiakas {
+.uusilainaus #id_varastonhoitaja, #id_asiakas,
+.uusituote #id_tuoteryhma, #id_nimike, .uusituote #id_maara {
     border: 2px solid #df2070;
 }
 
 /* -- erota varastonhoitaja, asiakas -- 
 varasto, tuote, määrä -- palautuspäivä -- marginaaleilla */ 
-.uusilainaus #id_asiakas, #id_maara, #id_palautuspaiva {
+.uusilainaus #id_asiakas, #id_maara, #id_palautuspaiva,
+.uusituote #id_maara, #id_kustannuspaikka {
     margin-bottom: 15px;
 }
 
 /* -- raseko-sininen reunaviiva tuotekenttiin */
 .uusilainaus #id_varasto, #id_tuote, #id_maara,
-.rekisteroidyform #id_password, #id_password_repeat {
+.rekisteroidyform #id_password, #id_password_repeat,
+.uusituote #id_hankintapaikka, #id_kustannuspaikka {
     border: 2px solid #1b3259;
 }
 
 /* -- musta reunaviiva palautuspäivä-kenttään */
-.uusilainaus #id_palautuspaiva {
+.uusilainaus #id_palautuspaiva,
+.uusituote #id_viivakoodi_string {
     border: 2px solid black;
 }
 
@@ -199,11 +205,17 @@ varasto, tuote, määrä -- palautuspäivä -- marginaaleilla */
 .kirjautumisform
 #id_username, #id_password,
 .rekisteroidyform
-#id_opiskelijanumero, #id_email, #id_etunimi, #id_sukunimi, #id_password, #id_password_repeat
+#id_opiskelijanumero, #id_email, #id_etunimi, #id_sukunimi, #id_password, #id_password_repeat,
+.lisaatuote #id_tuoteryhma, #id_nimike, #id_maara, #id_hankintapaikka, #id_kustannuspaikka, #id_viivakoodi_string
 {
     border-radius: 4px;
     height: 40px;
     width: 240px;
+}
+
+.uusituote #id_tuoteryhma {
+    width: 240px;
+    height: 40px;
 }
 
 /*  yksittäisten lainausten tiedot containerissa

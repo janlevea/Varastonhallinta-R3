@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 
 from tuotteet.models import Tuote
+from .forms import LisaaTuote
 
 @login_required
 def lista(request):
@@ -27,9 +28,9 @@ def lisaa(request):
                 "lisaaja": request.user
             })
             lisaystapahtuma.save()
-            return render(request, "tuotteet/tuote.html", {"lisays": lisaystapahtuma, "juuriLisatty": True})
+            return render(request, "tuotteet/tuote.html", {"tuote": lisaystapahtuma, "juuriLisatty": True})
         return render(request, "tuotteet/lisaa.html",
         {"form": form, "current_datetime": current_datetime})
     else:
         form = LisaaTuote()
-    return render(request, "varasto/uusi_lainaus.html", {"form": form, "current_datetime": current_datetime})
+    return render(request, "tuotteet/lisaa.html", {"form": form, "current_datetime": current_datetime})
