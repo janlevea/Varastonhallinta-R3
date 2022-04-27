@@ -10,6 +10,7 @@ def profiili(request, opiskelijanumero):
     kayttaja = get_object_or_404(Kayttaja, opiskelijanumero=opiskelijanumero)
     return render(request, "kayttajat/profiili.html", {"user": kayttaja})
 
+@login_required
 def kayttajalista(request):
     queryset = Kayttaja.objects.all()
     kayttajalista = {"object_list": queryset}
