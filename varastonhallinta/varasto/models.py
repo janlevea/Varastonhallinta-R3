@@ -7,7 +7,7 @@ from tuotteet.models import Tuote
 # UUID arkistotunnuksen luontia varten
 import uuid
 
-# TODO: Viivakoodit kuvana tietokantaan - svg järkevin?
+# TODO: Viivakoodit kuvana tietokantaan - svg järkevin? - CODE 128
 # TODO: Tuotekuvat suoraan tietokantaan?
 
 class Varastotapahtuma(models.Model):   
