@@ -92,4 +92,4 @@ class Kayttaja(AbstractBaseUser):
         verbose_name = "Käyttäjä"
         verbose_name_plural = "Käyttäjät"
     def __str__(self):
-        return f"{self.opiskelijanumero}"
+        return f"{self.etunimi} {self.sukunimi} ({self.opiskelijanumero})"
