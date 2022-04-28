@@ -23,7 +23,7 @@
                 {% comment %} 
                 #TODO: Linkitys tuoteryhmä sivulle
                 {% endcomment %}
-                {{ tuote.tuoteryhma.nimi }}/{{ tuote.nimike }} 
+                <a href="/varasto/tuotteet/ryhma/{{tuote.tuoteryhma.id}}">{{ tuote.tuoteryhma.nimi }}</a>/{{ tuote.nimike }} 
             </div>
             <div class="col">
                 {{ tuote.maara }}kpl
