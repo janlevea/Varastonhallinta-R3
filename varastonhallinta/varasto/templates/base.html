@@ -23,7 +23,7 @@
             <hr class="top-bar">
 
             {% if user.is_authenticated %}
-                <h5 id="kirjautunut"><a href="/varasto/kayttajat/profiili/{{ user.opiskelijanumero }}">{{ user.opiskelijanumero }}</a> 
+                <h5 id="kirjautunut"><a href="/varasto/kayttajat/profiili/{{ user.opiskelijanumero }}">{{ user.get_kokonimi }} ({{ user.opiskelijanumero }})</a> 
                 <br/><a href="/varasto/kayttajat/logout">Kirjaudu ulos</a></h5>
             {% else %}
                 <h5 id="kirjautunut">

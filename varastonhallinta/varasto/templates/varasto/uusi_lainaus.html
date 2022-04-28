@@ -12,7 +12,7 @@
             {% csrf_token %}
             <div class="perusform1">
                 <p class="varastonhoitaja">Varastonhoitaja:<br/>
-                <a href="/varasto/kayttajat/profiili/{{ request.user.opiskelijanumero }}">{{request.user.opiskelijanumero}} ({{request.user.get_kokonimi}})</a></p>
+                <a href="/varasto/kayttajat/profiili/{{ request.user.opiskelijanumero }}">{{request.user.get_kokonimi}} ({{request.user.opiskelijanumero}})</a></p>
                 {{ form.as_p }}
             </div>
             <input type="submit" value="Lisää"/>&emsp;&emsp;&emsp;&emsp;<a href="/">Palaa etusivulle</a>
