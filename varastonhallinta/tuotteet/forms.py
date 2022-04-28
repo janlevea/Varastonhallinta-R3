@@ -1,6 +1,6 @@
 from django import forms
 
-from tuotteet.models import Tuote
+from tuotteet.models import Tuote, Tuoteryhma
 
 class LisaaTuote(forms.ModelForm):
     class Meta:
@@ -21,3 +21,16 @@ class LisaaTuote(forms.ModelForm):
         self.fields['hankintapaikka'].widget.attrs.update({'class': 'roundedborder rasekoblueborder'})
         self.fields['kustannuspaikka'].widget.attrs.update({'class': 'roundedborder rasekoblueborder bottom-marg'})
         self.fields['viivakoodi_string'].widget.attrs.update({'class': 'roundedborder blackborder'})
+
+class LisaaRyhma(forms.ModelForm):
+    class Meta:
+        model = Tuoteryhma
+        fields = [
+            "nimi"
+        ]
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        self.fields['nimi'].label = "Tuoteryhmän nimi"
+        self.fields['nimi'].widget.attrs.update({'class': 'roundedborder rasekoredborder'})

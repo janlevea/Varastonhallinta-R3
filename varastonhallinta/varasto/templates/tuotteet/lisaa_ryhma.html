@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<main>
+    <div class="title">
+        <h1>Tuotteryhmän lisäys</h1>
+        <h5>
+            Aika: {{current_datetime|date:"d.m.Y H:i"}}
+        </h5>
+        <br>
+        <form action="../lisaa_ryhma/" method="post">
+            {% csrf_token %}
+            <div class="perusform1">
+                <p class="varastonhoitaja">Varastonhoitaja:<br/>
+                <a href="/varasto/kayttajat/profiili/{{ request.user.opiskelijanumero }}">{{request.user.opiskelijanumero}} ({{request.user.get_kokonimi}})</a></p>
+                {{ form.as_p }}
+            </div>
+            <input type="submit" value="Lisää"/>&emsp;&emsp;&emsp;&emsp;<a href="/">Palaa etusivulle</a>
+        </form>
+    </div>
+</main>
+{% endblock content %}
