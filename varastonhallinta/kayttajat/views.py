@@ -12,7 +12,7 @@ def profiili(request, opiskelijanumero):
 
 @login_required
 def kayttajalista(request):
-    queryset = Kayttaja.objects.all()
+    queryset = Kayttaja.objects.order_by("opiskelijanumero")
     kayttajalista = {"object_list": queryset}
     return render(request, "kayttajat/kayttajat.html", kayttajalista)
 
