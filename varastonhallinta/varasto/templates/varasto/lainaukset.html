@@ -25,10 +25,11 @@
         </div>
         <div class="row">
             <div class="col">
-                {% comment %} 
-                #TODO: Linkitys tuoteryhmä/tuotesivuille 
-                {% endcomment %}
-                {{ instance.tuote.tuoteryhma.nimi }}/{{ instance.tuote.nimike }} 
+                <a href="/varasto/tuotteet/ryhma/{{ instance.tuote.tuoteryhma.id }}">
+                    {{ instance.tuote.tuoteryhma.nimi }}</a>
+                    / 
+                <a href="/varasto/tuotteet/tuote/{{ instance.tuote.id }}">
+                    {{ instance.tuote.nimike }}</a>
             </div>
             <div class="col">
                 {{ instance.maara }}kpl

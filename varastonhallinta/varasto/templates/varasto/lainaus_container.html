@@ -14,12 +14,12 @@
             Tuote
         </div>
         <div class="col">
-            id({{ laina.tuote.id }}) {{ laina.tuote.tuoteryhma.nimi }}/{{ laina.tuote.nimike }}/{{ laina.maara }}kpl
+            <a href="/varasto/tuotteet/ryhma/{{ laina.tuote.tuoteryhma.id }}">
+            {{ laina.tuote.tuoteryhma.nimi }}</a> / 
+            <a href="/varasto/tuotteet/tuote/{{ laina.tuote.id }}">
+            {{ laina.tuote.nimike }}</a> / {{ laina.maara }}kpl
         </div>
     </div>
-    {% comment %} 
-        TODO: tuotelinkki tuotteeseen, tuoteryhmälinkki ryhmään
-    {% endcomment %}
     <br>
     <div class="row">
         <div class="col">
