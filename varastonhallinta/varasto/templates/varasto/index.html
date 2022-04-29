@@ -5,9 +5,15 @@
 <main>
     <div class="title">
         <h1>Rasekon varastonhallinta ja lainausjärjestelmä</h1>
+        {% if user.is_authenticated %}
+        <h5>
+            Hyvää päivää {{ request.user.etunimi }}! Valitse toiminto alta
+        </h5>
+        {% else %}
         <h5>
             Valitse toiminto alta
         </h5>
+        {% endif %}
     </div>
     {% comment %} Painikkeet muille sivuille navigointiin {% endcomment %}
     <div class="buttons">
