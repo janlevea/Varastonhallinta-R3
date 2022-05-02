@@ -28,7 +28,7 @@ class VarastotapahtumaAdmin(admin.ModelAdmin):
         }
 
     def save_model(self, request, obj, form, change):
-        obj.arkistotunnus = uuid.uuid1()
+        obj.arkistotunnus = uuid.uuid4()
         obj.varastonhoitaja = request.user
         super().save_model(request, obj, form, change)
 

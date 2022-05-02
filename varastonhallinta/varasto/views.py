@@ -29,7 +29,7 @@ def uusiLainaus(request):
             lainaustapahtuma = Varastotapahtuma.objects.create(**form.cleaned_data,
             **{
                 "varastonhoitaja": request.user, 
-                "arkistotunnus": uuid.uuid1()
+                "arkistotunnus": uuid.uuid4()
             })
             lainaustapahtuma.save()
             return render(request, "varasto/lainaus.html",  {"laina": lainaustapahtuma, "juuriLisatty": True})
