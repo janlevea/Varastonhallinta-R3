@@ -1,6 +1,7 @@
 from django import forms
 
 from varasto.models import Varastotapahtuma
+from kayttajat.models import Kayttaja
 
 # Importoi date/time-kirjastot käytettäväksi aikaleimoissa/palautuspäivässä
 from datetime import timedelta
@@ -33,3 +34,9 @@ class PalautaLainaus(forms.ModelForm):
         fields = [
             "asiakas"
         ]
+        
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # TODO: Näytä vain asiakkaat joilla on avoimia lainauksia
+        #self.fields['asiakas'].queryset = Varastotapahtuma.objects.filter(Varastotapahtuma.asiakas)
+        self.fields['asiakas'].widget.attrs.update({'class': 'rasekoredborder roundedborder bottom-marg'})
