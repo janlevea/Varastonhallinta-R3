@@ -13,9 +13,9 @@ import uuid
 class Varastotapahtuma(models.Model):   
     id = models.AutoField(primary_key=True, null=False)
 
-    # TODO: Muuta UUIDFieldiksi
-    arkistotunnus = models.CharField(
-        editable=False, max_length=37, null=False, blank=False, unique=True, verbose_name="Arkistotunnus")
+    arkistotunnus = models.UUIDField(
+        default=uuid.uuid4, editable=False, null=False, blank=False, 
+        unique=True, verbose_name="Arkistotunnus")
 
     tuote = models.ForeignKey(
         Tuote, null=False, on_delete=models.PROTECT, verbose_name="Tuote")
