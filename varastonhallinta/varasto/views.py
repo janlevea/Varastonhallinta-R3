@@ -4,10 +4,7 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 
 from varasto.models import Varastotapahtuma
-from .forms import UusiLainaus
-
-# UUID arkistotunnuksen luontia varten
-import uuid
+from .forms import UusiLainaus, PalautaLainaus
 
 @login_required
 def index(request):
@@ -29,7 +26,6 @@ def uusiLainaus(request):
             lainaustapahtuma = Varastotapahtuma.objects.create(**form.cleaned_data,
             **{
                 "varastonhoitaja": request.user, 
-                "arkistotunnus": uuid.uuid4()
             })
             lainaustapahtuma.save()
             return render(request, "varasto/lainaus.html",  {"laina": lainaustapahtuma, "juuriLisatty": True})
@@ -65,4 +61,17 @@ def lainaukset(request):
 @login_required
 def lainauksenPalautus(request):
     current_datetime = timezone.now
-    return render(request, "varasto/lainauksen_palautus.html", {"current_datetime": current_datetime})
+
+    if request.method == 'POST':
+        form = PalautaLainaus(request.POST)
+        if form.is_valid():
+            asiakas1 = form.cleaned_data["asiakas"]
+            queryset = Varastotapahtuma.objects.filter(asiakas=asiakas1)
+            return render(request, "varasto/lainauksen_palautus.html", 
+            {"current_datetime": current_datetime, 
+            "object_list": queryset, "asiakas": asiakas1})
+    else:
+        form = PalautaLainaus()
+
+    return render(request, "varasto/lainauksen_palautus.html",
+    {"form": form, "current_datetime": current_datetime})

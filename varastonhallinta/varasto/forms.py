@@ -8,7 +8,6 @@ from django.utils import timezone
 
 # Varastotapahtuma modelista tehty formi uusi_lainaus -sivulle
 class UusiLainaus(forms.ModelForm):
-
     palautuspaiva = forms.DateField(
         initial = (timezone.now() + timedelta(days=14))
     )
@@ -25,6 +24,12 @@ class UusiLainaus(forms.ModelForm):
         self.fields['asiakas'].widget.attrs.update({'class': 'rasekoredborder roundedborder bottom-marg'})
         self.fields['tuote'].widget.attrs.update({'class': 'rasekoblueborder roundedborder'})
         self.fields['maara'].widget.attrs.update({'class': 'rasekoblueborder roundedborder bottom-marg'})
-        self.fields['palautuspaiva'].widget.attrs.update({'class': 'blackborder roundedborder bottom-marg'})
-        
-# TODO: Tuote-valinnasta id pois
+        self.fields['palautuspaiva'].widget.attrs.update({'class': 'blackborder roundedborder bottom-marg'})        
+    # TODO: Tuote-valinnasta id pois
+
+class PalautaLainaus(forms.ModelForm):
+    class Meta:
+        model = Varastotapahtuma
+        fields = [
+            "asiakas"
+        ]

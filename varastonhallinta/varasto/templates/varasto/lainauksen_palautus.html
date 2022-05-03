@@ -7,6 +7,80 @@
         <h5>
             Aika: {{current_datetime|date:"d.m.Y H:i"}}
         </h5>
+        <br>
+        <form action="../lainauksen_palautus/" method="POST">
+            {% csrf_token %}
+            <div class="perusform1">
+                {% if asiakas %}
+                    <a href="/">Palaa etusivulle</a><br/><br/>
+                {% endif %}
+                <p class="varastonhoitaja">Varastonhoitaja:<br/>
+                <a href="/varasto/kayttajat/profiili/{{ request.user.opiskelijanumero }}">{{request.user.get_kokonimi}} ({{request.user.opiskelijanumero}})</a></p>
+                {% if not asiakas %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Listaa"/>&emsp;&emsp;&emsp;&emsp;<a href="/">Palaa etusivulle</a>
+                {% endif %}
+            </div>
+        </form>
+        <br/>
+        {% if asiakas %}
+            {% if object_list %}
+                <br/>
+                Asiakkaan 
+                <a href="/varasto/kayttajat/profiili/{{ asiakas.opiskelijanumero }}">
+                    {{ asiakas }}</a> avoimet lainaukset({{ object_list|length }}):<br/><br/>
+            {% else %}
+                Asiakkaalla {{ asiakas }} ei ole avoimia lainauksia.
+            {% endif %}
+        {% for instance in object_list %}
+        <div class="container" id="lainaukset_container">
+            {% comment %} Lataa valitun asiakkaan lainausten tiedot containereihin {% endcomment %}
+            <div class="row">
+                <div class="col">
+                    <a href="/varasto/lainaus/{{ instance.id }}">
+                        id({{ instance.id }}) / ark.tunnus: {{ instance.arkistotunnus }}
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <a href="/varasto/tuotteet/ryhma/{{ instance.tuote.tuoteryhma.id }}">
+                        {{ instance.tuote.tuoteryhma.nimi }}</a>
+                        / 
+                    <a href="/varasto/tuotteet/tuote/{{ instance.tuote.id }}">
+                        {{ instance.tuote.nimike }}</a>
+                </div>
+                <div class="col">
+                    {{ instance.maara }}kpl
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    Aika: {{ instance.aikaleima|date:"d.m.Y H:i" }}
+                </div>
+                <div class="col">
+                    Viim. palautuspäivä: {{ instance.palautuspaiva|date:"d.m.Y" }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    Lainaaja: <a href="/varasto/kayttajat/profiili/{{ instance.asiakas.opiskelijanumero }}">{{ instance.asiakas.get_kokonimi }} ({{ instance.asiakas.opiskelijanumero }})</a>
+                </div>
+                <div class="col">
+                    Varastonhoitaja: <a href="/varasto/kayttajat/profiili/{{ instance.varastonhoitaja.opiskelijanumero }}">{{ instance.varastonhoitaja.get_kokonimi }} ({{ instance.varastonhoitaja.opiskelijanumero }})</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {% comment %} TODO: lainauksen palauttamisen kirjaaminen {% endcomment %}
+                    Merkitse palautetuksi
+                </div>
+            </div>
+        </div>
+        <br/>
+        {% endfor %}
+        {% endif %}
+        <br/>
     </div>     
 </main>
 {% endblock content %}
