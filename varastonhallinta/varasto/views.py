@@ -3,7 +3,7 @@ from django.utils import timezone
 
 from django.contrib.auth.decorators import login_required
 
-from varasto.models import Varastotapahtuma
+from varasto.models import Varastotapahtuma, VarastotapahtumaOld
 from .forms import UusiLainaus, PalautaLainaus
 
 @login_required
@@ -43,7 +43,37 @@ def lainaus(request, pk):
 @login_required
 def poistaLainaus(request, pk):
     laina = get_object_or_404(Varastotapahtuma, pk=pk)
+    
     if request.method == 'POST':
+        current_datetime = timezone.now()
+        poistettuLainaus = VarastotapahtumaOld(
+            id = laina.id,
+            arkistotunnus = laina.arkistotunnus,
+            tuote = laina.tuote,
+            maara = laina.maara,
+            aikaleima = laina.aikaleima,
+            palautuspaiva= laina.palautuspaiva,
+            asiakas = laina.asiakas,
+            varastonhoitaja = laina.varastonhoitaja,
+
+            poistettu = current_datetime,
+        )
+        poistettuLainaus.save()
+        print("----------", current_datetime, "----------")
+        # VarastotapahtumaOld.objects.create(
+        #     **{
+        #     "id": laina.id,
+        #     "arkistotunnus": laina.arkistotunnus,
+        #     "tuote": laina.tuote,
+        #     "maara": laina.maara,
+        #     "aikaleima": laina.aikaleima,
+        #     "palautuspaiva": laina.palautuspaiva,
+        #     "asiakas": laina.asiakas,
+        #     "varastonhoitaja": laina.varastonhoitaja,
+
+        #     "poistettu": current_datetime,
+        #     }
+        # )
         laina.delete()
         return redirect("../lainaus_poistettu/")
     return render(request, "varasto/poista_lainaus.html", {"laina": laina})
