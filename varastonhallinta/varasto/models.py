@@ -27,9 +27,9 @@ class VarastotapahtumaBase(models.Model):
         null=False, verbose_name="Palautuspäivä")
     
     asiakas = models.ForeignKey(
-        Kayttaja, null=False, on_delete=models.PROTECT, verbose_name="Asiakas")
+        Kayttaja, null=False, on_delete=models.PROTECT, verbose_name="Asiakas",  related_name="asiakas")
     varastonhoitaja = models.ForeignKey(
-        Kayttaja, null=False, on_delete=models.PROTECT, verbose_name="Varastonhoitaja")
+        Kayttaja, null=False, on_delete=models.PROTECT, verbose_name="Varastonhoitaja", related_name="varastonhoitaja")
     
     class Meta:
         verbose_name = "Varastotapahtuma"
@@ -43,6 +43,12 @@ class Varastotapahtuma(VarastotapahtumaBase):
     pass
 
 class VarastotapahtumaOld(VarastotapahtumaBase):
+    asiakas = models.ForeignKey(
+        Kayttaja, null=False, on_delete=models.PROTECT, verbose_name="Asiakas",  related_name="asiakas_oli")
+
+    varastonhoitaja = models.ForeignKey(
+        Kayttaja, null=False, on_delete=models.PROTECT, verbose_name="Varastonhoitaja", related_name="varastonhoitaja_oli")
+
     palautettu = models.DateTimeField(
         blank=True, null=True, editable=False, verbose_name="Palautettu")
 

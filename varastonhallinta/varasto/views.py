@@ -45,42 +45,13 @@ def poistaLainaus(request, pk):
     laina = get_object_or_404(Varastotapahtuma, pk=pk)
     
     if request.method == 'POST':
-        current_datetime = timezone.now()
-        poistettuLainaus = VarastotapahtumaOld(
-            id = laina.id,
-            arkistotunnus = laina.arkistotunnus,
-            tuote = laina.tuote,
-            maara = laina.maara,
-            aikaleima = laina.aikaleima,
-            palautuspaiva= laina.palautuspaiva,
-            asiakas = laina.asiakas,
-            varastonhoitaja = laina.varastonhoitaja,
-
-            poistettu = current_datetime,
-        )
-        poistettuLainaus.save()
-        print("----------", current_datetime, "----------")
-        # VarastotapahtumaOld.objects.create(
-        #     **{
-        #     "id": laina.id,
-        #     "arkistotunnus": laina.arkistotunnus,
-        #     "tuote": laina.tuote,
-        #     "maara": laina.maara,
-        #     "aikaleima": laina.aikaleima,
-        #     "palautuspaiva": laina.palautuspaiva,
-        #     "asiakas": laina.asiakas,
-        #     "varastonhoitaja": laina.varastonhoitaja,
-
-        #     "poistettu": current_datetime,
-        #     }
-        # )
-        laina.delete()
+        poistapalautaLainaus(pk, poisto=True)
         return redirect("../lainaus_poistettu/")
     return render(request, "varasto/poista_lainaus.html", {"laina": laina})
 
 @login_required
-def lainausPoistettu(request):
-    return render(request, "varasto/lainaus_poistettu.html")
+def lainausPoistettu(request, onPoisto=True):
+    return render(request, "varasto/lainaus_poistettu.html", {"poisto": True})
 
 @login_required
 def lainaukset(request):
@@ -90,7 +61,7 @@ def lainaukset(request):
 
 @login_required
 def lainauksenPalautus(request):
-    current_datetime = timezone.now
+    current_datetime = timezone.now()
 
     if request.method == 'POST':
         form = PalautaLainaus(request.POST)
@@ -105,3 +76,33 @@ def lainauksenPalautus(request):
 
     return render(request, "varasto/lainauksen_palautus.html",
     {"form": form, "current_datetime": current_datetime})
+
+@login_required
+def lainausPalautettu(request, pk):
+    laina = get_object_or_404(Varastotapahtuma, pk=pk)
+    
+    if request.method == 'POST':
+        poistapalautaLainaus(pk, poisto=False)
+        return redirect("../lainaus_palautettu/")
+    return render(request, "varasto/lainauksen_palautus.html", {"laina": laina})
+
+def poistapalautaLainaus(pk, poisto=False):
+    laina = get_object_or_404(Varastotapahtuma, pk=pk)
+    current_datetime = timezone.now()
+
+    oldLainaus = VarastotapahtumaOld(
+            id = laina.id,
+            arkistotunnus = laina.arkistotunnus,
+            tuote = laina.tuote,
+            maara = laina.maara,
+            aikaleima = laina.aikaleima,
+            palautuspaiva= laina.palautuspaiva,
+            asiakas = laina.asiakas,
+            varastonhoitaja = laina.varastonhoitaja,
+        )
+    if not poisto: # Tämä on palautus
+        oldLainaus.palautettu = current_datetime
+    else: # Tämä on poisto
+        oldLainaus.poistettu = current_datetime
+    oldLainaus.save()
+    laina.delete()
