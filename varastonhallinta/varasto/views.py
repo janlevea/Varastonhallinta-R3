@@ -45,7 +45,7 @@ def poistaLainaus(request, pk):
     laina = get_object_or_404(Varastotapahtuma, pk=pk)
     
     if request.method == 'POST':
-        poistapalautaLainaus(pk, poisto=True)
+        poistapalautaLainaus(pk, merkitsija=request.user, poisto=True)
         return redirect("../lainaus_poistettu/", {"onPoisto": True})
     return render(request, "varasto/poista_lainaus.html", {"laina": laina})
 
@@ -79,11 +79,11 @@ def palautaLainaus(request, pk):
     laina = get_object_or_404(Varastotapahtuma, pk=pk)
     
     if request.method == 'POST':
-        poistapalautaLainaus(pk, poisto=False)
+        poistapalautaLainaus(pk, merkitsija=request.user, poisto=False)
         return render(request, "varasto/lainaus_poistettu.html", {"onPoisto": False})
     return render(request, "varasto/palauta_lainaus.html", {"laina": laina})
 
-def poistapalautaLainaus(pk, poisto=False):
+def poistapalautaLainaus(pk, merkitsija, poisto=False):
     laina = get_object_or_404(Varastotapahtuma, pk=pk)
     current_datetime = timezone.now()
 
@@ -96,6 +96,7 @@ def poistapalautaLainaus(pk, poisto=False):
             palautuspaiva= laina.palautuspaiva,
             asiakas = laina.asiakas,
             varastonhoitaja = laina.varastonhoitaja,
+            varastonhoitaja_poisto_palautus = merkitsija
         )
     if not poisto: # Tämä on palautus
         oldLainaus.palautettu = current_datetime

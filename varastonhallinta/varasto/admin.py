@@ -44,6 +44,7 @@ class VarastotapahtumaOldAdmin(ReadOnlyAdminMixin, admin.ModelAdmin):
         "tuote", "maara",
         "aikaleima", "palautuspaiva",
         "asiakas", "varastonhoitaja",
+        "varastonhoitaja_poisto_palautus", 
         "palautettu", "poistettu"
     )
 
