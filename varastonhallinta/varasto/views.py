@@ -46,18 +46,15 @@ def poistaLainaus(request, pk):
     
     if request.method == 'POST':
         poistapalautaLainaus(pk, poisto=True)
-        return redirect("../lainaus_poistettu/")
+        return redirect("../lainaus_poistettu/", {"onPoisto": True})
     return render(request, "varasto/poista_lainaus.html", {"laina": laina})
 
 @login_required
 def lainausPoistettu(request, onPoisto=True):
-    return render(request, "varasto/lainaus_poistettu.html", {"poisto": True})
-
-@login_required
-def lainaukset(request):
-    queryset = Varastotapahtuma.objects.all()
-    lainaukset = {"object_list": queryset}
-    return render(request, "varasto/lainaukset.html", lainaukset)
+    if(onPoisto):
+        return render(request, "varasto/lainaus_poistettu.html", {"onPoisto": True})
+    else:
+        return render(request, "varasto/lainaus_poistettu.html", {"onPoisto": False})
 
 @login_required
 def lainauksenPalautus(request):
@@ -78,13 +75,13 @@ def lainauksenPalautus(request):
     {"form": form, "current_datetime": current_datetime})
 
 @login_required
-def lainausPalautettu(request, pk):
+def palautaLainaus(request, pk):
     laina = get_object_or_404(Varastotapahtuma, pk=pk)
     
     if request.method == 'POST':
         poistapalautaLainaus(pk, poisto=False)
-        return redirect("../lainaus_palautettu/")
-    return render(request, "varasto/lainauksen_palautus.html", {"laina": laina})
+        return render(request, "varasto/lainaus_poistettu.html", {"onPoisto": False})
+    return render(request, "varasto/palauta_lainaus.html", {"laina": laina})
 
 def poistapalautaLainaus(pk, poisto=False):
     laina = get_object_or_404(Varastotapahtuma, pk=pk)
@@ -106,3 +103,9 @@ def poistapalautaLainaus(pk, poisto=False):
         oldLainaus.poistettu = current_datetime
     oldLainaus.save()
     laina.delete()
+
+@login_required
+def lainaukset(request):
+    queryset = Varastotapahtuma.objects.all()
+    lainaukset = {"object_list": queryset}
+    return render(request, "varasto/lainaukset.html", lainaukset)

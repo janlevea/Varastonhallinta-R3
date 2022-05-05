@@ -3,7 +3,11 @@
 {% block content %}
 <main>
     <div class="title">
+        {% if onPoisto %}
         <h1>Lainaus poistettu!</h1>
+        {% else %}
+        <h1>Lainaus palautettu!</h1>
+        {% endif %}
         <h5>
             <a href="/">Palaa varastohallinnan etusivulle</a>
         </h5>

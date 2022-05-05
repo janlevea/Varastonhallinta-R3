@@ -27,4 +27,5 @@ urlpatterns = [
 
     # varasto/lainauksen_palautus.html
     path("lainauksen_palautus/", views.lainauksenPalautus, name="lainauksenPalautus"),
+    path("palauta_lainaus/<int:pk>", views.palautaLainaus, name="palautaLainaus"),
 ]
