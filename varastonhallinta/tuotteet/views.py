@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 
@@ -54,6 +54,20 @@ def lisaa(request):
     else:
         form = LisaaTuote()
     return render(request, "tuotteet/lisaa.html", {"form": form, "current_datetime": current_datetime})
+
+@login_required
+def poistaTuote(request, pk):
+    tuote = get_object_or_404(Tuote, pk=pk)
+    current_datetime = timezone.now()
+
+    if request.method == 'POST':
+        tuote.delete()
+        return redirect("../tuote_poistettu/")
+    return render(request, "tuotteet/poista_tuote.html", {"tuote": tuote})
+
+@login_required
+def tuotePoistettu(request):
+    return render(request, "tuotteet/tuote_poistettu.html")
 
 @login_required
 def lisaaRyhma(request):

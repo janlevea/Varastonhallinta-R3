@@ -3,16 +3,14 @@
 {% block content %}
 <main>
     <div class="title">
-        {% if not juuriLisatty %}
-            <h1>Tuote</h1>
-        {% else %}
-            <h1>Tuote lisätty!</h1>
-        {% endif %}
+        <h1>Poistetaanko tuote?</h1>
         <h5>id: {{ tuote.id }}</h5>
     </div>
+    <form method="POST">{% csrf_token %}
+        <p><input type="submit" value="Kyllä"/>&emsp;&emsp;&emsp;&emsp;<a href="/varasto/tuote/{{ tuote.id }}">Peruuta</a></p>
+    </form>
     <br/>
     {% comment %} Lataa tuotteen tiedot containeriin {% endcomment %}
     {% include "tuotteet/tuote_container.html" with naytanimi=True %}
-    <br/>
 </main>
 {% endblock content %}
