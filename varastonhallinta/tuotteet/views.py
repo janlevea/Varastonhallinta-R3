@@ -30,6 +30,7 @@ def lista(request):
     tuotelista = {"object_list": queryset, "naytanimi": True}
     return render(request, "tuotteet/lista.html", tuotelista)
 
+# TODO: Tuotteiden muokkaus/poisto
 @login_required
 def tuote(request, pk):
     tuote = get_object_or_404(Tuote, pk=pk)
