@@ -14,7 +14,7 @@ urlpatterns = [
     # varasto/poista_lainaus.html
     path("poista_lainaus/<int:pk>", views.poistaLainaus, name="poistaLainaus"),
     # varasto/lainaus_poistettu.html
-    path("lainaus_poistettu/", views.lainausPoistettu, name="lainausPoistettu"),
+    path("lainaus_poistettu/", views.lainausPoistettu, name="lainausPoistettu"), # TODO: Lainaus ja Tuote poistettu sivuille lisää linkkejä ehkä oma includoitava html?
 
     # varasto/lainaukset.html - Kaikki avoimet lainaukset
     path("lainaukset/", views.lainaukset, name="lainaukset"),
