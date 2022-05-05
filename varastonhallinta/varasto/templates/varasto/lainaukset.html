@@ -51,6 +51,14 @@
                 Varastonhoitaja: <a href="/varasto/kayttajat/profiili/{{ instance.varastonhoitaja.opiskelijanumero }}">{{ instance.varastonhoitaja.get_kokonimi }} ({{ instance.varastonhoitaja.opiskelijanumero }})</a>
             </div>
         </div>
+        <div class="row">
+            <div class="col">
+                <a href="/varasto/palauta_lainaus/{{ instance.id }}">Merkitse palautetuksi</a>
+            </div>
+            <div class="col">
+                <a href="/varasto/poista_lainaus/{{ instance.id }}">Poista lainaus</a>
+            </div>
+        </div>
     </div>
     <br/>
     {% endfor %}
