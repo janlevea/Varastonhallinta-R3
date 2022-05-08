@@ -7,9 +7,6 @@ from tuotteet.models import Tuote
 # UUID arkistotunnuksen luontia varten
 import uuid
 
-# TODO: Viivakoodit kuvana tietokantaan - svg järkevin? - CODE 128 - Tai tiedostona? ImageField
-# TODO: Tuotekuvat suoraan tietokantaan? - Tai tiedostona? ImageField
-
 class VarastotapahtumaBase(models.Model):
     id = models.AutoField(primary_key=True, null=False)
 
