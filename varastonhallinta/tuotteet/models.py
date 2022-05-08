@@ -15,7 +15,9 @@ class Tuoteryhma(models.Model):
     def __str__(self):
         return f"id({self.id}) {self.nimi}"
 
-# TODO: Tuotekuva & viivakoodi_img toiminnallisuus - python barcode
+# TODO: Viivakoodit kuvana tietokantaan - svg järkevin? - CODE 128 - Tai tiedostona? ImageField
+# TODO: Tuotekuvat ImageField
+# TODO: viivakoodi(_img) toiminnallisuus - python barcode
 class TuoteBase(models.Model):
     id = models.AutoField(primary_key=True, null=False)
     
@@ -43,6 +45,7 @@ class TuoteBase(models.Model):
         verbose_name_plural = "Tuotteet"
         abstract = True
         ordering = ['tuoteryhma', 'nimike']
+
     def __str__(self):
         return f"id({self.id}) {self.tuoteryhma.nimi}/{self.nimike}"
 
