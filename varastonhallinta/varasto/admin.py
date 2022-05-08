@@ -7,6 +7,16 @@ from .models import Varastotapahtuma, VarastotapahtumaOld
 from datetime import timedelta
 from django.utils import timezone
 
+class ReadOnlyAdminMixin:
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
 class VarastotapahtumaAdmin(admin.ModelAdmin):
     fields = (
         #"arkistotunnus",
@@ -27,16 +37,6 @@ class VarastotapahtumaAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.varastonhoitaja = request.user
         super().save_model(request, obj, form, change)
-
-class ReadOnlyAdminMixin:
-    def has_add_permission(self, request):
-        return False
-
-    def has_change_permission(self, request, obj=None):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        return False
 
 class VarastotapahtumaOldAdmin(ReadOnlyAdminMixin, admin.ModelAdmin):
     list_display = (
