@@ -1,4 +1,7 @@
 <br/>
+{% if juuriLisatty %}
+    <a href="/varasto/uusi_lainaus/">Lisää toinen</a>&emsp;&emsp;&emsp;&emsp;
+{% endif %}
 <a href="/varasto/">Palaa etusivulle</a>
 &emsp;&emsp;&emsp;&emsp;<a href="/varasto/lainaukset/">Avoimet lainaukset</a>
 &emsp;&emsp;&emsp;&emsp;<a href="{{ request.META.HTTP_REFERER }}">Edellinen sivu</a>
