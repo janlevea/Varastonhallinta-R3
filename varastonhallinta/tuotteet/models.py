@@ -70,3 +70,5 @@ class TuoteOld(TuoteBase):
     class Meta(TuoteBase.Meta):
         verbose_name = "Vanha tuote"
         verbose_name_plural = "Vanhat tuotteet"
+
+# TODO: 10.5.22 Yksinkertaistus - https://github.com/janlevea/Varastonhallinta-R3/pull/15
