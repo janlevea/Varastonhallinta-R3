@@ -34,7 +34,7 @@
             Viim. palautuspäivä
         </div>
         <div class="col">
-            {{ laina.palautuspaiva|date:"d.m.Y" }}
+            {{ laina.viim_palautuspaiva|date:"d.m.Y" }}
         </div>
     </div>
     <br>
@@ -62,9 +62,6 @@
     <div class="row">
         <div class="col">
             <a href="/varasto/palauta_lainaus/{{ laina.id }}">Merkitse palautetuksi</a>
-        </div>
-        <div class="col">
-            <a href="/varasto/poista_lainaus/{{ laina.id }}">Poista lainaus</a>
         </div>
     </div>
 </div>

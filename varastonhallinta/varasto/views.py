@@ -1,74 +1,58 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.utils import timezone
+from django.shortcuts import render, get_object_or_404 #, redirect
+from django.utils import timezone # Aikaleimoja varten
 
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required # Sivut vaativat kirjautumisen
 
-from varasto.models import Varastotapahtuma, VarastotapahtumaOld
+from varasto.models import Varastotapahtuma
 from .forms import UusiLainaus, PalautaLainaus
 
 @login_required
-def index(request):
+def index(request): # Varastonhallinnan etusivu
     return render(request, "varasto/index.html")
 
 @login_required
-def raportit(request):
-    return render(request, "varasto/raportit.html")
-
-@login_required
 def uusiLainaus(request):
+    # Uuden lainauksen kirjaaminen
     current_datetime = timezone.now
-    # if POST request - process the form data
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
+        # POST - eli täytetty formi lähetettiin
         form = UusiLainaus(request.POST)
-        # check whether it's valid:
         if form.is_valid():
+            # Formi on ok, luo varastotapahtuma
             lainaustapahtuma = Varastotapahtuma.objects.create(**form.cleaned_data,
             **{
                 "varastonhoitaja": request.user, 
             })
             lainaustapahtuma.save()
+            # Siirry lainauksen sivulle
             return render(request, "varasto/lainaus.html",  {"laina": lainaustapahtuma, "juuriLisatty": True})
-    # if a GET (or any other method) we'll create a blank form
     else:
+        # EI POST - luo tyhjä lainausformi
         form = UusiLainaus()
     return render(request, "varasto/uusi_lainaus.html", 
     {"form": form, "current_datetime": current_datetime})
 
 @login_required
 def lainaus(request, pk):
+    # Yksittäisen lainauksen sivu
     laina = get_object_or_404(Varastotapahtuma, pk=pk)
     return render(request, "varasto/lainaus.html", {"laina": laina, "juuriLisatty": False})
 
 @login_required
-def poistaLainaus(request, pk):
-    laina = get_object_or_404(Varastotapahtuma, pk=pk)
-    
-    if request.method == 'POST':
-        poistapalautaLainaus(pk, merkitsija=request.user, poisto=True)
-        return redirect("../lainaus_poistettu/", {"onPoisto": True})
-    return render(request, "varasto/poista_lainaus.html", {"laina": laina})
-
-@login_required
-def lainausPoistettu(request, onPoisto=True):
-    if(onPoisto):
-        return render(request, "varasto/lainaus_poistettu.html", {"onPoisto": True})
-    else:
-        return render(request, "varasto/lainaus_poistettu.html", {"onPoisto": False})
-
-@login_required
-def lainauksenPalautus(request):
+def lainauksenPalautus(request): 
     current_datetime = timezone.now()
 
     if request.method == 'POST':
         form = PalautaLainaus(request.POST)
         if form.is_valid():
+            # Näytä avoimet lainaukset lainaajan mukaan
             asiakas1 = form.cleaned_data["asiakas"]
-            queryset = Varastotapahtuma.objects.filter(asiakas=asiakas1)
+            queryset = Varastotapahtuma.objects.filter(asiakas=asiakas1, avoin=True)
             return render(request, "varasto/lainauksen_palautus.html", 
             {"current_datetime": current_datetime, 
             "object_list": queryset, "asiakas": asiakas1})
     else:
+        # Lainaajaa ei ole valittu
         form = PalautaLainaus()
 
     return render(request, "varasto/lainauksen_palautus.html",
@@ -78,35 +62,18 @@ def lainauksenPalautus(request):
 def palautaLainaus(request, pk):
     laina = get_object_or_404(Varastotapahtuma, pk=pk)
     
-    if request.method == 'POST':
-        poistapalautaLainaus(pk, merkitsija=request.user, poisto=False)
-        return render(request, "varasto/lainaus_poistettu.html", {"onPoisto": False})
-    return render(request, "varasto/palauta_lainaus.html", {"laina": laina})
-
-def poistapalautaLainaus(pk, merkitsija, poisto=False):
-    laina = get_object_or_404(Varastotapahtuma, pk=pk)
-    current_datetime = timezone.now()
-
-    oldLainaus = VarastotapahtumaOld(
-            id = laina.id,
-            arkistotunnus = laina.arkistotunnus,
-            tuote = laina.tuote,
-            maara = laina.maara,
-            aikaleima = laina.aikaleima,
-            palautuspaiva= laina.palautuspaiva,
-            asiakas = laina.asiakas,
-            varastonhoitaja = laina.varastonhoitaja,
-            varastonhoitaja_poisto_palautus = merkitsija
-        )
-    if not poisto: # Tämä on palautus
-        oldLainaus.palautettu = current_datetime
-    else: # Tämä on poisto
-        oldLainaus.poistettu = current_datetime
-    oldLainaus.save()
-    laina.delete()
+    if request.method == 'POST': 
+        # Varastonhoitaja painaa palauta_lainaus.html sivulla Kyllä nappulaa
+        laina.avoin = False # Aseta laina suljetuksi
+        laina.palautettu = timezone.now() # Palautuksen aikaleima
+        laina.varastonhoitaja_palautus = request.user # Varastonhoitaja palautukselle
+        laina.save() # Tallenna tietokantaan
+        return render(request, "varasto/lainaus_palautettu.html") # Vahvistussivu palautukselle - TODO: Näytä lainauksen tietoja tällä sivulla
+    return render(request, "varasto/palauta_lainaus.html", {"laina": laina}) # Kyllä nappia ei ole painettu
 
 @login_required
-def lainaukset(request):
-    queryset = Varastotapahtuma.objects.all()
-    lainaukset = {"object_list": queryset}
-    return render(request, "varasto/lainaukset.html", lainaukset)
+def lainaukset(request): # Lista kaikista avoimista lainauksista
+    queryset = Varastotapahtuma.objects.filter(avoin = True)
+    return render(request, "varasto/lainaukset.html", {"object_list": queryset})
+
+# TODO: Vanhat/Palautetut lainaukset

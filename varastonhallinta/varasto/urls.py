@@ -11,16 +11,11 @@ urlpatterns = [
     # varasto/lainaus.html
     path("lainaus/<int:pk>/", views.lainaus, name="lainaus"),
 
-    # varasto/poista_lainaus.html
-    path("poista_lainaus/<int:pk>", views.poistaLainaus, name="poistaLainaus"),
-    # varasto/lainaus_poistettu.html
-    path("lainaus_poistettu/", views.lainausPoistettu, name="lainausPoistettu"),
+    # varasto/palauta_lainaus.html
+    path("palauta_lainaus/<int:pk>", views.palautaLainaus, name="palautaLainaus"),
 
     # varasto/lainaukset.html - Kaikki avoimet lainaukset
     path("lainaukset/", views.lainaukset, name="lainaukset"),
-
-    # varasto/raportit.html
-    path("raportit/", views.raportit, name="raportit"),
     
     # varasto/uusi_lainaus.html
     path("uusi_lainaus/", views.uusiLainaus, name="uusiLainaus"),
