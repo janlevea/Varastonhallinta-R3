@@ -28,7 +28,6 @@ class UusiLainaus(forms.ModelForm):
         self.fields['tuote'].widget.attrs.update({'class': 'rasekoblueborder roundedborder'})
         self.fields['maara'].widget.attrs.update({'class': 'rasekoblueborder roundedborder bottom-marg'})
         self.fields['viim_palautuspaiva'].widget.attrs.update({'class': 'blackborder roundedborder bottom-marg'})        
-    # TODO: Tuote-valinnasta id pois
 
 class PalautaLainaus(forms.ModelForm):
     class Meta:
