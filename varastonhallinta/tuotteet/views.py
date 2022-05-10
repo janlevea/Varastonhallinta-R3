@@ -26,7 +26,7 @@ def ryhma(request, pk):
 
 @login_required
 def lista(request):
-    queryset = Tuote.objects.all()
+    queryset = Tuote.objects.filter(poistettu = False)
     tuotelista = {"object_list": queryset, "naytanimi": True}
     return render(request, "tuotteet/lista.html", tuotelista)
 
@@ -63,7 +63,7 @@ def poistaTuote(request, pk):
         tuote.poistoaika = timezone.now()
         tuote.poistaja = request.user
         tuote.save()
-        return render(request, "/varasto/tuotteet/tuote_poistettu.html") # Vahvistussivu poistolle - TODO: Näytä tuotteen tietoja tällä sivulla
+        return render(request, "tuotteet/tuote_poistettu.html") # Vahvistussivu poistolle - TODO: Näytä tuotteen tietoja tällä sivulla
     return render(request, "tuotteet/poista_tuote.html", {"tuote": tuote})
 
 @login_required
