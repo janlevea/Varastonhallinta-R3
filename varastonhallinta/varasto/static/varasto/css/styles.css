@@ -3,6 +3,8 @@
 
 /*  Tarvittaessa punainen reunaviiva kaikille elementeille
     kehitysvaiheessa elementtien asetteluun */
+
+
 /*
 * {
     border: 1px solid red;
@@ -178,4 +180,8 @@ footer .lefttext {
 }
 footer span {
     color: #df2070;
+}
+
+#tuoteryhmaotsikko {
+    margin-left:-20px
 }

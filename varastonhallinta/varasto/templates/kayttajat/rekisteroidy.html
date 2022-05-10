@@ -1,17 +1,16 @@
 {% extends "base.html" %}
 {% load static %}
+{% block h1title %}Rekisteröidy{% endblock %}
+{% block h5title %}Varastonhallintaan{% endblock %}
 {% block content %}
-<main>
-    <div class="title">
-        <h1>Rekisteröidy</h1>
-        <h5>Varastonhallintaan</h5>
-    </div>
-    <div class="perusform1">
-        <form action="../rekisteroidy/" method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Rekisteröidy</button>&emsp;<a href="/varasto/kayttajat/login">Kirjaudu sisään</a>
-        </form>
-    </div>
-</main>
+<div class="perusform1">
+    <form action="/varasto/kayttajat/rekisteroidy/" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Rekisteröidy</button>&emsp;<a href="/varasto/kayttajat/login">Kirjaudu sisään</a>
+    </form>
+</div>
 {% endblock content %}
+{% comment %} 
+ TODO: rekisteröinnistä ei tule mitään onnistumistekstiä, heittää vain etusivulle.. Aktivointisähköposti myös? 
+{% endcomment %}

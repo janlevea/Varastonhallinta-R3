@@ -1,17 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
+{% block h1title %}Lainaus palautettu!{% endblock %}
+{% block h5title %}
+    <br/>
+    <a href="/">Palaa varastohallinnan etusivulle</a><br/><br/>
+    <a href="/varasto/lainaukset/">Avoimet lainaukset</a>
+{% endblock %}
+<br>
 {% block content %}
-<main>
-    <div class="title">
-        <h1>Lainaus palautettu!</h1>
-        <h5>
-            <br/>
-            <a href="/">Palaa varastohallinnan etusivulle</a><br/><br/>
-            <a href="/varasto/lainaukset/">Avoimet lainaukset</a>
-        </h5>
-        <br>
-    </div>
-</main>
 {% endblock content %}
 
 {% comment %} 

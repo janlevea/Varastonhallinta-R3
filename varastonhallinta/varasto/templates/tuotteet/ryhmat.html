@@ -1,47 +1,44 @@
 {% extends "base.html" %}
 {% load static %}
+{% block h1title %}
+    Tuoteryhmät
+{% endblock %}
+{% if object_list %}
+    {% block h5title %}
+    Määrä: {{ object_list|length }}
+    {% endblock %}
+{% endif %}
 {% block content %}
-<main>
-    <div class="title">
-        <h1>Tuoteryhmät</h1>
-        {% if object_list %}
-            <h5>Määrä: {{ object_list|length }}</h5>
-        {% endif %}
-    </div>
-
-    <a href="/varasto/tuotteet/lisaa_ryhma/">Lisää tuoteryhmä</a>&emsp;&emsp;&emsp;&emsp;
-
-    <br/><br/>
-    {% for instance in object_list %}
-    <div class="container" id="tuoteryhmat_container">
-        <div class="row">
-            <div class="col">
-                <a href="/varasto/tuotteet/ryhma/{{ instance.id }}">
-                    {{ instance.nimi }}
-                </a>
-            </div>
-            <div class="col">
-                {% if instance.maara > 0 %}
-                    Tuotteiden määrä: {{ instance.maara }}
-                {% else %}
-                    Ei tuotteita
-                {% endif %}
-            </div>
+<a href="/varasto/tuotteet/lisaa_ryhma/">Lisää tuoteryhmä</a>&emsp;&emsp;&emsp;&emsp;
+<br/><br/>
+{% for instance in object_list %}
+<div class="container" id="tuoteryhmat_container">
+    <div class="row">
+        <div class="col">
+            <a href="/varasto/tuotteet/ryhma/{{ instance.id }}">
+                {{ instance.nimi }}
+            </a>
         </div>
-        <div class="row">
-            <div class="col">
-                Lisääjä: 
-                <a href="/varasto/kayttajat/profiili/{{ instance.lisaaja.opiskelijanumero }}">
-                    {{ instance.lisaaja }}
-                </a>
-            </div>
-            <div class="col">
-                Lisäyssaika: {{ instance.lisaysaika }}
-            </div>
+        <div class="col">
+            {% if instance.maara > 0 %}
+                Tuotteiden määrä: {{ instance.maara }}
+            {% else %}
+                Ei tuotteita
+            {% endif %}
         </div>
     </div>
-    <br/>
-    {% endfor %}
-    <br/>
-</main>
+    <div class="row">
+        <div class="col">
+            Lisääjä: 
+            <a href="/varasto/kayttajat/profiili/{{ instance.lisaaja.opiskelijanumero }}">
+                {{ instance.lisaaja }}
+            </a>
+        </div>
+        <div class="col">
+            Lisäyssaika: {{ instance.lisaysaika }}
+        </div>
+    </div>
+</div>
+<br/>
+{% endfor %}
 {% endblock content %}

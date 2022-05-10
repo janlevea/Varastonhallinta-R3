@@ -1,64 +1,58 @@
 {% extends "base.html" %}
 {% load static %}
+{% block h1title %}Avoimet lainaukset{% endblock %}
+{% if object_list %}
+    {% block h5title %}Määrä: {{ object_list|length }}{% endblock %}
+{% endif %}
 {% block content %}
-<main>
-    <div class="title">
-        <h1>Avoimet lainaukset</h1>
-        {% if object_list %}
-            <h5>Määrä: {{ object_list|length }}</h5>
-        {% endif %}
-    </div>
-    <br/>
-    {% comment %} 
-        # TODO: lainausten järjestäminen lainausajan/palautusajan/idn/työkalun/lainaajan/varastonhoitajan mukaan
-    {% endcomment %}
-    {% comment %} Lataa lainaukset containereihin {% endcomment %}
-    {% for instance in object_list %}
-    <div class="container" id="lainaukset_container">
-        {% comment %} Lataa lainausten tiedot containeriin lainaus.html:ssä {% endcomment %}
-        <div class="row">
-            <div class="col">
-                <a href="/varasto/lainaus/{{ instance.id }}">
-                    id({{ instance.id }}) / ark.tunnus: {{ instance.arkistotunnus }}
-                </a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <a href="/varasto/tuotteet/ryhma/{{ instance.tuote.tuoteryhma.id }}">
-                    {{ instance.tuote.tuoteryhma.nimi }}</a>
-                    / 
-                <a href="/varasto/tuotteet/tuote/{{ instance.tuote.id }}">
-                    {{ instance.tuote.nimike }}</a>
-            </div>
-            <div class="col">
-                {{ instance.maara }}kpl
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                Aika: {{ instance.aikaleima|date:"d.m.Y H:i" }}
-            </div>
-            <div class="col">
-                Viim. palautuspäivä: {{ instance.viim_palautuspaiva|date:"d.m.Y" }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                Lainaaja: <a href="/varasto/kayttajat/profiili/{{ instance.asiakas.opiskelijanumero }}">{{ instance.asiakas.get_kokonimi }} ({{ instance.asiakas.opiskelijanumero }})</a>
-            </div>
-            <div class="col">
-                Varastonhoitaja: <a href="/varasto/kayttajat/profiili/{{ instance.varastonhoitaja.opiskelijanumero }}">{{ instance.varastonhoitaja.get_kokonimi }} ({{ instance.varastonhoitaja.opiskelijanumero }})</a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <a href="/varasto/palauta_lainaus/{{ instance.id }}">Merkitse palautetuksi</a>
-            </div>
+{% comment %} 
+    # TODO: lainausten järjestäminen lainausajan/palautusajan/idn/työkalun/lainaajan/varastonhoitajan mukaan
+{% endcomment %}
+{% comment %} Lataa lainaukset containereihin {% endcomment %}
+{% for instance in object_list %}
+<div class="container" id="lainaukset_container">
+    {% comment %} Lataa lainausten tiedot containeriin lainaus.html:ssä {% endcomment %}
+    <div class="row">
+        <div class="col">
+            <a href="/varasto/lainaus/{{ instance.id }}">
+                id({{ instance.id }}) / ark.tunnus: {{ instance.arkistotunnus }}
+            </a>
         </div>
     </div>
-    <br/>
-    {% endfor %}
-    <br/>
-</main>
+    <div class="row">
+        <div class="col">
+            <a href="/varasto/tuotteet/ryhma/{{ instance.tuote.tuoteryhma.id }}">
+                {{ instance.tuote.tuoteryhma.nimi }}</a>
+                / 
+            <a href="/varasto/tuotteet/tuote/{{ instance.tuote.id }}">
+                {{ instance.tuote.nimike }}</a>
+        </div>
+        <div class="col">
+            {{ instance.maara }}kpl
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            Aika: {{ instance.aikaleima|date:"d.m.Y H:i" }}
+        </div>
+        <div class="col">
+            Viim. palautuspäivä: {{ instance.viim_palautuspaiva|date:"d.m.Y" }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            Lainaaja: <a href="/varasto/kayttajat/profiili/{{ instance.asiakas.opiskelijanumero }}">{{ instance.asiakas.get_kokonimi }} ({{ instance.asiakas.opiskelijanumero }})</a>
+        </div>
+        <div class="col">
+            Varastonhoitaja: <a href="/varasto/kayttajat/profiili/{{ instance.varastonhoitaja.opiskelijanumero }}">{{ instance.varastonhoitaja.get_kokonimi }} ({{ instance.varastonhoitaja.opiskelijanumero }})</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <a href="/varasto/palauta_lainaus/{{ instance.id }}">Merkitse palautetuksi</a>
+        </div>
+    </div>
+</div>
+<br/>
+{% endfor %}
 {% endblock content %}

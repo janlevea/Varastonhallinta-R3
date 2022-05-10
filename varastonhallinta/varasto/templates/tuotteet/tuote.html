@@ -1,18 +1,16 @@
 {% extends "base.html" %}
 {% load static %}
+{% block h1title %}
+    {% if not juuriLisatty %}
+        Tuote
+    {% else %}
+        Tuote lisätty!
+    {% endif %}
+{% endblock %}
+{% block h5title %}
+    id: {{ tuote.id }}
+{% endblock %}
 {% block content %}
-<main>
-    <div class="title">
-        {% if not juuriLisatty %}
-            <h1>Tuote</h1>
-        {% else %}
-            <h1>Tuote lisätty!</h1>
-        {% endif %}
-        <h5>id: {{ tuote.id }}</h5>
-    </div>
-    <br/>
     {% comment %} Lataa tuotteen tiedot containeriin {% endcomment %}
     {% include "tuotteet/tuote_container.html" with naytanimi=True %}
-    <br/>
-</main>
 {% endblock content %}

@@ -1,65 +1,54 @@
 {% extends "base.html" %}
 {% load static %}
-{% block content %}
 {% comment %} Etusivu {% endcomment %}
-<main>
-    <div class="title">
-        <h1>Rasekon varastonhallinta ja lainausjärjestelmä</h1>
-        {% if user.is_authenticated %}
-        <h5>
-            Hyvää päivää {{ request.user.etunimi }}! Valitse toiminto alta
-        </h5>
-        {% else %}
-        <h5>
-            Valitse toiminto alta
-        </h5>
-        {% endif %}
-    </div>
-    {% comment %} Painikkeet muille sivuille navigointiin {% endcomment %}
-    <div class="buttons">
-        <a href="/varasto/uusi_lainaus" class="btn btn-primary btn-lg button-red" role="button">
-            <div class="buttontext">
-                Uusi lainaus
-                {% comment %} svg - nuolet painikkeiden oikeassa reunassa {% endcomment %}
-                <svg class="i-chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="50" height="35" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5">
-                    <path d="M12 30 L24 16 12 2" />
-                </svg>
-            </div>
-        </a>
-        <br><br>
-        <a href="/varasto/lainauksen_palautus" class="btn btn-primary btn-lg button-red" role="button">
-            <div class="buttontext">
-                Lainauksen palautus
-                <svg class="i-chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="50" height="35" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5">
-                    <path d="M12 30 L24 16 12 2" />
-                </svg>
-            </div>
-        </a>
-        <br><br>
-        <a href="/varasto/tuotteet/lista" class="btn btn-primary btn-lg button-blue" role="button">
-            <div class="buttontext">
-                Tuotteet
-                <svg class="i-chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="50" height="35" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5">
-                    <path d="M12 30 L24 16 12 2" />
-                </svg>
-            </div>
-        </a>
-        <br><br>
-        <a href="/varasto/lainaukset" class="btn btn-primary btn-lg button-blue" role="button">
-            <div class="buttontext">
-                Lainaukset
-                <svg class="i-chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="50" height="35" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5">
-                    <path d="M12 30 L24 16 12 2" />
-                </svg>
-            </div>
-        </a>
-    </div>
-    {% comment %} wipstuff {% endcomment %}
-    <br/>WIP:
-    <br/>Avoimet lainaukset: <a href="/varasto/lainaukset/">/lainaukset/</a>
-    <br/>Käyttäjälista: <a href="/varasto/kayttajat/lista/">/kayttajat/lista</a>
-    <br/><br/>
-    {% comment %} Yksittäisen lainauksen sivu, esim: <a href="lainaus/1">/lainaus/1/</a>
-    <br/>Lainauksen poistaminen: <a href="poista_lainaus/1">/poista_lainaus/1/</a> {% endcomment %}
-</main>
+{% block h1title %}Rasekon varastonhallinta ja lainausjärjestelmä{% endblock %}
+{% block h5title %}
+    {% if user.is_authenticated %}
+        Hyvää päivää {{ request.user.etunimi }}! Valitse toiminto alta
+    {% else %}
+        Valitse toiminto alta
+    {% endif %}
+{% endblock %}
+{% block content %}
+{% comment %} Painikkeet muille sivuille navigointiin {% endcomment %}
+<div class="buttons">
+    <a href="/varasto/uusi_lainaus" class="btn btn-primary btn-lg button-red" role="button">
+        <div class="buttontext">
+            Uusi lainaus
+            {% comment %} svg - nuolet painikkeiden oikeassa reunassa {% endcomment %}
+            <svg class="i-chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="50" height="35" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5">
+                <path d="M12 30 L24 16 12 2" />
+            </svg>
+        </div>
+    </a>
+    <br><br>
+    <a href="/varasto/lainauksen_palautus" class="btn btn-primary btn-lg button-red" role="button">
+        <div class="buttontext">
+            Lainauksen palautus
+            <svg class="i-chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="50" height="35" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5">
+                <path d="M12 30 L24 16 12 2" />
+            </svg>
+        </div>
+    </a>
+    <br><br>
+    <a href="/varasto/tuotteet/lista" class="btn btn-primary btn-lg button-blue" role="button">
+        <div class="buttontext">
+            Tuotteet
+            <svg class="i-chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="50" height="35" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5">
+                <path d="M12 30 L24 16 12 2" />
+            </svg>
+        </div>
+    </a>
+    <br><br>
+    <a href="/varasto/lainaukset" class="btn btn-primary btn-lg button-blue" role="button">
+        <div class="buttontext">
+            Lainaukset
+            <svg class="i-chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="50" height="35" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5">
+                <path d="M12 30 L24 16 12 2" />
+            </svg>
+        </div>
+    </a>
+</div>
+<br/>Linkkejä:
+<br/>Käyttäjälista: <a href="/varasto/kayttajat/lista/">/kayttajat/lista</a>
 {% endblock content %}

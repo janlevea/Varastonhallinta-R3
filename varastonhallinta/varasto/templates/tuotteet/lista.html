@@ -1,26 +1,22 @@
 {% extends "base.html" %}
 {% load static %}
+{% block h1title %}
+    Tuotteet
+{% endblock %}
+{% if object_list %}
+    {% block h5title %}
+    Määrä: {{ object_list|length }}
+    {% endblock %}
+{% endif %}
 {% block content %}
-<main>
-    <div class="title">
-        <h1>Tuotteet</h1>
-        {% if object_list %}
-            <h5>Määrä: {{ object_list|length }}</h5>
-        {% endif %}
-    </div>
-
-    <a href="/varasto/tuotteet/lisaa/">Lisää tuote</a>&emsp;&emsp;&emsp;&emsp;
-    <br/><br/>
-
-    {% comment %} 
-        # TODO: tuotteiden järjestäminen parametrien mukaan
-    {% endcomment %}
-
-    {% comment %} Lataa tuotteet containereihin {% endcomment %}
-    {% for tuote in object_list %}
-    {% include "tuotteet/tuote_container.html" %}
-    <br/>
-    {% endfor %}
-    <br/>
-</main>
+<a href="/varasto/tuotteet/lisaa/">Lisää tuote</a>&emsp;&emsp;&emsp;&emsp;
+<br/><br/>
+{% comment %} 
+    # TODO: tuotteiden järjestäminen parametrien mukaan
+{% endcomment %}
+{% comment %} Lataa tuotteet containereihin {% endcomment %}
+{% for tuote in object_list %}
+{% include "tuotteet/tuote_container.html" %}
+<br/>
+{% endfor %}
 {% endblock content %}

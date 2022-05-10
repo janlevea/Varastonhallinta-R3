@@ -30,16 +30,19 @@
                 <a href="/varasto/kayttajat/login">Kirjaudu sisään</a><br/>
                 <a href="/varasto/kayttajat/rekisteroidy/">Rekisteröidy</a></h5>
             {% endif %}
-
-                
         </header>
         <script src="{% static 'varasto/bootstrap/js/bootstrap.min.js' %}"></script>
-
-        {% comment %} 
-        TODO: Enemmän sivusta baseen, tällä hetkellä toistoa on templateissa
-        {% endcomment %}
-        {% block content %}
-        {% endblock %}
+        <main>
+            <div class="title">
+                <h1>{% block h1title %}{% endblock %}</h1>
+                <h5>{% block h5title %}{% endblock %}</h5>
+            </div>
+            {% comment %} 
+            TODO: Enemmän sivusta baseen, tällä hetkellä toistoa on templateissa
+            {% endcomment %}
+            {% block content %}
+            {% endblock %}
+        </main>
         <footer>
             <div class="lefttext">
                 <span>RASEKO</span> Varastonhallintakäyttöliittymä - R3

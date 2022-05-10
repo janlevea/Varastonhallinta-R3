@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 {% load static %}
+{% block h1title %}
+    Kirjaudu sisään
+{% endblock %}
+{% block h5title %}
+    Käyttääksesi varastonhallintaa
+{% endblock %}
 {% block content %}
-<main>
-    <div class="title">
-        <h1>Kirjaudu sisään</h1>
-        <h5>Käyttääksesi varastonhallintaa</h5>
-    </div>
-    <div class="perusform1">
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Kirjaudu</button>&emsp;&emsp;&emsp;&emsp;<a href="/varasto/kayttajat/rekisteroidy/">Rekisteröidy</a>
-        </div>
-    </div>
-</main>
+<div class="perusform1">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Kirjaudu</button>&emsp;&emsp;&emsp;&emsp;<a href="/varasto/kayttajat/rekisteroidy/">Rekisteröidy</a>
+    </form>
+</div>
 {% endblock content %}

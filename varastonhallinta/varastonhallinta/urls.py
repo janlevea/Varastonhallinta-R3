@@ -10,3 +10,5 @@ urlpatterns = [
     path('varasto/tuotteet/', include('tuotteet.urls')),
     path('varasto/admin/', admin.site.urls),
 ] 
+
+# TODO: Kaikki projektin urlsit muuttujiin? Templateissa paljon toistoa.

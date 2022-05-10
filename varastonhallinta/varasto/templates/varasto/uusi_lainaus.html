@@ -1,22 +1,17 @@
 {% extends "base.html" %}
 {% load static %}
+{% block h1title %}Uusi lainaus{% endblock %}
+{% block h5title %}
+    Aika: {{current_datetime|date:"d.m.Y H:i"}}
+{% endblock %}
 {% block content %}
-<main>
-    <div class="title">
-        <h1>Uusi lainaus</h1>
-        <h5>
-            Aika: {{current_datetime|date:"d.m.Y H:i"}}
-        </h5>
-        <br>
-        <form action="../uusi_lainaus/" method="POST">
-            {% csrf_token %}
-            <div class="perusform1">
-                <p class="varastonhoitaja">Varastonhoitaja:<br/>
-                <a href="/varasto/kayttajat/profiili/{{ request.user.opiskelijanumero }}">{{request.user.get_kokonimi}} ({{request.user.opiskelijanumero}})</a></p>
-                {{ form.as_p }}
-            </div>
-            <input type="submit" value="Lisää"/>&emsp;&emsp;&emsp;&emsp;<a href="/">Palaa etusivulle</a>
-        </form>
+<form action="/varasto/uusi_lainaus/" method="POST">
+    {% csrf_token %}
+    <div class="perusform1">
+        <p class="varastonhoitaja">Varastonhoitaja:<br/>
+        <a href="/varasto/kayttajat/profiili/{{ request.user.opiskelijanumero }}">{{request.user.get_kokonimi}} ({{request.user.opiskelijanumero}})</a></p>
+        {{ form.as_p }}
     </div>
-</main>
+    <input type="submit" value="Lisää"/>&emsp;&emsp;&emsp;&emsp;<a href="/">Palaa etusivulle</a>
+</form>
 {% endblock content %}

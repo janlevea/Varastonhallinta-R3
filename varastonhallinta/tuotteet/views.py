@@ -83,7 +83,7 @@ def poistaTuote(request, pk):
         )
         poistettuTuote.save()
         tuote.delete()
-        return redirect("../tuote_poistettu/")
+        return redirect("/varasto/tuotteet/tuote_poistettu/")
     return render(request, "tuotteet/poista_tuote.html", {"tuote": tuote})
 
 @login_required             

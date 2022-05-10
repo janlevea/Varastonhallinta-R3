@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 {% load static %}
+{% block h1title %}
+    {% if not juuriLisatty %}
+        Lainaus
+    {% else %}
+        Lainaus lisätty!
+    {% endif %}
+{% endblock %}
+{% block h5title %}
+    id: {{ laina.id }}
+{% endblock %}
 {% block content %}
-<main>
-    <div class="title">
-        {% if not juuriLisatty %}
-            <h1>Lainaus</h1>
-        {% else %}
-            <h1>Lainaus lisätty!</h1>
-        {% endif %}
-        <h5>id: {{ laina.id }}</h5>
-    </div>
     <br/>
     {% comment %} Lataa lainauksen tiedot containeriin {% endcomment %}
     {% include "varasto/lainaus_container.html" %}
     {% include "varasto/lainaus_alalinkit.html" %}
-</main>
 {% endblock content %}

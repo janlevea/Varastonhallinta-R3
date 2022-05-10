@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 {% load static %}
+{% block h1title %}
+    Poistetaanko tuote?
+{% endblock %}
+{% block h5title %}
+    id: {{ tuote.id }}
+{% endblock %}
 {% block content %}
-<main>
-    <div class="title">
-        <h1>Poistetaanko tuote?</h1>
-        <h5>id: {{ tuote.id }}</h5>
-    </div>
-    <form method="POST">{% csrf_token %}
-        <p><input type="submit" value="Kyllä"/>&emsp;&emsp;&emsp;&emsp;<a href="/varasto/tuote/{{ tuote.id }}">Peruuta</a></p>
-    </form>
-    <br/>
-    {% comment %} Lataa tuotteen tiedot containeriin {% endcomment %}
-    {% include "tuotteet/tuote_container.html" with naytanimi=True %}
-</main>
+<form method="POST">{% csrf_token %}
+    <p><input type="submit" value="Kyllä"/>&emsp;&emsp;&emsp;&emsp;<a href="/varasto/tuotteet/tuote/{{ tuote.id }}">Peruuta</a></p>
+</form>
+<br/>
+{% comment %} Lataa tuotteen tiedot containeriin {% endcomment %}
+{% include "tuotteet/tuote_container.html" with naytanimi=True %}
 {% endblock content %}
