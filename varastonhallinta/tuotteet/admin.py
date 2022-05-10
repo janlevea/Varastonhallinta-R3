@@ -1,18 +1,21 @@
 from django.contrib import admin
 
 from .models import Tuote, Tuoteryhma
-from varasto.admin import ReadOnlyAdminMixin
+# from varasto.admin import ReadOnlyAdminMixin
 
 class TuoteryhmaAdmin(admin.ModelAdmin):
     fields = (
-        "lisaaja", "lisaysaika", "avoin", "poistaja", "poistoaika"
+        "nimi", "lisaaja", "lisaysaika", "avoin", "poistaja", "poistoaika"
     )
 
-    readonly_fields = ["lisaaja", "lisaysaika", "poistaja", "poistoaika"]
+    readonly_fields = ["lisaysaika", "poistaja", "poistoaika"]
 
     list_display = (
         "nimi", "id", "avoin", "lisaaja", "lisaysaika"
     )
+    list_filter = ("avoin",)
+    ordering = ["nimi"]
+# TODO: Suljetut tuoteryhmät erikseen
 
 class TuoteAdmin(admin.ModelAdmin):
     fields = (
@@ -21,26 +24,16 @@ class TuoteAdmin(admin.ModelAdmin):
     )
 
     readonly_fields = [
-        "tuoteryhma", "nimike", "maara",
-        "hankintapaikka", "kustannuspaikka",
-        "viivakoodi_string", 
-        "lisaaja", "lisaysaika", 
+        "lisaysaika", 
         "poistettu", "poistaja"]
 
     list_display = (
         "nimike", "id", "tuoteryhma", "maara", "hankintapaikka", "poistettu"
     )
-    pass
+    list_filter =  ("poistettu",)
+    ordering = ["nimike"]
 
-# class TuoteOldAdmin(ReadOnlyAdminMixin, admin.ModelAdmin):
-#     list_display = (
-#         "id", 
-#         "tuoteryhma", "nimike", "maara",
-#         "hankintapaikka", "kustannuspaikka",
-#         "viivakoodi_string",
-#         "lisaaja", "lisaysaika",
-#         "poistaja", "poistettu"
-#     )
+# TODO: Poistetut tuotteet erikseen
 
 admin.site.register(Tuoteryhma, TuoteryhmaAdmin)
 admin.site.register(Tuote, TuoteAdmin)

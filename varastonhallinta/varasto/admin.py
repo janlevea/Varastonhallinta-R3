@@ -7,6 +7,10 @@ from .models import Varastotapahtuma
 from datetime import timedelta
 from django.utils import timezone
 
+from django.contrib.auth.models import Group
+
+admin.site.unregister(Group)
+
 # Tee admin-sivusta "ReadOnly" (estä muutokset)
 class ReadOnlyAdminMixin:
     def has_add_permission(self, request):
@@ -30,6 +34,10 @@ class VarastotapahtumaAdmin(admin.ModelAdmin):
     list_display = (
         "tuote", "maara", "id", "asiakas", "avoin", "viim_palautuspaiva"
     )
+    list_filter = ("avoin",)
+
+    # search_fields = [""] - TODO: haku käyttöön
+    ordering = ["asiakas"]
 
     def get_changeform_initial_data(self, request):
         defPalautuspaiva = (timezone.now() + timedelta(days=14))
@@ -41,16 +49,6 @@ class VarastotapahtumaAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
 
-# TODO: Avoimet/suljetut varastotapahtumat eri admin sivuilla
-
-# class SuljettuVarastotapahtumaAdmin(admin.ModelAdmin):
-#     list_display = (
-#         "id", "arkistotunnus",
-#         "tuote", "maara",
-#         "aikaleima", "viim_palautuspaiva",
-#         "asiakas", "varastonhoitaja",
-#         "palautettu", "varastonhoitaja_palautus" 
-#     )
+# TODO: Avoimet/suljetut varastotapahtumat erikseen
 
 admin.site.register(Varastotapahtuma, VarastotapahtumaAdmin)
-#admin.site.register(Varastotapahtuma, SuljettuVarastotapahtumaAdmin)
