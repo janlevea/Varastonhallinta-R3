@@ -4,10 +4,11 @@
 {% block h5title %}Varastonhallintaan{% endblock %}
 {% block content %}
 <div class="perusform1">
-    <form action="/varasto/kayttajat/rekisteroidy/" method="POST">
+    <form action="{% url "kayttajat:rekisteroidy" %}" method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Rekisteröidy</button>&emsp;<a href="/varasto/kayttajat/login">Kirjaudu sisään</a>
+        <button type="submit">Rekisteröidy</button>&emsp;
+        <a href="{% url "kayttajat:login" %}">Kirjaudu sisään</a>
     </form>
 </div>
 {% endblock content %}

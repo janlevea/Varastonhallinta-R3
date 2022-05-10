@@ -20,3 +20,5 @@ urlpatterns = [
     # tuotteet/poista_tuote.html
     path("poista_tuote/<int:pk>", views.poistaTuote, name="poistaTuote"),
 ]
+
+# TODO: favicon.ico näkymään adminpaneelissa

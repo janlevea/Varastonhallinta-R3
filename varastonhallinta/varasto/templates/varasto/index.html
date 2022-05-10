@@ -12,7 +12,7 @@
 {% block content %}
 {% comment %} Painikkeet muille sivuille navigointiin {% endcomment %}
 <div class="buttons">
-    <a href="/varasto/uusi_lainaus" class="btn btn-primary btn-lg button-red" role="button">
+    <a href="{% url "varasto:uusiLainaus" %}" class="btn btn-primary btn-lg button-red" role="button">
         <div class="buttontext">
             Uusi lainaus
             {% comment %} svg - nuolet painikkeiden oikeassa reunassa {% endcomment %}
@@ -22,7 +22,7 @@
         </div>
     </a>
     <br><br>
-    <a href="/varasto/lainauksen_palautus" class="btn btn-primary btn-lg button-red" role="button">
+    <a href="{% url "varasto:lainauksenPalautus" %}" class="btn btn-primary btn-lg button-red" role="button">
         <div class="buttontext">
             Lainauksen palautus
             <svg class="i-chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="50" height="35" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5">
@@ -31,7 +31,7 @@
         </div>
     </a>
     <br><br>
-    <a href="/varasto/tuotteet/lista" class="btn btn-primary btn-lg button-blue" role="button">
+    <a href="{% url "tuotteet:lista" %}" class="btn btn-primary btn-lg button-blue" role="button">
         <div class="buttontext">
             Tuotteet
             <svg class="i-chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="50" height="35" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5">
@@ -40,7 +40,7 @@
         </div>
     </a>
     <br><br>
-    <a href="/varasto/lainaukset" class="btn btn-primary btn-lg button-blue" role="button">
+    <a href="{% url "varasto:lainaukset" %}" class="btn btn-primary btn-lg button-blue" role="button">
         <div class="buttontext">
             Lainaukset
             <svg class="i-chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="50" height="35" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5">
@@ -50,5 +50,5 @@
     </a>
 </div>
 <br/>Linkkejä:
-<br/>Käyttäjälista: <a href="/varasto/kayttajat/lista/">/kayttajat/lista</a>
+<br/>Käyttäjälista: <a href="{% url "kayttajat:kayttajalista" %}">/kayttajat/lista</a>
 {% endblock content %}

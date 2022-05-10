@@ -9,7 +9,9 @@
     {% endblock %}
 {% endif %}
 {% block content %}
-<a href="/varasto/tuotteet/lisaa/">Lisää tuote</a>&emsp;&emsp;&emsp;&emsp;
+<a href="{% url "tuotteet:lisaa" %}">
+    Lisää tuote
+</a>
 <br/><br/>
 {% comment %} 
     # TODO: tuotteiden järjestäminen parametrien mukaan

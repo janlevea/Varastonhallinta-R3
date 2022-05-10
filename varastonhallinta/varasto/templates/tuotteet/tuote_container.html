@@ -1,14 +1,17 @@
 <div class="container" id="tuotteet_container">
     <div class="row">
         <div class="col">
-                Viivakoodi: <a href="/varasto/tuotteet/tuote/{{ tuote.id }}/">{{ tuote.viivakoodi_string }}</a>
+                Viivakoodi: 
+                <a href="{% url "tuotteet:tuote" tuote.id %}">
+                    {{ tuote.viivakoodi_string }}
+                </a>
         </div>
     </div>
     <div class="row">
         <div class="col">
             {% if naytanimi %}
-                <a href="/varasto/tuotteet/ryhma/{{ tuote.tuoteryhma.id }}">
-                {{ tuote.tuoteryhma.nimi }}</a>
+                <a href="{% url "tuotteet:ryhma" tuote.tuoteryhma.id %}">
+                    {{ tuote.tuoteryhma.nimi }}</a>
                 /
             {% endif %}
             {{ tuote.nimike }} 
@@ -27,7 +30,9 @@
     </div>
     <div class="row">
         <div class="col">
-            <a href="/varasto/tuotteet/poista_tuote/{{ tuote.id }}">Poista tuote</a>
+            <a href="{% url "tuotteet:poistaTuote" tuote.id %}">
+                Poista tuote
+            </a>
         </div>
     </div>
 </div>

@@ -7,13 +7,17 @@
     Aika: {{current_datetime|date:"d.m.Y H:i"}}
 {% endblock %}
 {% block content %}
-<form action="/varasto/tuotteet/lisaa/" method="POST">
+<form action="{% url "tuotteet:lisaa" %}" method="POST">
     {% csrf_token %}
     <div class="perusform1">
         <p class="varastonhoitaja">Varastonhoitaja:<br/>
-        <a href="/varasto/kayttajat/profiili/{{ request.user.opiskelijanumero }}">{{request.user.opiskelijanumero}} ({{request.user.get_kokonimi}})</a></p>
+            <a href="{% url "kayttajat:profiili" request.user.opiskelijanumero %}">
+                {{request.user.opiskelijanumero}} ({{request.user.get_kokonimi}})
+            </a>
+        </p>
         {{ form.as_p }}
     </div>
-    <input type="submit" value="Lisää"/>&emsp;&emsp;&emsp;&emsp;<a href="/">Palaa etusivulle</a>
+    <input type="submit" value="Lisää"/>&emsp;&emsp;&emsp;&emsp;
+    <a href="{% url "varasto:index" %}">Palaa etusivulle</a>
 </form>
 {% endblock content %}

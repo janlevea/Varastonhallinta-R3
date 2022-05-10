@@ -7,17 +7,20 @@
     Aika: {{current_datetime|date:"d.m.Y H:i"}}
 {% endblock %}
 {% block content %}
-<form action="/varasto/lainauksen_palautus/" method="POST">
+<form action="{% url "varasto:lainauksenPalautus" %}" method="POST">
     {% csrf_token %}
     <div class="perusform1">
         {% if asiakas %}
-            <a href="/">Palaa etusivulle</a><br/><br/>
+            <a href="{% url "varasto:index" %}">
+                Palaa etusivulle
+            </a><br/><br/>
         {% endif %}
         <p class="varastonhoitaja">Varastonhoitaja:<br/>
-        <a href="/varasto/kayttajat/profiili/{{ request.user.opiskelijanumero }}">{{request.user.get_kokonimi}} ({{request.user.opiskelijanumero}})</a></p>
+        <a href="{% url "kayttajat:profiili" request.user.opiskelijanumero %}">{{request.user.get_kokonimi}} ({{request.user.opiskelijanumero}})</a></p>
         {% if not asiakas %}
             {{ form.as_p }}
-            <input type="submit" value="Listaa"/>&emsp;&emsp;&emsp;&emsp;<a href="/">Palaa etusivulle</a>
+            <input type="submit" value="Listaa"/>&emsp;&emsp;&emsp;&emsp;
+            <a href="{% url "varasto:index" %}">Palaa etusivulle</a>
         {% endif %}
     </div>
 </form>
@@ -28,27 +31,27 @@
     {% if object_list %}
         <br/>
         Asiakkaan 
-        <a href="/varasto/kayttajat/profiili/{{ asiakas.opiskelijanumero }}">
+        <a href="{% url "kayttajat:profiili" asiakas.opiskelijanumero %}">
             {{ asiakas }}</a> avoimet lainaukset({{ object_list|length }}):<br/><br/>
     {% else %}
-        Asiakkaalla {{ asiakas }} ei ole avoimia lainauksia.
+        Asiakkaalla <a href="{% url "kayttajat:profiili" asiakas.opiskelijanumero %}">{{ asiakas }}</a> ei ole avoimia lainauksia.
     {% endif %}
 {% for instance in object_list %}
 <div class="container" id="lainaukset_container">
     {% comment %} Lataa valitun asiakkaan lainausten tiedot containereihin {% endcomment %}
     <div class="row">
         <div class="col">
-            <a href="/varasto/lainaus/{{ instance.id }}">
+            <a href="{% url "varasto:lainaus" instance.id %}">
                 id({{ instance.id }}) / ark.tunnus: {{ instance.arkistotunnus }}
             </a>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <a href="/varasto/tuotteet/ryhma/{{ instance.tuote.tuoteryhma.id }}">
+            <a href="{% url "tuotteet:ryhma" instance.tuote.tuoteryhma.id %}">
                 {{ instance.tuote.tuoteryhma.nimi }}</a>
                 / 
-            <a href="/varasto/tuotteet/tuote/{{ instance.tuote.id }}">
+            <a href="{% url "tuotteet:tuote" instance.tuote.id %}">
                 {{ instance.tuote.nimike }}</a>
         </div>
         <div class="col">
@@ -65,19 +68,28 @@
     </div>
     <div class="row">
         <div class="col">
-            Lainaaja: <a href="/varasto/kayttajat/profiili/{{ instance.asiakas.opiskelijanumero }}">{{ instance.asiakas.get_kokonimi }} ({{ instance.asiakas.opiskelijanumero }})</a>
+            Lainaaja: 
+            <a href="{% url "kayttajat:profiili" instance.asiakas.opiskelijanumero %}">
+                {{ instance.asiakas.get_kokonimi }} ({{ instance.asiakas.opiskelijanumero }})
+            </a>
         </div>
         <div class="col">
-            Varastonhoitaja: <a href="/varasto/kayttajat/profiili/{{ instance.varastonhoitaja.opiskelijanumero }}">{{ instance.varastonhoitaja.get_kokonimi }} ({{ instance.varastonhoitaja.opiskelijanumero }})</a>
+            Varastonhoitaja: 
+            <a href="{% url "kayttajat:profiili" instance.varastonhoitaja.opiskelijanumero %}">
+                {{ instance.varastonhoitaja.get_kokonimi }} ({{ instance.varastonhoitaja.opiskelijanumero }})
+            </a>
         </div>
     </div>
     <div class="row">
         <div class="col">
             {% comment %} TODO: lainauksen palauttamisen kirjaaminen {% endcomment %}
-            <a href="/varasto/palauta_lainaus/{{ instance.id }}">Merkitse palautetuksi</a>
+            <a href="{% url "varasto:palautaLainaus" instance.id %}">
+                Merkitse palautetuksi
+            </a>
         </div>
     </div>
 </div>
+<br/>
 {% endfor %}
 {% endif %}
 {% endblock content %}

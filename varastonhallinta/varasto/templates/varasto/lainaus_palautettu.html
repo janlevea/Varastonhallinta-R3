@@ -3,8 +3,12 @@
 {% block h1title %}Lainaus palautettu!{% endblock %}
 {% block h5title %}
     <br/>
-    <a href="/">Palaa varastohallinnan etusivulle</a><br/><br/>
-    <a href="/varasto/lainaukset/">Avoimet lainaukset</a>
+    <a href="{% url "varasto:index" %}">
+        Palaa varastohallinnan etusivulle
+    </a><br/><br/>
+    <a href="{% url "varasto:lainaukset" %}">
+        Avoimet lainaukset
+    </a>
 {% endblock %}
 <br>
 {% block content %}

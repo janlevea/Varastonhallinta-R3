@@ -9,13 +9,15 @@
     {% endblock %}
 {% endif %}
 {% block content %}
-<a href="/varasto/tuotteet/lisaa_ryhma/">Lisää tuoteryhmä</a>&emsp;&emsp;&emsp;&emsp;
+<a href="{% url "tuotteet:lisaaRyhma" %}">
+    Lisää tuoteryhmä
+</a>
 <br/><br/>
 {% for instance in object_list %}
 <div class="container" id="tuoteryhmat_container">
     <div class="row">
         <div class="col">
-            <a href="/varasto/tuotteet/ryhma/{{ instance.id }}">
+            <a href="{% url "tuotteet:ryhma" instance.id %}">
                 {{ instance.nimi }}
             </a>
         </div>
@@ -30,7 +32,7 @@
     <div class="row">
         <div class="col">
             Lisääjä: 
-            <a href="/varasto/kayttajat/profiili/{{ instance.lisaaja.opiskelijanumero }}">
+            <a href="{% url "kayttajat:profiili" instance.lisaaja.opiskelijanumero %}">
                 {{ instance.lisaaja }}
             </a>
         </div>

@@ -11,9 +11,9 @@
     id: {{ tuoteryhma.id }}
 {% endblock %}
 {% block content %}
-<a href="/varasto/tuotteet/ryhmat">Tuoteryhmät</a>&emsp;&emsp;&emsp;&emsp;
-<a href="/varasto/tuotteet/lisaa">Lisää tuote</a>&emsp;&emsp;&emsp;&emsp;
-<a href="/varasto/tuotteet/lista">Kaikki tuotteet</a>&emsp;&emsp;&emsp;&emsp;
+<a href="{% url "tuotteet:ryhmat" %}">Tuoteryhmät</a>&emsp;&emsp;&emsp;&emsp;
+<a href="{% url "tuotteet:lisaa" %}">Lisää tuote</a>&emsp;&emsp;&emsp;&emsp;
+<a href="{% url "tuotteet:lista" %}">Kaikki tuotteet</a>&emsp;&emsp;&emsp;&emsp;
 <br/><br/>
 {% comment %} Lataa tuoteryhmän tiedot containeriin {% endcomment %}
 <div class="container" id="tuoteryhma_container">
@@ -32,7 +32,7 @@
     <div class="row">
         <div class="col">
             Lisääjä: 
-            <a href="/varasto/kayttajat/profiili/{{ tuoteryhma.lisaaja.opiskelijanumero }}">
+            <a href="{% url "kayttajat:profiili" tuoteryhma.lisaaja.opiskelijanumero %}">
                 {{ tuoteryhma.lisaaja }}
             </a>
         </div>

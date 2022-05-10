@@ -14,17 +14,17 @@
     {% comment %} Lataa lainausten tiedot containeriin lainaus.html:ssä {% endcomment %}
     <div class="row">
         <div class="col">
-            <a href="/varasto/lainaus/{{ instance.id }}">
+            <a href="{% url "varasto:lainaus" instance.id %}">
                 id({{ instance.id }}) / ark.tunnus: {{ instance.arkistotunnus }}
             </a>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <a href="/varasto/tuotteet/ryhma/{{ instance.tuote.tuoteryhma.id }}">
+            <a href="{% url "tuotteet:ryhma" instance.tuote.tuoteryhma.id %}">
                 {{ instance.tuote.tuoteryhma.nimi }}</a>
                 / 
-            <a href="/varasto/tuotteet/tuote/{{ instance.tuote.id }}">
+            <a href="{% url "tuotteet:tuote" instance.tuote.id %}">
                 {{ instance.tuote.nimike }}</a>
         </div>
         <div class="col">
@@ -41,15 +41,21 @@
     </div>
     <div class="row">
         <div class="col">
-            Lainaaja: <a href="/varasto/kayttajat/profiili/{{ instance.asiakas.opiskelijanumero }}">{{ instance.asiakas.get_kokonimi }} ({{ instance.asiakas.opiskelijanumero }})</a>
+            Lainaaja: <a href="{% url "kayttajat:profiili" instance.asiakas.opiskelijanumero %}">
+                {{ instance.asiakas.get_kokonimi }} ({{ instance.asiakas.opiskelijanumero }})
+            </a>
         </div>
         <div class="col">
-            Varastonhoitaja: <a href="/varasto/kayttajat/profiili/{{ instance.varastonhoitaja.opiskelijanumero }}">{{ instance.varastonhoitaja.get_kokonimi }} ({{ instance.varastonhoitaja.opiskelijanumero }})</a>
+            Varastonhoitaja: <a href="{% url "kayttajat:profiili" instance.varastonhoitaja.opiskelijanumero %}">
+                {{ instance.varastonhoitaja.get_kokonimi }} ({{ instance.varastonhoitaja.opiskelijanumero }})
+            </a>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <a href="/varasto/palauta_lainaus/{{ instance.id }}">Merkitse palautetuksi</a>
+            <a href="{% url "varasto:palautaLainaus" instance.id %}">
+                Merkitse palautetuksi
+            </a>
         </div>
     </div>
 </div>

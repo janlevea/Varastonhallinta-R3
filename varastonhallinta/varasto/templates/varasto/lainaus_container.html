@@ -14,9 +14,9 @@
             Tuote
         </div>
         <div class="col">
-            <a href="/varasto/tuotteet/ryhma/{{ laina.tuote.tuoteryhma.id }}">
+            <a href="{% url "tuotteet:ryhma" laina.tuote.tuoteryhma.id %}">
             {{ laina.tuote.tuoteryhma.nimi }}</a> / 
-            <a href="/varasto/tuotteet/tuote/{{ laina.tuote.id }}">
+            <a href="{% url "tuotteet:tuote" laina.tuote.id %}">
             {{ laina.tuote.nimike }}</a> / {{ laina.maara }}kpl
         </div>
     </div>
@@ -43,7 +43,7 @@
             Lainaaja
         </div>
         <div class="col">
-            <a href="/varasto/kayttajat/profiili/{{ laina.asiakas.opiskelijanumero }}">
+            <a href="{% url "kayttajat:profiili" laina.asiakas.opiskelijanumero %}">
                 {{ laina.asiakas.get_kokonimi }} ({{ laina.asiakas.opiskelijanumero }})
             </a>
         </div>
@@ -53,7 +53,7 @@
             Varastonhoitaja
         </div>
         <div class="col">
-            <a href="/varasto/kayttajat/profiili/{{ laina.varastonhoitaja.opiskelijanumero }}">
+            <a href="{% url "kayttajat:profiili" laina.varastonhoitaja.opiskelijanumero %}">
                 {{ laina.varastonhoitaja.get_kokonimi }} ({{ laina.varastonhoitaja.opiskelijanumero }})
             </a>
         </div>
@@ -61,7 +61,7 @@
     <br/>
     <div class="row">
         <div class="col">
-            <a href="/varasto/palauta_lainaus/{{ laina.id }}">Merkitse palautetuksi</a>
+            <a href="{% url "varasto:palautaLainaus" laina.id %}">Merkitse palautetuksi</a>
         </div>
     </div>
 </div>

@@ -5,9 +5,9 @@ from varastonhallinta.views import index
 
 urlpatterns = [
     path('', index),
-    path('varasto/', include('varasto.urls')),
-    path('varasto/kayttajat/', include('kayttajat.urls')),
-    path('varasto/tuotteet/', include('tuotteet.urls')),
+    path('varasto/', include('varasto.urls', namespace="varasto")),
+    path('varasto/kayttajat/', include('kayttajat.urls', namespace="kayttajat")),
+    path('varasto/tuotteet/', include('tuotteet.urls', namespace="tuotteet")),
     path('varasto/admin/', admin.site.urls),
 ] 
 

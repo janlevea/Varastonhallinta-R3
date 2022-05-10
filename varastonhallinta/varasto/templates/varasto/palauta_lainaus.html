@@ -8,7 +8,11 @@
 {% endblock %}
 {% block content %}
 <form method="POST">{% csrf_token %}
-    <p><input type="submit" value="Kyllä"/>&emsp;&emsp;&emsp;&emsp;<a href="/varasto/lainaus/{{ laina.id }}">Peruuta</a></p>
+    <p><input type="submit" value="Kyllä"/>&emsp;&emsp;&emsp;&emsp;
+        <a href="{% url "varasto:lainaus" laina.id %}">
+            Peruuta
+        </a>
+    </p>
 </form>
 <br/>
 {% comment %} Lataa lainauksen tiedot containeriin {% endcomment %}

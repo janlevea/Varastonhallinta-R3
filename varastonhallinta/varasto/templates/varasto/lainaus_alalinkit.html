@@ -1,7 +1,9 @@
 <br/>
 {% if juuriLisatty %}
-    <a href="/varasto/uusi_lainaus/">Lisää toinen</a>&emsp;&emsp;&emsp;&emsp;
+    <a href="{% url "varasto:uusiLainaus" %}">
+        Lisää toinen</a>&emsp;&emsp;&emsp;&emsp;
+    </a>
 {% endif %}
-<a href="/varasto/">Palaa etusivulle</a>
-&emsp;&emsp;&emsp;&emsp;<a href="/varasto/lainaukset/">Avoimet lainaukset</a>
+<a href={% url "varasto:index" %}>Palaa etusivulle</a>
+&emsp;&emsp;&emsp;&emsp;<a href="{% url "varasto:lainaukset" %}">Avoimet lainaukset</a>
 &emsp;&emsp;&emsp;&emsp;<a href="{{ request.META.HTTP_REFERER }}">Edellinen sivu</a>

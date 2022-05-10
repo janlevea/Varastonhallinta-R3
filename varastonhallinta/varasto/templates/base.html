@@ -15,21 +15,31 @@
         <header>
             {% comment %} Raseko logo headerissa, linkittää takaisin /index.html:ään {% endcomment %}
             <div class="logo">
-                <a href="/">
+                <a href="{% url "varasto:index" %}">
                     <img id="raseko-logo" src="{% static 'varasto/img/raseko_vaaka.png' %}" alt="RASEKO logo">
                 </a>
             </div>
             {% comment %} Raseko-sininen yläpalkki {% endcomment %}
             <hr class="top-bar">
-
+            <h5 id="kirjautunut">
             {% if user.is_authenticated %}
-                <h5 id="kirjautunut"><a href="/varasto/kayttajat/profiili/{{ user.opiskelijanumero }}">{{ user.get_kokonimi }} ({{ user.opiskelijanumero }})</a> 
-                <br/><a href="/varasto/kayttajat/logout">Kirjaudu ulos</a></h5>
+                <a href="{% url "kayttajat:profiili" user.opiskelijanumero %}">
+                    {{ user.get_kokonimi }} ({{ user.opiskelijanumero }})
+                </a> 
+                <br/>
+                <a href="{% url "kayttajat:logout" %}">
+                    Kirjaudu ulos</a>
+                </a>
             {% else %}
-                <h5 id="kirjautunut">
-                <a href="/varasto/kayttajat/login">Kirjaudu sisään</a><br/>
-                <a href="/varasto/kayttajat/rekisteroidy/">Rekisteröidy</a></h5>
+                <a href="{% url "kayttajat:login" %}">
+                    Kirjaudu sisään
+                </a>
+                <br/>
+                <a href="{% url "kayttajat:rekisteroidy" %}">
+                    Rekisteröidy
+                </a>
             {% endif %}
+            </h5>
         </header>
         <script src="{% static 'varasto/bootstrap/js/bootstrap.min.js' %}"></script>
         <main>
@@ -37,9 +47,6 @@
                 <h1>{% block h1title %}{% endblock %}</h1>
                 <h5>{% block h5title %}{% endblock %}</h5>
             </div>
-            {% comment %} 
-            TODO: Enemmän sivusta baseen, tällä hetkellä toistoa on templateissa
-            {% endcomment %}
             {% block content %}
             {% endblock %}
         </main>

@@ -8,7 +8,11 @@
 {% endblock %}
 {% block content %}
 <form method="POST">{% csrf_token %}
-    <p><input type="submit" value="Kyllä"/>&emsp;&emsp;&emsp;&emsp;<a href="/varasto/tuotteet/tuote/{{ tuote.id }}">Peruuta</a></p>
+    <p><input type="submit" value="Kyllä"/>&emsp;&emsp;&emsp;&emsp;
+        <a href="{% url "tuotteet:tuote" tuote.id %}">
+            Peruuta
+        </a>
+    </p>
 </form>
 <br/>
 {% comment %} Lataa tuotteen tiedot containeriin {% endcomment %}
