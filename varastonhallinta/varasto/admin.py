@@ -28,17 +28,14 @@ class VarastotapahtumaAdmin(admin.ModelAdmin):
     )
 
     list_display = (
-        "avoin", "id", "tuote", "maara", "viim_palautuspaiva",
-        "asiakas",
+        "tuote", "maara", "id", "asiakas", "avoin", "viim_palautuspaiva"
     )
-    # TODO: viim. palautuspäivä näkyy listassa 23. toukokuuta 2022 -> 23.5.2022 parempi
-
-    readonly_fields = ["asiakas", "varastonhoitaja", "avoin"]
 
     def get_changeform_initial_data(self, request):
         defPalautuspaiva = (timezone.now() + timedelta(days=14))
         return {
             "viim_palautuspaiva": defPalautuspaiva,
+            "varastonhoitaja": request.user
         }
 
     def save_model(self, request, obj, form, change):

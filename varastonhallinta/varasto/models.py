@@ -28,7 +28,7 @@ class Varastotapahtuma(models.Model):
         Kayttaja, null=False, blank=False, on_delete=models.PROTECT, 
         verbose_name="Asiakas", related_name="asiakas") # Lainaaja
     varastonhoitaja = models.ForeignKey(
-        Kayttaja, null=False, blank=False, editable=False, on_delete=models.PROTECT, 
+        Kayttaja, null=False, blank=False, on_delete=models.PROTECT, 
         verbose_name="Varastonhoitaja", related_name="varastonhoitaja") # Lainauksen kirjaaja
     
     avoin = models.BooleanField(

@@ -64,4 +64,4 @@ class Tuote(models.Model):
         ordering = ['tuoteryhma', 'nimike']
 
     def __str__(self):
-        return f"id({self.id}) {self.tuoteryhma.nimi}/{self.nimike}"
+        return f"{self.tuoteryhma.nimi}/{self.nimike}"

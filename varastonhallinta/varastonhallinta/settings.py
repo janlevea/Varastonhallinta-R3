@@ -12,6 +12,7 @@ load_dotenv()
 
 from django.conf.locale.fi import formats as fi_formats
 fi_formats.DATETIME_FORMAT = "d.m.Y H:i"
+fi_formats.DATE_FORMAT = "d.m.Y"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
