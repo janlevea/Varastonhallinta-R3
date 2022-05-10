@@ -19,10 +19,4 @@ urlpatterns = [
     path("lisaa/", views.lisaa, name="lisaa"),
     # tuotteet/poista_tuote.html
     path("poista_tuote/<int:pk>", views.poistaTuote, name="poistaTuote"),
-    # tuotteet/tuote_poistettu.html
-    path("tuote_poistettu/", views.tuotePoistettu, name="tuotePoistettu"),
-
-    # # tuotteet/muuta_tuotetta.html
-    # path("muuta_tuotetta/<int:pk>", views.muutaTuotetta, name="muutaTuotetta"),
-
 ]

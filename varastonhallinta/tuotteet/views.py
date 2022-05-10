@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 
-from tuotteet.models import Tuote, TuoteOld, Tuoteryhma
+from tuotteet.models import Tuote, Tuoteryhma
 from .forms import LisaaTuote, LisaaRyhma
 
 @login_required
@@ -54,41 +54,17 @@ def lisaa(request):
         form = LisaaTuote()
     return render(request, "tuotteet/lisaa.html", {"form": form, "current_datetime": current_datetime})
 
-# Tuotteiden muokkaus.. Lowprio/unnecessary
-# @login_required
-# def muutaTuotetta(request, pk):
-#     pass
-
 @login_required
 def poistaTuote(request, pk):
     tuote = get_object_or_404(Tuote, pk=pk)
-    current_datetime = timezone.now()
 
     if request.method == 'POST':
-        poistettuTuote = TuoteOld(
-            id = tuote.id,
-            tuoteryhma = tuote.tuoteryhma,
-            nimike = tuote.nimike,
-            maara = tuote.maara,
-            hankintapaikka = tuote.hankintapaikka,
-            kustannuspaikka = tuote.kustannuspaikka,
-            tuotekuva = tuote.tuotekuva,
-            viivakoodi_string = tuote.viivakoodi_string,
-            viivakoodi_img = tuote.viivakoodi_img,
-            lisaaja = tuote.lisaaja,
-            lisaysaika = tuote.lisaysaika,
-
-            poistaja = request.user,
-            poistettu = current_datetime
-        )
-        poistettuTuote.save()
-        tuote.delete()
-        return redirect("/varasto/tuotteet/tuote_poistettu/")
+        tuote.poistettu = True
+        tuote.poistoaika = timezone.now()
+        tuote.poistaja = request.user
+        tuote.save()
+        return render(request, "/varasto/tuotteet/tuote_poistettu.html") # Vahvistussivu poistolle - TODO: Näytä tuotteen tietoja tällä sivulla
     return render(request, "tuotteet/poista_tuote.html", {"tuote": tuote})
-
-@login_required             
-def tuotePoistettu(request):
-    return render(request, "tuotteet/tuote_poistettu.html")
 
 @login_required
 def lisaaRyhma(request):

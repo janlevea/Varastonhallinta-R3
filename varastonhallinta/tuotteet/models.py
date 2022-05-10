@@ -9,6 +9,15 @@ class Tuoteryhma(models.Model):
         Kayttaja, null=False, on_delete=models.PROTECT, verbose_name="Lisääjä"
     )
     lisaysaika = models.DateTimeField(auto_now_add=True, null=False, editable=False, verbose_name="Lisäysaika")
+
+    avoin = models.BooleanField(
+        null=False, blank=False, default=True, verbose_name="Avoin")
+    poistoaika = models.DateTimeField(
+        blank=True, null=True, editable=False, verbose_name="Poistettu")
+    poistaja = models.ForeignKey(
+        Kayttaja, null=True, blank=True, on_delete=models.PROTECT, 
+        verbose_name="Ryhmän poistaja", related_name="poistaja")
+
     class Meta:
         verbose_name = "Tuoteryhmä"
         verbose_name_plural = "Tuoteryhmät"
@@ -18,7 +27,7 @@ class Tuoteryhma(models.Model):
 # TODO: Viivakoodit kuvana tietokantaan - svg järkevin? - CODE 128 - Tai tiedostona? ImageField
 # TODO: Tuotekuvat ImageField
 # TODO: viivakoodi(_img) toiminnallisuus - python barcode
-class TuoteBase(models.Model):
+class Tuote(models.Model):
     id = models.AutoField(primary_key=True, null=False)
     
     tuoteryhma = models.ForeignKey(
@@ -40,35 +49,19 @@ class TuoteBase(models.Model):
         Kayttaja, null=False, on_delete=models.PROTECT, verbose_name="Lisääjä"
     )
     lisaysaika = models.DateTimeField(auto_now_add=True, null=False, editable=False, verbose_name="Lisäysaika")
+    
+    poistettu = models.BooleanField(
+        null=False, blank=False, default=False, verbose_name="Poistettu")
+    poistoaika = models.DateTimeField(
+        blank=True, null=True, editable=False, verbose_name="Poistoaika")
+    poistaja = models.ForeignKey(
+        Kayttaja, null=True, blank=True, on_delete=models.PROTECT, 
+        verbose_name="Tuotteen poistaja", related_name="tuotteen_poistaja")
+    
     class Meta:
         verbose_name = "Tuote"
         verbose_name_plural = "Tuotteet"
-        abstract = True
         ordering = ['tuoteryhma', 'nimike']
 
     def __str__(self):
         return f"id({self.id}) {self.tuoteryhma.nimi}/{self.nimike}"
-
-class Tuote(TuoteBase):
-    pass
-
-class TuoteOld(TuoteBase):
-    tuoteryhma = models.ForeignKey(
-        Tuoteryhma, null=False, on_delete=models.PROTECT, verbose_name="Tuoteryhmä",
-        related_name="tuoteryhma_oli")
-    
-    lisaaja = models.ForeignKey(
-        Kayttaja, null=False, on_delete=models.PROTECT, verbose_name="Lisääjä",
-        related_name="lisaaja_oli")
-
-    poistaja = models.ForeignKey(
-        Kayttaja, null=False, on_delete=models.PROTECT, verbose_name="Poistaja")
-
-    poistettu = models.DateTimeField(
-        blank=True, null=True, editable=False, verbose_name="Poistettu")
-
-    class Meta(TuoteBase.Meta):
-        verbose_name = "Vanha tuote"
-        verbose_name_plural = "Vanhat tuotteet"
-
-# TODO: 10.5.22 Yksinkertaistus - https://github.com/janlevea/Varastonhallinta-R3/pull/15
