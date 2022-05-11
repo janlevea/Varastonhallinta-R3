@@ -1,24 +1,30 @@
 {% extends "base.html" %}
 {% load static %}
 {% block h1title %}
-    {% if not ryhmassaTuotteita %}
-    Poistetaanko ryhmä?
+    {% if not tuoteryhma.poistettu %}
+        {% if not ryhmassaTuotteita %}
+        Poistetaanko ryhmä?
+        {% else %}
+        Poisto epäonnistui! Ryhmässä on tuotteita.
+        {% endif %}
     {% else %}
-    Poisto epäonnistui! Ryhmässä on tuotteita.
+        Tämä ryhmä on jo poistettu!
     {% endif %}
 {% endblock %}
 {% block h5title %}
     id: {{ tuoteryhma.id }}
 {% endblock %}
 {% block content %}
-<form method="POST">{% csrf_token %}
-    <p><input type="submit" value="Kyllä"/>&emsp;&emsp;&emsp;&emsp;
-        <a href="{% url "tuotteet:ryhma" tuoteryhma.id %}">
-            Peruuta
-        </a>
-    </p>
-</form>
-<br/>
+{% if not tuoteryhma.poistettu %}
+    <form method="POST">{% csrf_token %}
+        <p><input type="submit" value="Kyllä"/>&emsp;&emsp;&emsp;&emsp;
+            <a href="{% url "tuotteet:ryhma" tuoteryhma.id %}">
+                Peruuta
+            </a>
+        </p>
+    </form>
+    <br/>
+{% endif %}
 {% comment %} Lataa tuotteen tiedot containeriin {% endcomment %}
 {% include "tuotteet/tuoteryhma_container.html" with poistaRyhmaNappi=False %}
 {% endblock content %}
