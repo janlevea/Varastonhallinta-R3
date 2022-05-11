@@ -58,10 +58,40 @@
             </a>
         </div>
     </div>
-    <br/>
-    <div class="row">
-        <div class="col">
-            <a href="{% url "varasto:palautaLainaus" laina.id %}">Merkitse palautetuksi</a>
+    {% if not merkitsemassaPalautetuksi %}
+        {% if laina.avoin %}
+        <br/>
+        <div class="row">
+            <div class="col">
+                <a href="{% url "varasto:palautaLainaus" laina.id %}">Merkitse palautetuksi</a>
+            </div>
         </div>
-    </div>
+        {% endif %}
+    {% endif %}
+    {% if not laina.avoin %}
+        <br/>
+        <div class="row">
+            <div class="col">
+                <b>Tämä lainaus on palautettu!</b>
+                <svg id="i-trash" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="18" height="18" fill="red" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <path d="M28 6 L6 6 8 30 24 30 26 6 4 6 M16 12 L16 24 M21 12 L20 24 M11 12 L12 24 M12 6 L13 2 19 2 20 6" />
+                </svg>  
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                Palautettu: {{ laina.palautettu }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                Varastonhoitaja palauttaessa:
+            </div>
+            <div class="col">
+                <a href="{% url "kayttajat:profiili" laina.varastonhoitaja_palautus.opiskelijanumero %}">
+                    {{ laina.varastonhoitaja_palautus }}
+                </a>
+            </div>
+        </div>
+    {% endif %}
 </div>
