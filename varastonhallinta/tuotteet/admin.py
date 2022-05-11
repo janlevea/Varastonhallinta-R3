@@ -16,6 +16,7 @@ class TuoteryhmaAdmin(admin.ModelAdmin):
     list_filter = ("poistettu",)
     ordering = ["nimi"]
 # TODO: Suljetut tuoteryhmät erikseen
+# TODO: Tuotemäärä näkyviin tuoteryhmissä
 
 class TuoteAdmin(admin.ModelAdmin):
     fields = (
