@@ -74,6 +74,13 @@ h5 {
     font-size: 21px;
 }
 
+/* help_text 
+.helptext {
+    font-family: Nunito, sans-serif;
+    font-size: 14px;
+    padding-top: 0px;
+} */
+
 /*  kirjautunut käyttäjä + kirjaudu ulos linkit
     ruudun oikeaan yläreunaan */
 #kirjautunut {
