@@ -1,0 +1,42 @@
+<div class="container" id="tuoteryhma_container">
+    <div class="row">
+        <div class="col">
+            {% if linkilla %}
+                <a href="{% url "tuotteet:ryhma" tuoteryhma.id %}">
+                    {{ tuoteryhma.nimi }}
+                </a>
+            {% else %}
+                {{ tuoteryhma.nimi }}
+            {% endif %}
+        </div>
+        {% if not juuriLisatty %}
+            <div class="col">
+                {% if tuoteryhma.maara > 0 %}
+                    Tuotteiden määrä: {{ tuoteryhma.maara }}
+                {% else %}
+                    Ei tuotteita
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+    <div class="row">
+        <div class="col">
+            Lisääjä: 
+            <a href="{% url "kayttajat:profiili" tuoteryhma.lisaaja.opiskelijanumero %}">
+                {{ tuoteryhma.lisaaja }}
+            </a>
+        </div>
+        <div class="col">
+            Lisäysaika: {{ tuoteryhma.lisaysaika }}
+        </div>
+    </div>
+    {% if poistaRyhmaNappi %}
+    <div class="row">
+        <div class="col">
+            <a href="{% url "tuotteet:poistaRyhma" tuoteryhma.id %}">
+                Poista ryhmä
+            </a>
+        </div>
+    </div>
+    {% endif %}
+</div>

@@ -16,31 +16,7 @@
 <a href="{% url "tuotteet:lista" %}">Kaikki tuotteet</a>&emsp;&emsp;&emsp;&emsp;
 <br/><br/>
 {% comment %} Lataa tuoteryhmän tiedot containeriin {% endcomment %}
-<div class="container" id="tuoteryhma_container">
-    <div class="row">
-        <div class="col">
-            {{ tuoteryhma.nimi }}
-        </div>
-        <div class="col">
-            {% if tuoteryhma.tuotemaara > 0 %}
-                Tuotteiden määrä: {{ tuoteryhma.tuotemaara }}
-            {% else %}
-                Ei tuotteita
-            {% endif %}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            Lisääjä: 
-            <a href="{% url "kayttajat:profiili" tuoteryhma.lisaaja.opiskelijanumero %}">
-                {{ tuoteryhma.lisaaja }}
-            </a>
-        </div>
-        <div class="col">
-            Lisäysaika: {{ tuoteryhma.lisaysaika }}
-        </div>
-    </div>
-</div>
+{% include "tuotteet/tuoteryhma_container.html" with poistaRyhmaNappi=True linkilla=False %}
 <br/>
 {% if tuoteryhma.tuotemaara > 0 %}
     <h5 id="tuoteryhmaotsikko">Tuoteryhmän tuotteet:</h5>

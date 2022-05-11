@@ -13,34 +13,8 @@
     Lisää tuoteryhmä
 </a>
 <br/><br/>
-{% for instance in object_list %}
-<div class="container" id="tuoteryhmat_container">
-    <div class="row">
-        <div class="col">
-            <a href="{% url "tuotteet:ryhma" instance.id %}">
-                {{ instance.nimi }}
-            </a>
-        </div>
-        <div class="col">
-            {% if instance.maara > 0 %}
-                Tuotteiden määrä: {{ instance.maara }}
-            {% else %}
-                Ei tuotteita
-            {% endif %}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            Lisääjä: 
-            <a href="{% url "kayttajat:profiili" instance.lisaaja.opiskelijanumero %}">
-                {{ instance.lisaaja }}
-            </a>
-        </div>
-        <div class="col">
-            Lisäyssaika: {{ instance.lisaysaika }}
-        </div>
-    </div>
-</div>
+{% for tuoteryhma in object_list %}
+{% include "tuotteet/tuoteryhma_container.html" with poistaRyhmaNappi=True linkilla=True %}
 <br/>
 {% endfor %}
 {% endblock content %}
