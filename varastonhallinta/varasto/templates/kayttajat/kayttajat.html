@@ -46,27 +46,33 @@
     </div>
     <div class="row">
         <div class="col">
-            Aktiivinen
+            Aktiivinen:
             {% if instance.is_aktiivinen %}
             <svg id="i-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="15" height="15" fill="none" stroke="green" stroke-linecap="round" stroke-linejoin="round" stroke-width="4">
                 <path d="M2 20 L12 28 30 4" />
             </svg>
+            {% else %}
+                <span>Ei</span>
             {% endif %}
         </div>
         <div class="col">
-            Henkilökunta
+            Henkilökunta:
             {% if instance.is_staff %}
             <svg id="i-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="15" height="15" fill="none" stroke="green" stroke-linecap="round" stroke-linejoin="round" stroke-width="4">
                 <path d="M2 20 L12 28 30 4" />
             </svg>
+            {% else %}
+                <span>Ei</span>
             {% endif %}
         </div>
         <div class="col">
-            Admin 
+            Admin:
             {% if instance.is_admin %}
             <svg id="i-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="15" height="15" fill="none" stroke="green" stroke-linecap="round" stroke-linejoin="round" stroke-width="4">
                 <path d="M2 20 L12 28 30 4" />
             </svg>
+            {% else %}
+                <span>Ei</span>
             {% endif %}
         </div>
     </div>
