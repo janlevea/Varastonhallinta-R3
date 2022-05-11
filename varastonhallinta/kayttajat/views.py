@@ -27,7 +27,7 @@ def rekisteroidy(request):
             password = form.cleaned_data['password']
             user.set_password(password)
             user.save()
-            return redirect("/varasto/kayttajat/login/")
+            return render(request, "kayttajat/rekisterointi_onnistui.html")
     else:
         form = Rekisteroidy()
     return render(request, "kayttajat/rekisteroidy.html", {"form": form})
