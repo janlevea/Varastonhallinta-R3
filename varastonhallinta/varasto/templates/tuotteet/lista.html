@@ -10,8 +10,11 @@
 {% endif %}
 {% block content %}
 <a href="{% url "tuotteet:lisaa" %}">
-    Lisää tuote
-</a>
+    Lisää tuote</a>
+ &emsp;&emsp;&emsp;&emsp;
+<a href="{% url "tuotteet:ryhmat" %}">
+    Tuoteryhmät</a>
+&emsp;&emsp;&emsp;&emsp;
 <br/><br/>
 {% comment %} 
     # TODO: tuotteiden järjestäminen parametrien mukaan
