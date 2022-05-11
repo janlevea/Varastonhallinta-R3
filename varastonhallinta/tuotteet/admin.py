@@ -5,15 +5,15 @@ from .models import Tuote, Tuoteryhma
 
 class TuoteryhmaAdmin(admin.ModelAdmin):
     fields = (
-        "nimi", "lisaaja", "lisaysaika", "avoin", "poistaja", "poistoaika"
+        "nimi", "lisaaja", "lisaysaika", "poistettu", "poistaja", "poistoaika"
     )
 
     readonly_fields = ["lisaysaika", "poistaja", "poistoaika"]
 
     list_display = (
-        "nimi", "id", "avoin", "lisaaja", "lisaysaika"
+        "nimi", "id", "poistettu", "lisaaja", "lisaysaika"
     )
-    list_filter = ("avoin",)
+    list_filter = ("poistettu",)
     ordering = ["nimi"]
 # TODO: Suljetut tuoteryhmät erikseen
 

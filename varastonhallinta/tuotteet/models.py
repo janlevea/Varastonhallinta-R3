@@ -10,10 +10,10 @@ class Tuoteryhma(models.Model):
     )
     lisaysaika = models.DateTimeField(auto_now_add=True, null=False, editable=False, verbose_name="Lisäysaika")
 
-    avoin = models.BooleanField(
-        null=False, blank=False, default=True, verbose_name="Avoin")
+    poistettu = models.BooleanField(
+        null=False, blank=False, default=False, verbose_name="Poistettu")
     poistoaika = models.DateTimeField(
-        blank=True, null=True, editable=False, verbose_name="Poistettu")
+        blank=True, null=True, editable=False, verbose_name="Poistoaika")
     poistaja = models.ForeignKey(
         Kayttaja, null=True, blank=True, on_delete=models.PROTECT, 
         verbose_name="Ryhmän poistaja", related_name="poistaja")
