@@ -6,6 +6,8 @@ from varasto.models import Varastotapahtuma
 from datetime import timedelta
 from django.utils import timezone
 
+from kayttajat.models import Kayttaja
+
 # Varastotapahtuma modelista tehty formi uusi_lainaus -sivulle
 class UusiLainaus(forms.ModelForm):
     viim_palautuspaiva = forms.DateField(
@@ -36,7 +38,15 @@ class PalautaLainaus(forms.ModelForm):
             # Etsi lainauksia asiakkaan mukaan
             "asiakas"
         ]
-        
+            # varastotapahtumat = Varastotapahtuma.objects.all()
+            # mahd_asiakkaat = Kayttaja.objects.all()
+
+            # for tapahtuma in varastotapahtumat:
+            #     if tapahtuma.asiakas ==
+    # #asiakkaat_joilla_avoimia_lainauksia = varastotapahtumat.filter(pass)
+    #asiakkaat = Varastotapahtuma.objects.values_list("asiakas", flat=True)
+    #asiakas = forms.ModelChoiceField(queryset=queryset1)
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # TODO: Näytä vain asiakkaat joilla on avoimia lainauksia
