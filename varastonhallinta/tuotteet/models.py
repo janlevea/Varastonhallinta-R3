@@ -24,7 +24,7 @@ class Tuoteryhma(models.Model):
     def __str__(self):
         return f"id({self.id}) {self.nimi}"
 
-# TODO: Viivakoodit, python barcode, kuvana tietokantaan - svg järkevin? - CODE 128 - Tai tiedostona? ImageField
+# TODO: Viivakoodit, python barcode/google-barcode-fontti, kuvana tietokantaan - svg järkevin? - CODE 128 - Tai tiedostona? ImageField
 # TODO: Tuotekuvat ImageField
 
 class Tuote(models.Model):
