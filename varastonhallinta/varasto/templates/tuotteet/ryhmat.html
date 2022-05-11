@@ -14,7 +14,7 @@
 </a>
 <br/><br/>
 {% for tuoteryhma in object_list %}
-{% include "tuotteet/tuoteryhma_container.html" with poistaRyhmaNappi=True linkilla=True %}
+{% include "tuotteet/tuoteryhma_container.html" with poistaRyhmaNappi=True linkilla=True juuriLisatty=False %}
 <br/>
 {% endfor %}
 {% endblock content %}

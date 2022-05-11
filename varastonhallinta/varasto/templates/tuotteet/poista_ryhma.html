@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 {% block h1title %}
+    {% if not ryhmassaTuotteita %}
     Poistetaanko ryhmä?
+    {% else %}
+    Poisto epäonnistui! Ryhmässä on tuotteita.
+    {% endif %}
 {% endblock %}
 {% block h5title %}
     id: {{ tuoteryhma.id }}

@@ -7,10 +7,10 @@ from .forms import LisaaTuote, LisaaRyhma
 
 @login_required
 def ryhmat(request):
-    queryset = Tuoteryhma.objects.all()
+    queryset = Tuoteryhma.objects.filter(poistettu = False)
 
     for i in queryset:
-        i.maara = Tuote.objects.filter(tuoteryhma=i.id).count()
+        i.tuotemaara = Tuote.objects.filter(tuoteryhma=i.id).count()
 
     tuoteryhmat = {"object_list": queryset}
     return render(request, "tuotteet/ryhmat.html", tuoteryhmat)
@@ -68,17 +68,18 @@ def poistaTuote(request, pk):
 
 @login_required
 def poistaRyhma(request, pk):
-    tuoteryhma = get_object_or_404(Tuoteryhma, pk=pk)
-    tuotteet = tuoteryhma.objects.filter(Tuote)
+    valittu_tuoteryhma = get_object_or_404(Tuoteryhma, pk=pk)
+
     if request.method == 'POST':
-        if tuotteet > 0:
-            return render(request, "tuotteet/poista_ryhma.html", {"tuoteryhma": tuoteryhma})
-        tuoteryhma.poistettu = True
-        tuoteryhma.poistoaika = timezone.now()
-        tuoteryhma.poistaja = request.user
-        tuoteryhma.save()
+        tuotteet = Tuote.objects.filter(tuoteryhma=valittu_tuoteryhma)
+        if tuotteet.count() > 0:
+            return render(request, "tuotteet/poista_ryhma.html", {"tuoteryhma": valittu_tuoteryhma, "ryhmassaTuotteita": True})
+        valittu_tuoteryhma.poistettu = True
+        valittu_tuoteryhma.poistoaika = timezone.now()
+        valittu_tuoteryhma.poistaja = request.user
+        valittu_tuoteryhma.save()
         return render(request, "tuotteet/tuote_poistettu.html", {"ryhma": True}) # Vahvistussivu poistolle - TODO: Näytä ryhmän tiedot tällä sivulla
-    return render(request, "tuotteet/poista_ryhma.html", {"tuoteryhma": tuoteryhma})
+    return render(request, "tuotteet/poista_ryhma.html", {"tuoteryhma": valittu_tuoteryhma})
 
 @login_required
 def lisaaRyhma(request):
