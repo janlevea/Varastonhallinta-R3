@@ -19,7 +19,7 @@ def ryhmat(request):
 def ryhma(request, pk):
     tuoteryhma = get_object_or_404(Tuoteryhma, pk=pk)
 
-    tuotteet = Tuote.objects.filter(tuoteryhma=pk)
+    tuotteet = Tuote.objects.filter(tuoteryhma=pk, poistettu=False)
     tuoteryhma.tuotemaara = tuotteet.count()
 
     return render(request, "tuotteet/ryhma.html", {"tuoteryhma": tuoteryhma, "tuotteet": tuotteet, "naytanimi": False})
