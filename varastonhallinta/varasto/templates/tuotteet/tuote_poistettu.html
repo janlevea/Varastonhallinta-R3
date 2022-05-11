@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 {% block h1title %}
+    {% if not ryhma %}
     Tuote poistettu!
+    {% else %}
+    Tuoteryhmä poistettu!
+    {% endif %}
 {% endblock %}
 {% block h5title %}
     <br/>
@@ -10,7 +14,10 @@
     </a>
     <br/><br/>
     <a href="{% url "tuotteet:lista" %}">
-        Tuotteet
+        Tuotteet</a>
+    &emsp;&emsp;&emsp;&emsp;
+    <a href="{% url "tuotteet:ryhmat" %}">
+        Tuoteryhmät
     </a>
 {% endblock %}
 {% block content %}

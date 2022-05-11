@@ -63,8 +63,22 @@ def poistaTuote(request, pk):
         tuote.poistoaika = timezone.now()
         tuote.poistaja = request.user
         tuote.save()
-        return render(request, "tuotteet/tuote_poistettu.html") # Vahvistussivu poistolle - TODO: Näytä tuotteen tietoja tällä sivulla
+        return render(request, "tuotteet/tuote_poistettu.html", {"ryhma": False}) # Vahvistussivu poistolle - TODO: Näytä tuotteen tietoja tällä sivulla
     return render(request, "tuotteet/poista_tuote.html", {"tuote": tuote})
+
+@login_required
+def poistaRyhma(request, pk):
+    tuoteryhma = get_object_or_404(Tuoteryhma, pk=pk)
+    tuotteet = tuoteryhma.objects.filter(Tuote)
+    if request.method == 'POST':
+        if tuotteet > 0:
+            return render(request, "tuotteet/poista_ryhma.html", {"tuoteryhma": tuoteryhma})
+        tuoteryhma.poistettu = True
+        tuoteryhma.poistoaika = timezone.now()
+        tuoteryhma.poistaja = request.user
+        tuoteryhma.save()
+        return render(request, "tuotteet/tuote_poistettu.html", {"ryhma": True}) # Vahvistussivu poistolle - TODO: Näytä ryhmän tiedot tällä sivulla
+    return render(request, "tuotteet/poista_ryhma.html", {"tuoteryhma": tuoteryhma})
 
 @login_required
 def lisaaRyhma(request):

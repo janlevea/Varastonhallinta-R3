@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% block h1title %}
+    Poistetaanko ryhmä?
+{% endblock %}
+{% block h5title %}
+    id: {{ tuoteryhma.id }}
+{% endblock %}
+{% block content %}
+<form method="POST">{% csrf_token %}
+    <p><input type="submit" value="Kyllä"/>&emsp;&emsp;&emsp;&emsp;
+        <a href="{% url "tuotteet:ryhma" tuoteryhma.id %}">
+            Peruuta
+        </a>
+    </p>
+</form>
+<br/>
+{% comment %} Lataa tuotteen tiedot containeriin {% endcomment %}
+{% include "tuotteet/tuoteryhma_container.html" with poistaRyhmaNappi=False %}
+{% endblock content %}
