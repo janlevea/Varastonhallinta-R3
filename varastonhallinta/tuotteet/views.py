@@ -5,12 +5,14 @@ from django.utils import timezone
 from tuotteet.models import Tuote, Tuoteryhma
 from .forms import LisaaTuote, LisaaRyhma
 
+from stringToBCode import string2barcode
+
 @login_required
 def ryhmat(request):
     queryset = Tuoteryhma.objects.filter(poistettu = False)
 
     for i in queryset:
-        i.tuotemaara = Tuote.objects.filter(tuoteryhma=i.id).count()
+        i.tuotemaara = Tuote.objects.filter(tuoteryhma=i.id, poistettu = False).count()
 
     tuoteryhmat = {"object_list": queryset}
     return render(request, "tuotteet/ryhmat.html", tuoteryhmat)
@@ -99,3 +101,21 @@ def lisaaRyhma(request):
     else:
         form = LisaaRyhma()
     return render(request, "tuotteet/lisaa_ryhma.html", {"form": form, "current_datetime": current_datetime})
+
+'''
+temp: Tämä enkoodaa viivakoodi stringit ja tallentaa tietokantaan
+'''
+@login_required
+def enkoodaaViivakoodit(request):
+    testistring = "A-0040-Z"
+    enkoodattu = string2barcode(testistring, codeType="B")
+    return render(request, "test.html", {"enkoodattu": enkoodattu})
+    '''
+    tuotteet = Tuote.objects.all()
+    for tuote in tuotteet:
+        tuote.viivakoodi_encoded = string2barcode(tuote.viivakoodi_plaintxt, codeType="B")
+        tuote.save()
+        print(tuote.viivakoodi_encoded)
+    print(tuotteet)
+    return HttpResponse(tuotteet)
+    '''

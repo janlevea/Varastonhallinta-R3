@@ -9,7 +9,7 @@ class LisaaTuote(forms.ModelForm):
             "tuoteryhma",
             "nimike", "maara",
             "hankintapaikka", "kustannuspaikka",
-            "viivakoodi_string"
+            "viivakoodi_plaintxt"
         ]
     
     def __init__(self, *args, **kwargs):
@@ -20,7 +20,7 @@ class LisaaTuote(forms.ModelForm):
         self.fields['maara'].widget.attrs.update({'class': 'roundedborder rasekoredborder bottom-marg'})
         self.fields['hankintapaikka'].widget.attrs.update({'class': 'roundedborder rasekoblueborder'})
         self.fields['kustannuspaikka'].widget.attrs.update({'class': 'roundedborder rasekoblueborder bottom-marg'})
-        self.fields['viivakoodi_string'].widget.attrs.update({'class': 'roundedborder blackborder'})
+        self.fields['viivakoodi_plaintxt'].widget.attrs.update({'class': 'roundedborder blackborder'})
 
 class LisaaRyhma(forms.ModelForm):
     class Meta:
@@ -41,5 +41,5 @@ class LisaaRyhma(forms.ModelForm):
 #         fields = [
 #             "tuoteryhma", "nimike", "maara",
 #             "hankintapaikka", "kustannuspaikka",
-#             "tuotekuva", "viivakoodi_string"
+#             "tuotekuva", "viivakoodi_plaintxt"
 #         ]

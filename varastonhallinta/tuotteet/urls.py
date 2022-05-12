@@ -22,4 +22,7 @@ urlpatterns = [
     path("lisaa/", views.lisaa, name="lisaa"),
     # tuotteet/poista_tuote.html
     path("poista_tuote/<int:pk>", views.poistaTuote, name="poistaTuote"),
+
+    # temp: Tämä enkoodaa viivakoodi stringit ja tallentaa tietokantaan
+    path("enkoodaa_viivakoodit/", views.enkoodaaViivakoodit, name="enkoodaaViivakoodit"),
 ]

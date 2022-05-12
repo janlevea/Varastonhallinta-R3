@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+{% block h1title %}
+        Testisivu
+{% endblock %}
+{% block h5title %}
+    Viivakoodien testailua
+{% endblock %}
+{% block content %}
+    {% comment %} 
+    Lataa tuotteen tiedot containeriin
+    {% include "tuotteet/tuote_container.html" with naytanimi=True %}
+    {% endcomment %}
+    Enkoodattu viivakoodi:<br/><br/>
+    <span class="viivakoodi">{{ enkoodattu }}</span>
+{% endblock content %}

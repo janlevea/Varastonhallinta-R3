@@ -42,7 +42,8 @@ class Tuote(models.Model):
 
     tuotekuva = models.ImageField(null=False, verbose_name="Tuotekuva")
 
-    viivakoodi_string = models.CharField(max_length=30, null=False, verbose_name="Viivakoodi")
+    viivakoodi_plaintxt = models.CharField(max_length=30, null=False, verbose_name="Viivakoodi")
+    viivakoodi_encoded = models.CharField(max_length=30, null=False, verbose_name="Viivakoodi128")
 
     lisaaja = models.ForeignKey(
         Kayttaja, null=False, on_delete=models.PROTECT, verbose_name="Lisääjä"

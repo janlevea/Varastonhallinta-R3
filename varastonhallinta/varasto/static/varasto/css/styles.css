@@ -146,12 +146,12 @@ h5 {
 /* viivakoodeille viivakoodifontti */
 .viivakoodi {
     font-family: "Libre Barcode 128 Text";
-    font-size: 40px;
-    
-    display: inline-block;
+    font-size: 72px;
+    margin-left: 20px;
+    /*
     transform: scale(2, 1.5);
-    margin-left: 60px;
     padding: 10px 0 10px 0;
+    */
 }
 
 /*  yksittäisten lainausten tiedot containerissa

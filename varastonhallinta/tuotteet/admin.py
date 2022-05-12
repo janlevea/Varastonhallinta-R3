@@ -21,7 +21,7 @@ class TuoteryhmaAdmin(admin.ModelAdmin):
 class TuoteAdmin(admin.ModelAdmin):
     fields = (
         "tuoteryhma", "nimike", "maara", "hankintapaikka", "kustannuspaikka",
-        "viivakoodi_string", "lisaaja", "lisaysaika", "poistettu", "poistaja"
+        "viivakoodi_plaintxt", "lisaaja", "lisaysaika", "poistettu", "poistaja"
     )
 
     readonly_fields = [
