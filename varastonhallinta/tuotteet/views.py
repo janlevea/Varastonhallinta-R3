@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 
@@ -107,10 +107,14 @@ temp: Tämä enkoodaa viivakoodi stringit ja tallentaa tietokantaan
 '''
 @login_required
 def enkoodaaViivakoodit(request):
+    '''
     testistring = "A-0040-Z"
     enkoodattu = string2barcode(testistring, codeType="B")
+    print(enkoodattu)
+    #enkoodattu = "ÌA-0040-ZÇÎ"
     return render(request, "test.html", {"enkoodattu": enkoodattu})
     '''
+
     tuotteet = Tuote.objects.all()
     for tuote in tuotteet:
         tuote.viivakoodi_encoded = string2barcode(tuote.viivakoodi_plaintxt, codeType="B")
@@ -118,4 +122,3 @@ def enkoodaaViivakoodit(request):
         print(tuote.viivakoodi_encoded)
     print(tuotteet)
     return HttpResponse(tuotteet)
-    '''

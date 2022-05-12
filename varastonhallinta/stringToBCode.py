@@ -34,7 +34,17 @@ def string2barcode(text, codeType="B", fontShift="common"):
     # Build barcode 
     startSymbol = chr(startSymbolValue + addValue) # Create a start symbol according to the type
     stopSymbol = chr(stopSymbolValue + addValue) # Create a stop symbol
-    chkSymbol = chr(chksum + 32) # Create the checksum symbol
+
+    if chksum < 95:
+        chkSymbol = chr(chksum + 32) # Create the checksum symbol
+    else:
+        chkSymbol = chr(chksum + addValue)
+
+    print("chksymbol ", chkSymbol)
     barCode = startSymbol + stringToCode + chkSymbol + stopSymbol
     print(barCode)
     return barCode
+
+if __name__ == '__main__':
+    bc = string2barcode('A-0040-Z', 'B', 'common')
+    print("Viivakoodi on", bc)
