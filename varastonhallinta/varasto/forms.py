@@ -38,17 +38,21 @@ class PalautaLainaus(forms.ModelForm):
             # Etsi lainauksia asiakkaan mukaan
             "asiakas"
         ]
-            # varastotapahtumat = Varastotapahtuma.objects.all()
-            # mahd_asiakkaat = Kayttaja.objects.all()
 
-            # for tapahtuma in varastotapahtumat:
-            #     if tapahtuma.asiakas ==
-    # #asiakkaat_joilla_avoimia_lainauksia = varastotapahtumat.filter(pass)
-    #asiakkaat = Varastotapahtuma.objects.values_list("asiakas", flat=True)
-    #asiakas = forms.ModelChoiceField(queryset=queryset1)
+    ### Näytä valinnassa vain ne asiakkaat joilla on avoimia lainauksia:
+    avoimetVarastotapahtumat = Varastotapahtuma.objects.filter(avoin = True)
+    asiakkaat_idLista = avoimetVarastotapahtumat.values_list("asiakas", flat=True)
+
+    asiakkaat_vain_kerran_idLista = []
+    for asiakasId in asiakkaat_idLista:
+        if not asiakasId in asiakkaat_vain_kerran_idLista:
+            asiakkaat_vain_kerran_idLista.append(asiakasId)
+        
+    asiakkaat_queryset = Kayttaja.objects.filter(pk__in=asiakkaat_vain_kerran_idLista)
+
+    asiakas = forms.ModelChoiceField(queryset=asiakkaat_queryset, label="Asiakkaat joilla avoimia lainauksia:")
+    ### 
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # TODO: Näytä vain asiakkaat joilla on avoimia lainauksia
-        #self.fields['asiakas'].queryset = Varastotapahtuma.objects.filter(Varastotapahtuma.asiakas)
         self.fields['asiakas'].widget.attrs.update({'class': 'rasekoredborder roundedborder bottom-marg'})
