@@ -1,9 +1,9 @@
 /* Fontit */
-@import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Kanit:wght@800;900&family=Libre+Barcode+128&family=Nunito+Sans:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Kanit:wght@800;900&family=Libre+Barcode+128&family=Libre+Barcode+128+Text&family=Nunito+Sans:wght@300;400;600&display=swap');
+
+
 /*  Tarvittaessa punainen reunaviiva kaikille elementeille
     kehitysvaiheessa elementtien asetteluun */
-
-
 /*
 * {
     border: 1px solid red;
@@ -141,6 +141,17 @@ h5 {
 .perusform1 #id_tuoteryhma {
     width: 240px;
     height: 40px;
+}
+
+/* viivakoodeille viivakoodifontti */
+.viivakoodi {
+    font-family: "Libre Barcode 128 Text";
+    font-size: 40px;
+    
+    display: inline-block;
+    transform: scale(2, 1.5);
+    margin-left: 60px;
+    padding: 10px 0 10px 0;
 }
 
 /*  yksittäisten lainausten tiedot containerissa

@@ -24,7 +24,7 @@ class Tuoteryhma(models.Model):
     def __str__(self):
         return f"id({self.id}) {self.nimi}"
 
-# TODO: Viivakoodit, python barcode/google-barcode-fontti, kuvana tietokantaan - svg järkevin? - CODE 128 - Tai tiedostona? ImageField
+# TODO: Viivakoodit, google-barcode-fontti/(python-barcode) - CODE 128
 # TODO: Tuotekuvat ImageField
 
 class Tuote(models.Model):
@@ -40,10 +40,9 @@ class Tuote(models.Model):
     hankintapaikka = models.CharField(max_length=50, null=False, verbose_name="Hankintapaikka")
     kustannuspaikka = models.CharField(max_length=10, null=False, verbose_name="Kustannuspaikka")
 
-    tuotekuva = models.BinaryField(null=False, verbose_name="Tuotekuva")
+    tuotekuva = models.ImageField(null=False, verbose_name="Tuotekuva")
 
     viivakoodi_string = models.CharField(max_length=30, null=False, verbose_name="Viivakoodi")
-    viivakoodi_img = models.BinaryField(null=False, verbose_name="Viivakoodi") # TODO: ImageField?
 
     lisaaja = models.ForeignKey(
         Kayttaja, null=False, on_delete=models.PROTECT, verbose_name="Lisääjä"
