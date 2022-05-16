@@ -47,6 +47,7 @@ class Varastotapahtuma(models.Model):
         return f"id({self.id}) {self.tuote.nimike} {self.maara}kpl, Asiakas: {self.asiakas}, Varastonhoitaja: {self.varastonhoitaja}"
 
 # TODO: VarastotapahtumaQuerySet kuntoon
+# Tähän suutarin pull request GitHubissa
 # class VarastotapahtumaQuerySet(models.QuerySet):
 #     # Varastotapahtuma.objects.avoimet()
 #     def avoimet(self):
