@@ -8,6 +8,15 @@ from tuotteet.models import Tuote
 # UUID arkistotunnuksen luontia varten
 import uuid
 
+class VarastotapahtumaQuerySet(models.QuerySet):
+    # Varastotapahtuma.objects.avoimet()
+    def avoimet(self):
+        return self.filter(avoin = True)
+
+    # Varastotapahtuma.objects.suljetut()
+    def suljetut(self):
+        return self.filter(avoin = False)
+
 class Varastotapahtuma(models.Model):
     id = models.AutoField(primary_key=True, null=False, blank=False, editable=False, unique=True)
 
@@ -39,20 +48,11 @@ class Varastotapahtuma(models.Model):
         Kayttaja, null=True, blank=True, on_delete=models.PROTECT, 
         verbose_name="Palautuksen varastonhoitaja", related_name="varastonhoitaja_palautus") # Varastonhoitaja joka kirjasi palautuksen
 
+    objects = VarastotapahtumaQuerySet.as_manager()
+
     class Meta:
         verbose_name = "Varastotapahtuma"
         verbose_name_plural = "Varastotapahtumat"
         ordering = ['asiakas'] # Varastotapahtumat järjestellään oletuksena asiakkaan mukaan
     def __str__(self):
         return f"id({self.id}) {self.tuote.nimike} {self.maara}kpl, Asiakas: {self.asiakas}, Varastonhoitaja: {self.varastonhoitaja}"
-
-# TODO: VarastotapahtumaQuerySet kuntoon
-# Tähän suutarin pull request GitHubissa
-# class VarastotapahtumaQuerySet(models.QuerySet):
-#     # Varastotapahtuma.objects.avoimet()
-#     def avoimet(self):
-#         return self.filter(avoin = True)
-
-#     # Varastotapahtuma.objects.suljetut()
-#     def suljetut(self):
-#         return self.filter(avoin = False)

@@ -73,7 +73,8 @@ def palautaLainaus(request, pk):
 
 @login_required
 def lainaukset(request): # Lista kaikista avoimista lainauksista
-    queryset = Varastotapahtuma.objects.filter(avoin = True)
+    queryset = Varastotapahtuma.objects.avoimet()
+    #queryset = Varastotapahtuma.objects.filter(avoin = True)
     return render(request, "varasto/lainaukset.html", {"object_list": queryset})
 
 # TODO: Vanhat/Palautetut lainaukset
