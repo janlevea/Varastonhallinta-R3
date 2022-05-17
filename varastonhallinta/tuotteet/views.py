@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 
 from tuotteet.models import Tuote, Tuoteryhma
-from .forms import LisaaTuote, LisaaRyhma
+from .forms import LisaaTuote, LisaaRyhma, ValitseRyhma
 
 from stringToBCode import string2barcode
 
@@ -28,8 +28,10 @@ def ryhma(request, pk):
 
 @login_required
 def lista(request):
+    form = ValitseRyhma()
+    print("Valitseryhmäformi:", form)
     queryset = Tuote.objects.filter(poistettu = False)
-    tuotelista = {"object_list": queryset, "naytanimi": True}
+    tuotelista = {"object_list": queryset, "naytanimi": True, "form": form}
     return render(request, "tuotteet/lista.html", tuotelista)
 
 @login_required
@@ -46,8 +48,9 @@ def lisaa(request):
         if form.is_valid():
             lisaystapahtuma = Tuote.objects.create(**form.cleaned_data,
             **{
-                "lisaaja": request.user
+                "lisaaja": request.user,
             })
+            lisaystapahtuma.viivakoodi_encoded = string2barcode(lisaystapahtuma.viivakoodi_plaintxt, codeType="B")
             lisaystapahtuma.save()
             return render(request, "tuotteet/tuote.html", {"tuote": lisaystapahtuma, "juuriLisatty": True})
         return render(request, "tuotteet/lisaa.html",
