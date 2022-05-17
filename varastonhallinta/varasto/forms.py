@@ -7,6 +7,7 @@ from datetime import timedelta
 from django.utils import timezone
 
 from kayttajat.models import Kayttaja
+from tuotteet.models import Tuote
 
 # Varastotapahtuma modelista tehty formi uusi_lainaus -sivulle
 class UusiLainaus(forms.ModelForm):
@@ -22,6 +23,9 @@ class UusiLainaus(forms.ModelForm):
             "tuote", "maara", 
             "viim_palautuspaiva"
         ]
+
+    avoimetTuotteet = Tuote.objects.filter(poistettu = False)
+    tuote = forms.ModelChoiceField(queryset=avoimetTuotteet)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
