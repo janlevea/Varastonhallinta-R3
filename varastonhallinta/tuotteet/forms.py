@@ -35,6 +35,10 @@ class LisaaRyhma(forms.ModelForm):
         self.fields['nimi'].label = "Tuoteryhmän nimi"
         self.fields['nimi'].widget.attrs.update({'class': 'roundedborder rasekoredborder'})
 
+# TODO: Ryhmävalinta tuotelistasivulle
+#class ValitseRyhma(forms.Form):
+#    valittuRyhma = forms.
+
 # class MuutaTuotetta(forms.ModelForm):
 #     class Meta:
 #         model = Tuote
