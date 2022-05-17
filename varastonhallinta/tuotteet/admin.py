@@ -3,6 +3,9 @@ from django.contrib import admin
 from .models import Tuote, Tuoteryhma
 # from varasto.admin import ReadOnlyAdminMixin
 
+# TODO: enkoodatun viivakoodin luonti admintapahtumien yhteydessä
+# from stringToBCode import string2barcode
+
 class TuoteryhmaAdmin(admin.ModelAdmin):
     fields = (
         "nimi", "lisaaja", "lisaysaika", "poistettu", "poistaja", "poistoaika"
@@ -33,6 +36,7 @@ class TuoteAdmin(admin.ModelAdmin):
     )
     list_filter =  ("poistettu",)
     ordering = ["nimike"]
+
 
 # TODO: Poistetut tuotteet erikseen
 
