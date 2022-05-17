@@ -35,14 +35,7 @@ class UusiLainaus(forms.ModelForm):
         self.fields['maara'].widget.attrs.update({'class': 'rasekoblueborder roundedborder bottom-marg'})
         self.fields['viim_palautuspaiva'].widget.attrs.update({'class': 'blackborder roundedborder bottom-marg'})        
 
-class PalautaLainaus(forms.ModelForm):
-    class Meta:
-        model = Varastotapahtuma
-        fields = [
-            # Etsi lainauksia asiakkaan mukaan
-            "asiakas"
-        ]
-
+def haeLainaajat():
     ### Näytä valinnassa vain ne asiakkaat joilla on avoimia lainauksia:
     avoimetVarastotapahtumat = Varastotapahtuma.objects.filter(avoin = True)
     asiakkaat_idLista = avoimetVarastotapahtumat.values_list("asiakas", flat=True)
@@ -53,9 +46,32 @@ class PalautaLainaus(forms.ModelForm):
             asiakkaat_vain_kerran_idLista.append(asiakasId)
         
     asiakkaat_queryset = Kayttaja.objects.filter(pk__in=asiakkaat_vain_kerran_idLista)
+    return asiakkaat_queryset
 
+class PalautaLainaus(forms.ModelForm):
+    class Meta:
+        model = Varastotapahtuma
+        fields = [
+            # Etsi lainauksia asiakkaan mukaan
+            "asiakas"
+        ]
+
+    # ### Näytä valinnassa vain ne asiakkaat joilla on avoimia lainauksia:
+    # avoimetVarastotapahtumat = Varastotapahtuma.objects.filter(avoin = True)
+    # asiakkaat_idLista = avoimetVarastotapahtumat.values_list("asiakas", flat=True)
+
+    # asiakkaat_vain_kerran_idLista = []
+    # for asiakasId in asiakkaat_idLista:
+    #     if not asiakasId in asiakkaat_vain_kerran_idLista:
+    #         asiakkaat_vain_kerran_idLista.append(asiakasId)
+        
+    # asiakkaat_queryset = Kayttaja.objects.filter(pk__in=asiakkaat_vain_kerran_idLista)
+
+    asiakkaat_queryset = haeLainaajat()
     asiakas = forms.ModelChoiceField(queryset=asiakkaat_queryset, label="Asiakkaat joilla avoimia lainauksia:")
     ### 
+
+    # BUG: Lainaajat haetaan vaan käynnistäessä django palvelin, jos lisää lainoja käynnistämättä palvelinta uudelleen lainaaja ei päivity asiakas valikkoon
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

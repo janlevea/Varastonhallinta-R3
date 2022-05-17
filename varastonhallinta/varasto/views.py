@@ -54,6 +54,7 @@ def lainauksenPalautus(request):
     else:
         # Lainaajaa ei ole valittu
         form = PalautaLainaus()
+        print(form)
 
     return render(request, "varasto/lainauksen_palautus.html",
     {"form": form, "current_datetime": current_datetime})
@@ -68,7 +69,7 @@ def palautaLainaus(request, pk):
         laina.palautettu = timezone.now() # Palautuksen aikaleima
         laina.varastonhoitaja_palautus = request.user # Varastonhoitaja palautukselle
         laina.save() # Tallenna tietokantaan
-        return render(request, "varasto/lainaus_palautettu.html") # Vahvistussivu palautukselle - TODO: Näytä lainauksen tietoja tällä sivulla
+        return render(request, "varasto/lainaus_palautettu.html", {"laina": laina}) # Vahvistussivu palautukselle - TODO: Näytä lainauksen tietoja tällä sivulla
     return render(request, "varasto/palauta_lainaus.html", {"laina": laina}) # Kyllä nappia ei ole painettu
 
 @login_required
@@ -76,5 +77,5 @@ def lainaukset(request): # Lista kaikista avoimista lainauksista
     queryset = Varastotapahtuma.objects.avoimet()
     #queryset = Varastotapahtuma.objects.filter(avoin = True)
     return render(request, "varasto/lainaukset.html", {"object_list": queryset})
-
+    
 # TODO: Vanhat/Palautetut lainaukset
