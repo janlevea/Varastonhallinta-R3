@@ -49,6 +49,7 @@ class VarastotapahtumaAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
 
+# TODO: enkoodattua viivakoodia ei luoda adminpaneelilisäyksen yhteydessä
 # TODO: Avoimet/suljetut varastotapahtumat erikseen
 
 admin.site.register(Varastotapahtuma, VarastotapahtumaAdmin)
