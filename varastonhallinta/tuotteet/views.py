@@ -29,10 +29,17 @@ def ryhma(request, pk):
 @login_required
 def lista(request):
     form = ValitseRyhma()
-    print("Valitseryhmäformi:", form)
     queryset = Tuote.objects.filter(poistettu = False)
-    tuotelista = {"object_list": queryset, "naytanimi": True, "form": form}
-    return render(request, "tuotteet/lista.html", tuotelista)
+    ryhma = ""
+    if request.GET:
+        valittuRyhmaId = request.GET['valittuRyhma']
+        if valittuRyhmaId != "":
+            queryset = Tuote.objects.filter(poistettu=False, tuoteryhma=valittuRyhmaId)
+            ryhma = Tuoteryhma.objects.get(id=valittuRyhmaId)
+        
+    context = {"object_list": queryset, "naytanimi": True, "form": form, "ryhma": ryhma}
+    #print(Tuoteryhma.objects.filter(id=valittuRyhmaId))
+    return render(request, "tuotteet/lista.html", context)
 
 @login_required
 def tuote(request, pk):
@@ -105,23 +112,24 @@ def lisaaRyhma(request):
         form = LisaaRyhma()
     return render(request, "tuotteet/lisaa_ryhma.html", {"form": form, "current_datetime": current_datetime})
 
-'''
-temp: Tämä enkoodaa viivakoodi stringit ja tallentaa tietokantaan
-'''
-@login_required
-def enkoodaaViivakoodit(request):
-    '''
-    testistring = "A-0040-Z"
-    enkoodattu = string2barcode(testistring, codeType="B")
-    print(enkoodattu)
-    #enkoodattu = "ÌA-0040-ZÇÎ"
-    return render(request, "test.html", {"enkoodattu": enkoodattu})
-    '''
 
-    tuotteet = Tuote.objects.all()
-    for tuote in tuotteet:
-        tuote.viivakoodi_encoded = string2barcode(tuote.viivakoodi_plaintxt, codeType="B")
-        tuote.save()
-        print(tuote.viivakoodi_encoded)
-    print(tuotteet)
-    return HttpResponse(tuotteet)
+# '''
+# temp: Tämä enkoodaa viivakoodi stringit ja tallentaa tietokantaan
+# '''
+# @login_required
+# def enkoodaaViivakoodit(request):
+#     '''
+#     testistring = "A-0040-Z"
+#     enkoodattu = string2barcode(testistring, codeType="B")
+#     print(enkoodattu)
+#     #enkoodattu = "ÌA-0040-ZÇÎ"
+#     return render(request, "test.html", {"enkoodattu": enkoodattu})
+#     '''
+
+#     tuotteet = Tuote.objects.all()
+#     for tuote in tuotteet:
+#         tuote.viivakoodi_encoded = string2barcode(tuote.viivakoodi_plaintxt, codeType="B")
+#         tuote.save()
+#         print(tuote.viivakoodi_encoded)
+#     print(tuotteet)
+#     return HttpResponse(tuotteet)

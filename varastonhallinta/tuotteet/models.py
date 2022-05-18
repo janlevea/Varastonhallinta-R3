@@ -2,6 +2,12 @@ from django.db import models
 
 from kayttajat.models import Kayttaja
 
+class TuoteryhmaQuerySet(models.QuerySet):
+    # Tuoteryhmän nimi ja tuotteiden määrä
+    # Tuoteryhma.objects.ryhmatjamaara()
+    def ryhmatjamaara(self):
+        return self.filter(avoin = True)
+
 class Tuoteryhma(models.Model):
     id = models.AutoField(primary_key=True, null=False)
     nimi = models.CharField(max_length=50, null=False, verbose_name="Nimi")
@@ -21,10 +27,10 @@ class Tuoteryhma(models.Model):
     class Meta:
         verbose_name = "Tuoteryhmä"
         verbose_name_plural = "Tuoteryhmät"
-    def __str__(self):
-        return f"id({self.id}) {self.nimi}"
 
-# TODO: Viivakoodit, google-barcode-fontti/(python-barcode) - CODE 128
+    def __str__(self):
+            return f"id({self.id}) {self.nimi}"
+
 # TODO: Tuotekuvat ImageField
 
 class Tuote(models.Model):
@@ -65,3 +71,11 @@ class Tuote(models.Model):
 
     def __str__(self):
         return f"{self.tuoteryhma.nimi}/{self.nimike}"
+
+class TuoteryhmaNimiMaara(Tuoteryhma): # Tuotenäkymän ryhmävalikkoon erilainen __str__
+    class Meta:
+        proxy = True
+
+    def __str__(self):
+        self.tuotemaara = Tuote.objects.filter(tuoteryhma=self.id, poistettu = False).count()
+        return f"{self.nimi} ({self.tuotemaara}kpl)"

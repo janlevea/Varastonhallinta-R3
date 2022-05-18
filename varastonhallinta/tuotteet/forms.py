@@ -1,6 +1,6 @@
 from django import forms
 
-from tuotteet.models import Tuote, Tuoteryhma
+from tuotteet.models import Tuote, Tuoteryhma, TuoteryhmaNimiMaara
 
 class LisaaTuote(forms.ModelForm):
     class Meta:
@@ -35,11 +35,12 @@ class LisaaRyhma(forms.ModelForm):
         self.fields['nimi'].label = "Tuoteryhmän nimi"
         self.fields['nimi'].widget.attrs.update({'class': 'roundedborder rasekoredborder'})
 
-# TODO: Ryhmävalinta tuotelistasivulle
 class ValitseRyhma(forms.Form):
-    pass
-#    valittuRyhma = forms.
+    queryset = TuoteryhmaNimiMaara.objects.all()
+    valittuRyhma = forms.ModelChoiceField(queryset=queryset, label="Valitse ryhmä:", required=False, empty_label="Kaikki")
 
+
+##### Varmaan tarpeeton:
 # class MuutaTuotetta(forms.ModelForm):
 #     class Meta:
 #         model = Tuote

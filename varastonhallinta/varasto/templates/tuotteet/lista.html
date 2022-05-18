@@ -5,7 +5,13 @@
 {% endblock %}
 {% if object_list %}
     {% block h5title %}
-    Määrä: {{ object_list|length }}
+    {% if ryhma %}
+    Ryhmä: {{ ryhma.nimi }}
+    {% else %}
+    Ryhmä: Kaikki
+    {% endif %}
+    <br/>
+    Tuotteiden määrä: {{ object_list|length }}
     {% endblock %}
 {% endif %}
 {% block content %}
@@ -16,14 +22,11 @@
     Tuoteryhmät</a>
 &emsp;&emsp;&emsp;&emsp;
 <br/><br/>
-{% comment %} 
-# TODO: tuoteryhmävalinta tuotelistasivulle 
-{% endcomment %}
-<form action="{% url "tuotteet:lista" %}" method="POST">
-    {% csrf_token %} 
+<form method="GET">
     <div class="perusform1">
-        <p>Tuoteryhmä:</p>
-        {{ form.as_p }}
+        {{ form }}
+        <input type="submit" value="Valitse">
+        <br/><br/>
     </div>
 </form>
 {% comment %} 
