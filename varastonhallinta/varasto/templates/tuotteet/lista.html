@@ -16,7 +16,9 @@
     Tuoteryhmät</a>
 &emsp;&emsp;&emsp;&emsp;
 <br/><br/>
-# TODO: tuoteryhmävalinta tuotelistasivulle
+{% comment %} 
+# TODO: tuoteryhmävalinta tuotelistasivulle 
+{% endcomment %}
 <form action="{% url "tuotteet:lista" %}" method="POST">
     {% csrf_token %} 
     <div class="perusform1">
