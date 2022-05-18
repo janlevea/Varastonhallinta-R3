@@ -3,8 +3,7 @@ from django.contrib import admin
 from .models import Tuote, Tuoteryhma
 # from varasto.admin import ReadOnlyAdminMixin
 
-# TODO: enkoodatun viivakoodin luonti admintapahtumien yhteydessä
-# from stringToBCode import string2barcode
+from stringToBCode import string2barcode
 
 class TuoteryhmaAdmin(admin.ModelAdmin):
     fields = (
@@ -18,6 +17,7 @@ class TuoteryhmaAdmin(admin.ModelAdmin):
     )
     list_filter = ("poistettu",)
     ordering = ["nimi"]
+    
 # TODO: Suljetut tuoteryhmät erikseen
 # TODO: Tuotemäärä näkyviin tuoteryhmissä
 
@@ -37,6 +37,9 @@ class TuoteAdmin(admin.ModelAdmin):
     list_filter =  ("poistettu",)
     ordering = ["nimike"]
 
+    def save_model(self, request, obj, form, change):
+        obj.viivakoodi_encoded = string2barcode(obj.viivakoodi_plaintxt, codeType="B")
+        super().save_model(request, obj, form, change)
 
 # TODO: Poistetut tuotteet erikseen
 
