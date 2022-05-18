@@ -13,7 +13,6 @@ urlpatterns = [
     # tuotteet/poista_ryhma.html
     path("poista_ryhma/<int:pk>", views.poistaRyhma, name="poistaRyhma"),
 
-    # TODO: tuotteet/lista sivulle ryhmävalinta(selectform), erillinen tuoteryhmät sivu pois
     # tuotteet/lista.html
     path("lista/", views.lista, name="lista"),
     # tuotteet/tuote.html
