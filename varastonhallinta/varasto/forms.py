@@ -63,3 +63,21 @@ class PalautaLainaus(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['asiakas'].widget.attrs.update({'class': 'rasekoredborder roundedborder bottom-marg'})
         self.fields['asiakas'].queryset = haeLainaajat() # Päivitä asiakaslista ladattaessa sivu uudelleen
+
+class LainausJarjestys(forms.Form):
+    jarjestysVaihtoehdot = (
+        ("asiakas", "Lainaaja"),
+        ("varastonhoitaja", "Varastonhoitaja"),
+        ("id", "ID"),
+        ("tuoteryhma", "Tuoteryhmä"),
+        ("tuote", "Tuote"),
+        ("aikaleima", "Aikaleima"),
+        ("viim_palautuspaiva", "Palautuspäivä"),
+    )
+    jarjestys = forms.ChoiceField(choices=jarjestysVaihtoehdot, label="Järjestys:", required=False, initial="asiakas")
+
+    tavat = (
+        ("nouseva", "Nouseva"),
+        ("laskeva", "Laskeva"),
+    )
+    tapa = forms.ChoiceField(choices=tavat, widget=forms.RadioSelect, required=False, initial="nouseva", label="")

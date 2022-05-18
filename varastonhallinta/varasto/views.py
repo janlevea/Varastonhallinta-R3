@@ -4,7 +4,7 @@ from django.utils import timezone # Aikaleimoja varten
 from django.contrib.auth.decorators import login_required # Sivut vaativat kirjautumisen
 
 from varasto.models import Varastotapahtuma
-from .forms import UusiLainaus, PalautaLainaus
+from .forms import UusiLainaus, PalautaLainaus, LainausJarjestys
 
 @login_required
 def index(request): # Varastonhallinnan etusivu
@@ -74,8 +74,44 @@ def palautaLainaus(request, pk):
 
 @login_required
 def lainaukset(request): # Lista kaikista avoimista lainauksista
-    queryset = Varastotapahtuma.objects.avoimet()
-    #queryset = Varastotapahtuma.objects.filter(avoin = True)
-    return render(request, "varasto/lainaukset.html", {"object_list": queryset})
+    
+    form = LainausJarjestys()
+    queryset = Varastotapahtuma.objects.avoimet().order_by("asiakas__etunimi")
+    jarjestys = "Lainaajan etunimi"
+    valittuJarjestys = "asiakas"
+    merkki = ""
+    if request.GET:
+        valittuJarjestys = request.GET['jarjestys']
+        tapa = request.GET['tapa']
+
+        if tapa == "nouseva":
+            merkki = ""
+        elif tapa == "laskeva":
+            merkki = "-"
+
+        print(valittuJarjestys, tapa)
+        if valittuJarjestys == "asiakas" or valittuJarjestys == "": 
+            jarjestys = "Lainaajan etunimi"
+            queryset = Varastotapahtuma.objects.avoimet().order_by(f"{merkki}asiakas__etunimi")
+        elif valittuJarjestys == "varastonhoitaja":
+            jarjestys = "Varastonhoitajan etunimi"
+            queryset = Varastotapahtuma.objects.avoimet().order_by(f"{merkki}varastonhoitaja__etunimi")
+        elif valittuJarjestys == "id":
+            jarjestys = "Lainauksen ID"
+            queryset = Varastotapahtuma.objects.avoimet().order_by(f"{merkki}id")
+        elif valittuJarjestys == "tuoteryhma":
+            jarjestys = "Tuoteryhmän nimi"
+            queryset = Varastotapahtuma.objects.avoimet().order_by(f"{merkki}tuote__tuoteryhma__nimi")
+        elif valittuJarjestys == "tuote":
+            jarjestys = "Tuotteen nimi"
+            queryset = Varastotapahtuma.objects.avoimet().order_by(f"{merkki}tuote__nimike")
+        elif valittuJarjestys == "aikaleima":
+            jarjestys = "Aikaleima/Lainausaika"
+            queryset = Varastotapahtuma.objects.avoimet().order_by(f"{merkki}aikaleima")
+        elif valittuJarjestys == "viim_palautuspaiva":
+            jarjestys = "Viimeinen palautuspäivä"
+            queryset = Varastotapahtuma.objects.avoimet().order_by(f"{merkki}viim_palautuspaiva")
+
+    return render(request, "varasto/lainaukset.html", {"object_list": queryset, "form": form, "jarjestys": jarjestys, "tapa": tapa})
     
 # TODO: Vanhat/Palautetut lainaukset

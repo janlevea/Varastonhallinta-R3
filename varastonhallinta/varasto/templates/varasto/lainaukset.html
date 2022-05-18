@@ -2,12 +2,19 @@
 {% load static %}
 {% block h1title %}Avoimet lainaukset{% endblock %}
 {% if object_list %}
-    {% block h5title %}Määrä: {{ object_list|length }}{% endblock %}
+    {% block h5title %}
+        Määrä: {{ object_list|length }}
+    {% endblock %}
 {% endif %}
 {% block content %}
-{% comment %} 
-    # TODO: lainausten järjestäminen lainausajan/palautusajan/idn/työkalun/lainaajan/varastonhoitajan mukaan
-{% endcomment %}
+<form method="GET">
+    <div class="perusform1">
+        {{ form }}
+        <input type="submit" value="OK">
+        <br/><br/>
+    </div>
+</form>
+Valittu järjestys: {{ jarjestys }}, {{ tapa }} <br/><br/>
 {% comment %} Lataa lainaukset containereihin {% endcomment %}
 {% for instance in object_list %}
 <div class="container" id="lainaukset_container">
