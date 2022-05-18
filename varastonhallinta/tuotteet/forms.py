@@ -36,7 +36,8 @@ class LisaaRyhma(forms.ModelForm):
         self.fields['nimi'].widget.attrs.update({'class': 'roundedborder rasekoredborder'})
 
 # TODO: Ryhmävalinta tuotelistasivulle
-#class ValitseRyhma(forms.Form):
+class ValitseRyhma(forms.Form):
+    pass
 #    valittuRyhma = forms.
 
 # class MuutaTuotetta(forms.ModelForm):

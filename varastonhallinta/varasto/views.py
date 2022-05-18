@@ -54,7 +54,7 @@ def lainauksenPalautus(request):
     else:
         # Lainaajaa ei ole valittu
         form = PalautaLainaus()
-        print(form)
+        #print(form)
 
     return render(request, "varasto/lainauksen_palautus.html",
     {"form": form, "current_datetime": current_datetime})

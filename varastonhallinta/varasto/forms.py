@@ -56,23 +56,10 @@ class PalautaLainaus(forms.ModelForm):
             "asiakas"
         ]
 
-    # ### Näytä valinnassa vain ne asiakkaat joilla on avoimia lainauksia:
-    # avoimetVarastotapahtumat = Varastotapahtuma.objects.filter(avoin = True)
-    # asiakkaat_idLista = avoimetVarastotapahtumat.values_list("asiakas", flat=True)
-
-    # asiakkaat_vain_kerran_idLista = []
-    # for asiakasId in asiakkaat_idLista:
-    #     if not asiakasId in asiakkaat_vain_kerran_idLista:
-    #         asiakkaat_vain_kerran_idLista.append(asiakasId)
-        
-    # asiakkaat_queryset = Kayttaja.objects.filter(pk__in=asiakkaat_vain_kerran_idLista)
-
     asiakkaat_queryset = haeLainaajat()
     asiakas = forms.ModelChoiceField(queryset=asiakkaat_queryset, label="Asiakkaat joilla avoimia lainauksia:")
-    ### 
-
-    # BUG: Lainaajat haetaan vaan käynnistäessä django palvelin, jos lisää lainoja käynnistämättä palvelinta uudelleen lainaaja ei päivity asiakas valikkoon
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['asiakas'].widget.attrs.update({'class': 'rasekoredborder roundedborder bottom-marg'})
+        self.fields['asiakas'].queryset = haeLainaajat() # Päivitä asiakaslista ladattaessa sivu uudelleen
