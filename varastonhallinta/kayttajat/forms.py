@@ -110,3 +110,43 @@ class UserAdminChangeForm(forms.ModelForm):
         # This is done here, rather than on the field, because the
         # field does not have access to the initial value
         return self.initial["password"]
+
+class KayttajaJarjestys(forms.Form):
+    jarjestysVaihtoehdot = (
+        ("liittynyt", "Liittynyt"),
+        ("opiskelijanumero", "Opiskelijanumero"),
+        ("etunimi", "Etunimi"),
+        ("sukunimi", "Sukunimi"),
+        ("last_login", "Kirjautunut viim"),
+    )
+    jarjestys = forms.ChoiceField(choices=jarjestysVaihtoehdot, label="Järjestys:", required=False, initial="liittynyt")
+
+    tavat = (
+        ("nouseva", "Nouseva"),
+        ("laskeva", "Laskeva"),
+    )
+    tapa = forms.ChoiceField(choices=tavat, widget=forms.RadioSelect, required=False, initial="laskeva", label="")
+
+class KayttajaValinnat(forms.Form):
+    aktiivinenBool = (
+        ("True", "Kyllä"),
+        ("False", "Ei")
+    )
+    aktiiviset = forms.ChoiceField(
+        choices = aktiivinenBool,
+        widget = forms.RadioSelect,
+        initial = "True",
+        label = "Aktiivinen:",
+    )
+
+    valintaVaihtoehdot = (
+        ("staff", "Henkilökunta"),
+        ("admin", "Admin"),
+    )
+    valinnat = forms.MultipleChoiceField(
+        choices = valintaVaihtoehdot,
+        widget = forms.CheckboxSelectMultiple,
+        initial= "",
+        label = "",
+        required = False,
+    )
