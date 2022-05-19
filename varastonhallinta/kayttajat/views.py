@@ -10,7 +10,6 @@ def profiili(request, opiskelijanumero):
     kayttaja = get_object_or_404(Kayttaja, opiskelijanumero=opiskelijanumero)
     return render(request, "kayttajat/profiili.html", {"user": kayttaja})
 
-# TODO: Järjestysformit ei muista valintaa vaihtaessa
 @login_required
 def kayttajalista(request):
     # Hae käyttäjät, laskeva liittymisaika järjestys
