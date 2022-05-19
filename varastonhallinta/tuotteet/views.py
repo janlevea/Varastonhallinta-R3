@@ -32,13 +32,13 @@ def lista(request):
     queryset = Tuote.objects.filter(poistettu = False)
     ryhma = ""
     if request.GET:
+        form = ValitseRyhma(request.GET)
         valittuRyhmaId = request.GET['valittuRyhma']
         if valittuRyhmaId != "":
             queryset = Tuote.objects.filter(poistettu=False, tuoteryhma=valittuRyhmaId)
             ryhma = Tuoteryhma.objects.get(id=valittuRyhmaId)
         
     context = {"object_list": queryset, "naytanimi": True, "form": form, "ryhma": ryhma}
-    #print(Tuoteryhma.objects.filter(id=valittuRyhmaId))
     return render(request, "tuotteet/lista.html", context)
 
 @login_required

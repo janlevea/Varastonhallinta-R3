@@ -46,11 +46,10 @@ def lainauksenPalautus(request):
     queryset = Varastotapahtuma.objects.avoimet()
     valittuAsiakas = ""
     if request.GET:
-        print(request.GET)
+        form = PalautaLainaus(request.GET)
         valittuAsiakas = request.GET['asiakas']
         if not valittuAsiakas == "":
             valittuAsiakas = Kayttaja.objects.get(id=valittuAsiakas)
-            print(valittuAsiakas)
             # Näytä avoimet lainaukset lainaajan mukaan
             queryset = Varastotapahtuma.objects.filter(asiakas=valittuAsiakas, avoin=True)
         else:
@@ -83,6 +82,7 @@ def lainaukset(request): # Lista kaikista avoimista lainauksista
     tapa = "nouseva"
     merkki = "" # tyhjä on nouseva, "-" on laskeva
     if request.GET: # Järjestystä on vaihdettu
+        form = LainausJarjestys(request.GET)
         valittuJarjestys = request.GET['jarjestys'] # Hae valittu järjestys form valinnasta
         tapa = request.GET['tapa'] # Nouseva vai laskeva?
 
