@@ -7,6 +7,7 @@ from .forms import LisaaTuote, LisaaRyhma, ValitseRyhma
 
 from stringToBCode import string2barcode
 
+# TODO: Tuoteryhmät sivulle järjestelyominaisuus
 @login_required
 def ryhmat(request):
     queryset = Tuoteryhma.objects.filter(poistettu = False)
