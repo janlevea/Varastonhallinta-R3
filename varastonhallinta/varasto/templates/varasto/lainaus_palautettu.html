@@ -12,8 +12,5 @@
 {% endblock %}
 <br>
 {% block content %}
+{% include "varasto/lainaus_container.html" with merkitsemassaPalautetuksi=True %}
 {% endblock content %}
-
-{% comment %} 
-TODO: Näytä palautetun lainauksen tiedot, yhdistä templatei jos mahdollista
-{% endcomment %}
