@@ -40,9 +40,7 @@ def string2barcode(text, codeType="B", fontShift="common"):
     else:
         chkSymbol = chr(chksum + addValue)
 
-    print("chksymbol ", chkSymbol)
     barCode = startSymbol + stringToCode + chkSymbol + stopSymbol
-    print(barCode)
     return barCode
 
 if __name__ == '__main__':
