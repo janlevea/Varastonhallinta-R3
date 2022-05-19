@@ -9,9 +9,22 @@
     {% endblock %}
 {% endif %}
 {% block content %}
-{% comment %} 
-    # TODO: käyttäjien järjestäminen eri parametreillä
-{% endcomment %}
+<form method="GET">
+    <div class="perusform1">
+        {{ form }}
+
+        {% comment %} 
+        TODO: Aktiivinen: Kyllä/Ei yhdelle riville 
+        {% endcomment %}
+
+        <div class="formValinnat">
+            {{ formValinnat }}
+        </div>
+        <input type="submit" value="OK">
+        <br/><br/>
+    </div>
+</form>
+Valittu järjestys: {{ jarjestys }}, {{ tapa }} <br/><br/>
 {% comment %} Lataa käyttäjät containereihin {% endcomment %}
 {% for instance in object_list %}
 <div class="container" id="kayttajalista_container">

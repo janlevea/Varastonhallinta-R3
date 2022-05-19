@@ -154,6 +154,12 @@ h5 {
     */
 }
 
+/* Käyttäjälistan valinnat */
+.formValinnat {
+    margin: -95px 0 0 270px;
+    width: 200px;
+}
+
 /*  yksittäisten lainausten tiedot containerissa
     @ /lainaus/1/ */
 .container {
