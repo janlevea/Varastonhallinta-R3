@@ -113,6 +113,7 @@ def lainaukset(request): # Lista kaikista avoimista lainauksista
             jarjestys = "Viimeinen palautuspäivä"
             queryset = avoimet.order_by(f"{merkki}viim_palautuspaiva")
 
-    return render(request, "varasto/lainaukset.html", {"object_list": queryset, "form": form, "jarjestys": jarjestys, "tapa": tapa})
+    return render(request, "varasto/lainaukset.html", 
+    {"object_list": queryset, "form": form, "jarjestys": jarjestys, "tapa": tapa})
     
 # TODO: Vanhat/Palautetut lainaukset
