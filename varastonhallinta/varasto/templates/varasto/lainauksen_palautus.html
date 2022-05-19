@@ -7,35 +7,33 @@
     Aika: {{current_datetime|date:"d.m.Y H:i"}}
 {% endblock %}
 {% block content %}
-<form action="{% url "varasto:lainauksenPalautus" %}" method="POST">
-    {% csrf_token %}
+<p class="varastonhoitaja">
+    Varastonhoitaja:<br/>
+    <a href="{% url "kayttajat:profiili" request.user.opiskelijanumero %}">
+        {{request.user.get_kokonimi}} ({{request.user.opiskelijanumero}})
+    </a>
+</p>
+
+<form method="GET">
     <div class="perusform1">
-        {% if asiakas %}
-            <a href="{% url "varasto:index" %}">
-                Palaa etusivulle
-            </a><br/><br/>
-        {% endif %}
-        <p class="varastonhoitaja">Varastonhoitaja:<br/>
-        <a href="{% url "kayttajat:profiili" request.user.opiskelijanumero %}">{{request.user.get_kokonimi}} ({{request.user.opiskelijanumero}})</a></p>
-        {% if not asiakas %}
-            {{ form.as_p }}
-            <input type="submit" value="Listaa"/>&emsp;&emsp;&emsp;&emsp;
-            <a href="{% url "varasto:index" %}">Palaa etusivulle</a>
-        {% endif %}
+        {{ form.as_p }}
+        <input type="submit" value="Listaa"/>&emsp;&emsp;&emsp;&emsp;
+        <a href="{% url "varasto:index" %}">Palaa etusivulle</a>
     </div>
 </form>
-{% comment %} 
-    TODO: Anna valita toinen asiakas, myös kun asiakas on valittu. Lisää hyperlinkkejä
-{% endcomment %}
+<br/>
 {% if asiakas %}
+    Asiakkaan 
+    <a href="{% url "kayttajat:profiili" asiakas.opiskelijanumero %}">
+    {{ asiakas }}</a> avoimet lainaukset({{ object_list|length }}):
+{% else %}
     {% if object_list %}
-        <br/>
-        Asiakkaan 
-        <a href="{% url "kayttajat:profiili" asiakas.opiskelijanumero %}">
-            {{ asiakas }}</a> avoimet lainaukset({{ object_list|length }}):<br/><br/>
+        Kaikki avoimet lainaukset({{ object_list|length }}):
     {% else %}
-        Asiakkaalla <a href="{% url "kayttajat:profiili" asiakas.opiskelijanumero %}">{{ asiakas }}</a> ei ole avoimia lainauksia.
+        Ei avoimia lainauksia.
     {% endif %}
+{% endif %}
+<br/><br/>
 {% for instance in object_list %}
 <div class="container" id="lainaukset_container">
     {% comment %} Lataa valitun asiakkaan lainausten tiedot containereihin {% endcomment %}
@@ -82,7 +80,6 @@
     </div>
     <div class="row">
         <div class="col">
-            {% comment %} TODO: lainauksen palauttamisen kirjaaminen {% endcomment %}
             <a href="{% url "varasto:palautaLainaus" instance.id %}">
                 Merkitse palautetuksi
             </a>
@@ -91,5 +88,4 @@
 </div>
 <br/>
 {% endfor %}
-{% endif %}
 {% endblock content %}

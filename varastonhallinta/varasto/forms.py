@@ -57,7 +57,11 @@ class PalautaLainaus(forms.ModelForm):
         ]
 
     asiakkaat_queryset = haeLainaajat()
-    asiakas = forms.ModelChoiceField(queryset=asiakkaat_queryset, label="Asiakkaat joilla avoimia lainauksia:")
+    asiakas = forms.ModelChoiceField(
+        queryset=asiakkaat_queryset, 
+        label="Asiakkaat joilla avoimia lainauksia:", 
+        required=False,
+        empty_label="Kaikki")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

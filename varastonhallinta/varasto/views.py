@@ -3,6 +3,7 @@ from django.utils import timezone # Aikaleimoja varten
 
 from django.contrib.auth.decorators import login_required # Sivut vaativat kirjautumisen
 
+from kayttajat.models import Kayttaja
 from varasto.models import Varastotapahtuma
 from .forms import UusiLainaus, PalautaLainaus, LainausJarjestys
 
@@ -41,23 +42,23 @@ def lainaus(request, pk):
 @login_required
 def lainauksenPalautus(request): 
     current_datetime = timezone.now()
-
-    if request.method == 'POST':
-        form = PalautaLainaus(request.POST)
-        if form.is_valid():
+    form = PalautaLainaus()
+    queryset = Varastotapahtuma.objects.avoimet()
+    valittuAsiakas = ""
+    if request.GET:
+        print(request.GET)
+        valittuAsiakas = request.GET['asiakas']
+        if not valittuAsiakas == "":
+            valittuAsiakas = Kayttaja.objects.get(id=valittuAsiakas)
+            print(valittuAsiakas)
             # Näytä avoimet lainaukset lainaajan mukaan
-            asiakas1 = form.cleaned_data["asiakas"]
-            queryset = Varastotapahtuma.objects.filter(asiakas=asiakas1, avoin=True)
-            return render(request, "varasto/lainauksen_palautus.html", 
-            {"current_datetime": current_datetime, 
-            "object_list": queryset, "asiakas": asiakas1})
-    else:
-        # Lainaajaa ei ole valittu
-        form = PalautaLainaus()
-        #print(form)
+            queryset = Varastotapahtuma.objects.filter(asiakas=valittuAsiakas, avoin=True)
+        else:
+            queryset = Varastotapahtuma.objects.avoimet()
 
     return render(request, "varasto/lainauksen_palautus.html",
-    {"form": form, "current_datetime": current_datetime})
+    {"form": form, "current_datetime": current_datetime,
+    "object_list": queryset, "asiakas": valittuAsiakas})
 
 @login_required
 def palautaLainaus(request, pk):
