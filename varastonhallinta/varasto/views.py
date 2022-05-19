@@ -74,43 +74,43 @@ def palautaLainaus(request, pk):
 
 @login_required
 def lainaukset(request): # Lista kaikista avoimista lainauksista
-    
-    form = LainausJarjestys()
-    queryset = Varastotapahtuma.objects.avoimet().order_by("asiakas__etunimi")
-    jarjestys = "Lainaajan etunimi"
-    valittuJarjestys = "asiakas"
-    merkki = ""
-    if request.GET:
-        valittuJarjestys = request.GET['jarjestys']
-        tapa = request.GET['tapa']
+    form = LainausJarjestys() # Lataa lainausten järjestysformi
+    avoimet = Varastotapahtuma.objects.avoimet() # Lataa avoimet varastotapahtumat 
+    queryset = avoimet.order_by("asiakas__etunimi") # Järjestä lainaukset valinnan mukaan
+    jarjestys = "Lainaajan etunimi" # string joka kertoo valitun järjestyksen sivulla
+    valittuJarjestys = "asiakas" # formista haettava järjestys (oletuksena lainaajan etunimi)
+    tapa = "nouseva"
+    merkki = "" # tyhjä on nouseva, "-" on laskeva
+    if request.GET: # Järjestystä on vaihdettu
+        valittuJarjestys = request.GET['jarjestys'] # Hae valittu järjestys form valinnasta
+        tapa = request.GET['tapa'] # Nouseva vai laskeva?
 
         if tapa == "nouseva":
             merkki = ""
         elif tapa == "laskeva":
             merkki = "-"
 
-        print(valittuJarjestys, tapa)
-        if valittuJarjestys == "asiakas" or valittuJarjestys == "": 
+        if valittuJarjestys == "asiakas" or valittuJarjestys == "": # asiakas/oletus valittu
             jarjestys = "Lainaajan etunimi"
-            queryset = Varastotapahtuma.objects.avoimet().order_by(f"{merkki}asiakas__etunimi")
-        elif valittuJarjestys == "varastonhoitaja":
+            queryset = avoimet.order_by(f"{merkki}asiakas__etunimi")
+        elif valittuJarjestys == "varastonhoitaja": # ...muut vaihtoehdot
             jarjestys = "Varastonhoitajan etunimi"
-            queryset = Varastotapahtuma.objects.avoimet().order_by(f"{merkki}varastonhoitaja__etunimi")
+            queryset = avoimet.order_by(f"{merkki}varastonhoitaja__etunimi")
         elif valittuJarjestys == "id":
             jarjestys = "Lainauksen ID"
-            queryset = Varastotapahtuma.objects.avoimet().order_by(f"{merkki}id")
+            queryset = avoimet.order_by(f"{merkki}id")
         elif valittuJarjestys == "tuoteryhma":
             jarjestys = "Tuoteryhmän nimi"
-            queryset = Varastotapahtuma.objects.avoimet().order_by(f"{merkki}tuote__tuoteryhma__nimi")
+            queryset = avoimet.order_by(f"{merkki}tuote__tuoteryhma__nimi")
         elif valittuJarjestys == "tuote":
             jarjestys = "Tuotteen nimi"
-            queryset = Varastotapahtuma.objects.avoimet().order_by(f"{merkki}tuote__nimike")
+            queryset = avoimet.order_by(f"{merkki}tuote__nimike")
         elif valittuJarjestys == "aikaleima":
             jarjestys = "Aikaleima/Lainausaika"
-            queryset = Varastotapahtuma.objects.avoimet().order_by(f"{merkki}aikaleima")
+            queryset = avoimet.order_by(f"{merkki}aikaleima")
         elif valittuJarjestys == "viim_palautuspaiva":
             jarjestys = "Viimeinen palautuspäivä"
-            queryset = Varastotapahtuma.objects.avoimet().order_by(f"{merkki}viim_palautuspaiva")
+            queryset = avoimet.order_by(f"{merkki}viim_palautuspaiva")
 
     return render(request, "varasto/lainaukset.html", {"object_list": queryset, "form": form, "jarjestys": jarjestys, "tapa": tapa})
     
