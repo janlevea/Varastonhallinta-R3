@@ -23,13 +23,29 @@ class ReadOnlyAdminMixin:
         return False
 
 class VarastotapahtumaAdmin(admin.ModelAdmin):
-    fields = (
+    fields = [
         #"arkistotunnus",
-        "tuote", "maara",
+        ("tuote", "maara"),
         "viim_palautuspaiva",
         "asiakas", "varastonhoitaja",
         "avoin"
-    )
+    ]
+
+    # Kentät fieldsetteinä
+    # fieldsets = (
+    #     ("", {
+    #         "fields": ("tuote", "maara",),
+    #     }),
+    #     ("", {
+    #         "fields": ("viim_palautuspaiva",),
+    #     }),
+    #     ("", {
+    #         "fields": ("asiakas", "varastonhoitaja",),
+    #     }),
+    #     ("", {
+    #         "fields": ("avoin",),
+    #     })
+    # )
 
     list_display = (
         "tuote", "maara", "id", "asiakas", "avoin", "viim_palautuspaiva"

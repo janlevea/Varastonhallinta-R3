@@ -3,20 +3,57 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 
 from tuotteet.models import Tuote, Tuoteryhma
-from .forms import LisaaTuote, LisaaRyhma, ValitseRyhma
+from .forms import LisaaTuote, LisaaRyhma, ValitseRyhma, TuoteryhmaJarjestys
 
 from stringToBCode import string2barcode
 
-# TODO: Tuoteryhmät sivulle järjestelyominaisuus
+# TODO: poistetut on/off radio?
 @login_required
 def ryhmat(request):
-    queryset = Tuoteryhma.objects.filter(poistettu = False)
+    # Hae tuoteryhmät, laskeva lisäysaika järjestys
+    queryset = Tuoteryhma.objects.filter(poistettu = False).order_by("-lisaysaika")
+    # Alusta formi
+    form = TuoteryhmaJarjestys()
+
+    jarjestys = "Lisäysaika"
+    valittuJarjestys = "lisaysaika"
+    tapa = "laskeva"
+    merkki = "-"
+
+    if request.GET:
+        form = TuoteryhmaJarjestys(request.GET)
+        valittuJarjestys = request.GET['jarjestys']
+        tapa = request.GET['tapa']
+
+        if tapa == "nouseva":
+            merkki = ""
+        elif tapa == "laskeva":
+            merkki = "-"
+
+        if valittuJarjestys == "lisaysaika" or valittuJarjestys == "":
+            jarjestys = "Lisäysaika"
+            queryset = queryset.order_by(f"{merkki}lisaysaika")
+        
+        elif valittuJarjestys == "nimi":
+            jarjestys = "Tuoteryhmän nimi"
+            queryset = queryset.order_by(f"{merkki}nimi")
+
+        elif valittuJarjestys == "lisaaja":
+            jarjestys = "Ryhmän lisääjä"
+            queryset = queryset.order_by(f"{merkki}lisaaja")
+
+        elif valittuJarjestys == "id":
+            jarjestys = "Ryhmän ID"
+            queryset = queryset.order_by(f"{merkki}id")
 
     for i in queryset:
         i.tuotemaara = Tuote.objects.filter(tuoteryhma=i.id, poistettu = False).count()
 
-    tuoteryhmat = {"object_list": queryset}
-    return render(request, "tuotteet/ryhmat.html", tuoteryhmat)
+    context = {
+        "object_list": queryset, 
+        "form": form, "jarjestys": jarjestys, "tapa": tapa,
+    }
+    return render(request, "tuotteet/ryhmat.html", context)
 
 @login_required
 def ryhma(request, pk):

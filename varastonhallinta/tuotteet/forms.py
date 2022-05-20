@@ -39,6 +39,32 @@ class ValitseRyhma(forms.Form):
     queryset = TuoteryhmaNimiMaara.objects.all()
     valittuRyhma = forms.ModelChoiceField(queryset=queryset, label="Valitse ryhmä:", required=False, empty_label="Kaikki")
 
+class TuoteryhmaJarjestys(forms.Form):
+    jarjestysVaihtoehdot = (
+        ("lisaysaika", "Lisäysaika"),
+        ("nimi", "Nimi"),
+        ("lisaaja", "Lisääjä"),
+        ("id", "ID"),
+        # ("tuotemaara", "Tuotemäärä")
+    )
+    jarjestys = forms.ChoiceField(
+        choices = jarjestysVaihtoehdot,
+        label = "Järjestys:",
+        required = False,
+        initial = "lisaysaika",
+    )
+
+    tavat = (
+        ("nouseva", "Nouseva"),
+        ("laskeva", "Laskeva"),
+    )
+    tapa = forms.ChoiceField(
+        choices=tavat, 
+        widget=forms.RadioSelect, 
+        required=False, 
+        initial="laskeva", 
+        label=""
+    )
 
 ##### Varmaan tarpeeton:
 # class MuutaTuotetta(forms.ModelForm):

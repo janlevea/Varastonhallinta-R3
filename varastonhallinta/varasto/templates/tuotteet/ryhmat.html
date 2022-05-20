@@ -9,6 +9,18 @@
     {% endblock %}
 {% endif %}
 {% block content %}
+
+<form method="GET">
+    <div class="perusform1">
+        {{ form }}
+        <input type="submit" value="OK">
+        <br/><br/>
+    </div>
+</form>
+
+Valittu järjestys: {{ jarjestys }}, {{ tapa }}
+<br/><br/>
+
 <a href="{% url "tuotteet:lisaaRyhma" %}">
     Lisää tuoteryhmä
 </a>
