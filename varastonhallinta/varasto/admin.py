@@ -25,15 +25,34 @@ class ReadOnlyAdminMixin:
     def has_delete_permission(self, request, obj=None):
         return False
 
-# class AvoinFilter(SimpleListFilter):
-#     title = _('Avoin')
-#     parameter_name = 'avoin'
+class AvoinFilter(SimpleListFilter):
+    title = _('Avoin')
+    parameter_name = 'avoin'
 
-#     def lookups(self, request, model_admin):
-#         return (
-#             (None, "Avoimet"),
-#             ()
-#         )
+    def lookups(self, request, model_admin):
+        return (
+            (None, _("Kyllä")),
+            ("ei", _("Ei")),
+            ("kaikki", _("Kaikki"))
+        )
+
+    def choices(self, cl):
+        for (lookup, title) in self.lookup_choices:
+            yield {
+                'selected': self.value() == lookup,
+                'query_string': cl.get_query_string({
+                    self.parameter_name: lookup,
+                }, []),
+                'display': title,
+            }
+
+    def queryset(self, request, queryset):
+        value = self.value()
+        if value is None:
+            return queryset.filter(avoin=True)
+        elif value == 'ei':
+            return queryset.filter(avoin=False)
+        return queryset
 
 class VarastotapahtumaAdmin(admin.ModelAdmin):
     fields = [
@@ -44,30 +63,10 @@ class VarastotapahtumaAdmin(admin.ModelAdmin):
         "avoin"
     ]
 
-    # Kentät fieldsetteinä
-    # fieldsets = (
-    #     ("", {
-    #         "fields": ("tuote", "maara",),
-    #     }),
-    #     ("", {
-    #         "fields": ("viim_palautuspaiva",),
-    #     }),
-    #     ("", {
-    #         "fields": ("asiakas", "varastonhoitaja",),
-    #     }),
-    #     ("", {
-    #         "fields": ("avoin",),
-    #     })
-    # )
-
     list_display = (
         "tuote", "maara", "id", "asiakas", "avoin", "viim_palautuspaiva"
     )
-    list_filter = ("avoin",)
-
-    # TODO: AvoinFilter
-    # list_filter = [AvoinFilter] 
-    # https://github.com/Raision-seudun-koulutuskuntayhtyma/todo-app2/blob/main/tehtavat/admin.py
+    list_filter = [AvoinFilter]
 
     # search_fields = [""] - TODO: haku käyttöön
     ordering = ["asiakas"]
@@ -81,7 +80,5 @@ class VarastotapahtumaAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
-
-# TODO: Avoimet/suljetut varastotapahtumat erikseen
 
 admin.site.register(Varastotapahtuma, VarastotapahtumaAdmin)
