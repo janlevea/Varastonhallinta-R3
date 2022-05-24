@@ -1,9 +1,16 @@
 {% extends "base.html" %}
 {% load static %}
-{% block h1title %}Avoimet lainaukset{% endblock %}
+{% block h1title %}Lainaukset{% endblock %}
 {% if object_list %}
     {% block h5title %}
-        Määrä: {{ object_list|length }}
+        {% if avoimet_vai_suljetut == "avoimet" %}
+            Avoimet, määrä: 
+        {% elif avoimet_vai_suljetut == "suljetut" %}
+            Suljetut, määrä:
+        {% else %}
+            Kaikki, määrä:
+        {% endif %}
+        {{ object_list|length }}
     {% endblock %}
 {% endif %}
 {% block content %}
@@ -58,12 +65,26 @@ Valittu järjestys: {{ jarjestys }}, {{ tapa }} <br/><br/>
             </a>
         </div>
     </div>
+    {% if instance.avoin %}
     <div class="row">
         <div class="col">
             <a href="{% url "varasto:palautaLainaus" instance.id %}">
                 Merkitse palautetuksi
             </a>
         </div>
+    </div>
+    {% else %}
+    <div class="row">
+        <div class="col">
+            Tämä lainaus on palautettu: {{ instance.palautettu }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            Varastonhoitaja palauttaessa: {{ instance.varastonhoitaja_palautus }}
+        </div>
+    </div>
+    {% endif %}
     </div>
 </div>
 <br/>

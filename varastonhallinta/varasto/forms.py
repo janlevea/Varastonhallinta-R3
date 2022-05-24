@@ -69,6 +69,13 @@ class PalautaLainaus(forms.ModelForm):
         self.fields['asiakas'].queryset = haeLainaajat() # Päivitä asiakaslista ladattaessa sivu uudelleen
 
 class LainausJarjestys(forms.Form):
+    avoimet_suljetut = (
+        ("avoimet", "Avoimet"),
+        ("suljetut", "Suljetut"),
+        ("kaikki", "Kaikki")
+    )
+    avoimet_vai_suljetut = forms.ChoiceField(choices=avoimet_suljetut, widget=forms.RadioSelect, required=False, initial="avoimet", label="")
+
     jarjestysVaihtoehdot = (
         ("asiakas", "Lainaaja"),
         ("varastonhoitaja", "Varastonhoitaja"),
@@ -85,3 +92,4 @@ class LainausJarjestys(forms.Form):
         ("laskeva", "Laskeva"),
     )
     tapa = forms.ChoiceField(choices=tavat, widget=forms.RadioSelect, required=False, initial="nouseva", label="")
+
