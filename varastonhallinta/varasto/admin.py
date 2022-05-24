@@ -1,5 +1,8 @@
 from django.contrib import admin
 
+from django.contrib.admin import SimpleListFilter
+from django.utils.translation import gettext_lazy as _
+
 # Importoi modelit ja lisää ne näkymään admin-sivulla
 from .models import Varastotapahtuma
 
@@ -21,6 +24,16 @@ class ReadOnlyAdminMixin:
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+# class AvoinFilter(SimpleListFilter):
+#     title = _('Avoin')
+#     parameter_name = 'avoin'
+
+#     def lookups(self, request, model_admin):
+#         return (
+#             (None, "Avoimet"),
+#             ()
+#         )
 
 class VarastotapahtumaAdmin(admin.ModelAdmin):
     fields = [
@@ -51,6 +64,10 @@ class VarastotapahtumaAdmin(admin.ModelAdmin):
         "tuote", "maara", "id", "asiakas", "avoin", "viim_palautuspaiva"
     )
     list_filter = ("avoin",)
+
+    # TODO: AvoinFilter
+    # list_filter = [AvoinFilter] 
+    # https://github.com/Raision-seudun-koulutuskuntayhtyma/todo-app2/blob/main/tehtavat/admin.py
 
     # search_fields = [""] - TODO: haku käyttöön
     ordering = ["asiakas"]
