@@ -75,6 +75,7 @@ def palautaLainaus(request, pk):
 @login_required
 def lainaukset(request): # Lista kaikista avoimista lainauksista
     form = LainausJarjestys() # Lataa lainausten järjestysformi
+    avoimet_vai_suljetut = "avoimet"
     tapahtumat = Varastotapahtuma.objects.avoimet() # Lataa avoimet varastotapahtumat 
     queryset = tapahtumat.order_by("asiakas__etunimi") # Järjestä lainaukset valinnan mukaan
     jarjestys = "Lainaajan etunimi" # string joka kertoo valitun järjestyksen sivulla
