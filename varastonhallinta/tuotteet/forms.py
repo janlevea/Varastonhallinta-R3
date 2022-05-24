@@ -35,9 +35,39 @@ class LisaaRyhma(forms.ModelForm):
         self.fields['nimi'].label = "Tuoteryhmän nimi"
         self.fields['nimi'].widget.attrs.update({'class': 'roundedborder rasekoredborder'})
 
-class ValitseRyhma(forms.Form):
-    queryset = TuoteryhmaNimiMaara.objects.all()
-    valittuRyhma = forms.ModelChoiceField(queryset=queryset, label="Valitse ryhmä:", required=False, empty_label="Kaikki")
+# järjestäminen, poistettu/poistoaika/poistaja, lisääjä/lisäysaika
+class TuoteValinnat(forms.Form):
+    poistettu_valinta = (
+        ("ei", "Ei"),
+        ("kylla", "Kyllä"),
+        ("kaikki", "Kaikki")
+    )
+    poistetut = forms.ChoiceField(
+        choices=poistettu_valinta,
+        widget=forms.RadioSelect, required=False,
+        initial="ei", label="Poistetut")
+
+    # TODO: Order_by: tuotemäärä -> nimi
+    queryset = TuoteryhmaNimiMaara.objects.all().order_by("nimi")
+    valittuRyhma = forms.ModelChoiceField(queryset=queryset, label="Ryhmä:", required=False, empty_label="Kaikki")
+
+    ######
+    jarjestysVaihtoehdot = (
+        ("id", "ID"),
+        ("tuoteryhma", "Tuoteryhmä"),
+        ("nimike", "Nimike"),
+        ("hankintapaikka", "Hankintapaikka"),
+        ("kustannuspaikka", "Kustannuspaikka"),
+        ("lisaaja", "Lisääjä"),
+        ("lisaysaika", "Lisäysaika")
+    )
+    jarjestys = forms.ChoiceField(choices=jarjestysVaihtoehdot, label="Järjestys:", required=False, initial="id")
+
+    tavat = (
+        ("nouseva", "Nouseva"),
+        ("laskeva", "Laskeva"),
+    )
+    tapa = forms.ChoiceField(choices=tavat, widget=forms.RadioSelect, required=False, initial="nouseva", label="")
 
 class TuoteryhmaJarjestys(forms.Form):
     jarjestysVaihtoehdot = (

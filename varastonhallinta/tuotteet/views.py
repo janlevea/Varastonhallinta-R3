@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 
 from tuotteet.models import Tuote, Tuoteryhma
-from .forms import LisaaTuote, LisaaRyhma, ValitseRyhma, TuoteryhmaJarjestys
+from .forms import LisaaTuote, LisaaRyhma, TuoteValinnat, TuoteryhmaJarjestys
 
 from stringToBCode import string2barcode
 
@@ -66,17 +66,70 @@ def ryhma(request, pk):
 
 @login_required
 def lista(request):
-    form = ValitseRyhma()
-    queryset = Tuote.objects.filter(poistettu = False)
+    form = TuoteValinnat()
+    poistetut = "ei"
+    jarjestys = "Tuotteen ID"
+    valittuJarjestys = "id"
+    tapa = "laskeva"
+    merkki = "-"
+    tuotteet = Tuote.objects.filter(poistettu = False)
     ryhma = ""
+
     if request.GET:
-        form = ValitseRyhma(request.GET)
+        form = TuoteValinnat(request.GET)
+        poistetut = request.GET['poistetut']
         valittuRyhmaId = request.GET['valittuRyhma']
+        valittuJarjestys = request.GET['jarjestys']
+        tapa = request.GET['tapa']
+
+        if poistetut == "ei":
+            tuotteet = Tuote.objects.filter(poistettu=False)
+        elif poistetut == "kylla":
+            tuotteet = Tuote.objects.filter(poistettu=True)
+        else:
+            tuotteet = Tuote.objects.all()
+
+        if tapa == "nouseva":
+            merkki = ""
+        elif tapa == "laskeva":
+            merkki = "-"
+
         if valittuRyhmaId != "":
-            queryset = Tuote.objects.filter(poistettu=False, tuoteryhma=valittuRyhmaId)
+            tuotteet = tuotteet.filter(tuoteryhma=valittuRyhmaId)
+            #queryset = Tuote.objects.filter(poistettu=False, tuoteryhma=valittuRyhmaId)
             ryhma = Tuoteryhma.objects.get(id=valittuRyhmaId)
-        
-    context = {"object_list": queryset, "naytanimi": True, "form": form, "ryhma": ryhma}
+
+        if valittuJarjestys == "id" or valittuJarjestys == "":
+            jarjestys = "Tuotteen ID"   
+            tuotteet = tuotteet.order_by(f"{merkki}id")   
+        elif valittuJarjestys == "tuoteryhma":
+            jarjestys = "Tuoteryhmän nimi"   
+            tuotteet = tuotteet.order_by(f"{merkki}tuoteryhma__nimi")     
+        elif valittuJarjestys == "nimike":
+            jarjestys = "Tuotteen nimike"   
+            tuotteet = tuotteet.order_by(f"{merkki}nimike") 
+        elif valittuJarjestys == "hankintapaikka":
+            jarjestys = "Hankintapaikka"   
+            tuotteet = tuotteet.order_by(f"{merkki}hankintapaikka")
+        elif valittuJarjestys == "kustannuspaikka":
+            jarjestys = "Kustannuspaikka"   
+            tuotteet = tuotteet.order_by(f"{merkki}kustannuspaikka")
+        elif valittuJarjestys == "lisaaja":
+            jarjestys = "Lisääjän nimi"   
+            tuotteet = tuotteet.order_by(f"{merkki}lisaaja__nimi") 
+        elif valittuJarjestys == "lisaysaika":
+            jarjestys = "Tuotteen lisäysaika"   
+            tuotteet = tuotteet.order_by(f"{merkki}lisaysaika")     
+
+    context = {
+        "object_list": tuotteet, 
+        "poistetut": poistetut,
+        "jarjestys": jarjestys,
+        "tapa": tapa,
+        "naytanimi": True, 
+        "form": form, 
+        "ryhma": ryhma
+    }
     return render(request, "tuotteet/lista.html", context)
 
 @login_required

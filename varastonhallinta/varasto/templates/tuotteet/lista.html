@@ -5,6 +5,15 @@
 {% endblock %}
 {% if object_list %}
     {% block h5title %}
+    Näytä poistetut: 
+    {% if poistetut == "ei" %}
+        Ei
+    {% elif poistetut == "kylla" %}
+        Kyllä
+    {% else %}
+        Kaikki
+    {% endif %}
+    <br/>
     {% if ryhma %}
     Ryhmä: {{ ryhma.nimi }}
     {% else %}
@@ -25,12 +34,13 @@
 <form method="GET">
     <div class="perusform1">
         {{ form }}
-        <input type="submit" value="Valitse">
+        <input type="submit" value="OK">
         <br/><br/>
     </div>
 </form>
+Valittu järjestys: {{ jarjestys }}, {{ tapa }}<br/><br/>
 {% comment %} 
-    # TODO: tuotteiden järjestäminen parametrien mukaan
+    TODO: Form visuaalisesti leveämmäksi, myös muissa formeissa kapeus ongelma
 {% endcomment %}
 {% comment %} Lataa tuotteet containereihin {% endcomment %}
 {% for tuote in object_list %}
