@@ -100,7 +100,7 @@ h5 {
 
 /* perusform1 leveys */
 .perusform1 {
-    width: 350px;
+    width: 280px;
 }
 /* -- fontti */
 .perusform1, .perusform1 p {
@@ -110,6 +110,9 @@ h5 {
 }
 
 /* tuotelistaform */
+.tuotelistaForm {
+    width: 330px;
+}
 .formEntry {
     margin-bottom: 20px; 
 }
