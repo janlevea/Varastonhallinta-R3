@@ -4,9 +4,9 @@
 {% block h1title %}Rasekon varastonhallinta ja lainausjärjestelmä{% endblock %}
 {% block h5title %}
     {% if user.is_authenticated %}
-        Hyvää päivää {{ request.user.etunimi }}! Valitse toiminto alta
+        Hyvää päivää {{ request.user.etunimi }}! Valitse toiminto alta.
     {% else %}
-        Valitse toiminto alta
+        Valitse toiminto alta.
     {% endif %}
 {% endblock %}
 {% block content %}
