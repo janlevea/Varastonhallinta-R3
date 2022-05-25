@@ -68,9 +68,6 @@
     </div>
 </form>
 Valittu järjestys: {{ jarjestys }}, {{ tapa }}<br/><br/>
-{% comment %} 
-    TODO: muutkin formit leveämmäksi
-{% endcomment %}
 {% comment %} Lataa tuotteet containereihin {% endcomment %}
 {% for tuote in object_list %}
 {% include "tuotteet/tuote_container.html" %}
