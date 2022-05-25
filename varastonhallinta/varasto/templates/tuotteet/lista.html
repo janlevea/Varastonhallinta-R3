@@ -32,15 +32,44 @@
 &emsp;&emsp;&emsp;&emsp;
 <br/><br/>
 <form method="GET">
-    <div class="perusform1">
-        {{ form }}
+    <div class="perusform1 tuotelistaForm">
+        <div class="formEntry">
+            {{ form.poistetut.label }}:
+            <span class="formSelections">
+                {% for radio in form.poistetut %}
+                    &emsp;{{ radio }}
+                {% endfor %}<br/>
+            </span>
+        </div>
+        <div class="formEntry">
+            {{ form.valittuRyhma.label }}
+            <span class="formSelections">
+                {{ form.valittuRyhma }}<br/>
+            </span>
+        </div>
+        <div id="formEntryJarjestys">
+            {{ form.jarjestys.label }}
+            <span class="formSelections">
+                {{ form.jarjestys }}
+            </span>
+        </div>
+        <div class="formEntry">
+            <span class="formSelections">
+                {% for radio in form.tapa %}
+                {{ radio }} 
+                {% if forloop.counter == 1 %}
+                &emsp;
+                {% endif %}
+                {% endfor %}<br/>
+            </span>
+        </div>
         <input type="submit" value="OK">
         <br/><br/>
     </div>
 </form>
 Valittu järjestys: {{ jarjestys }}, {{ tapa }}<br/><br/>
 {% comment %} 
-    TODO: Form visuaalisesti leveämmäksi, myös muissa formeissa kapeus ongelma
+    TODO: muutkin formit leveämmäksi
 {% endcomment %}
 {% comment %} Lataa tuotteet containereihin {% endcomment %}
 {% for tuote in object_list %}

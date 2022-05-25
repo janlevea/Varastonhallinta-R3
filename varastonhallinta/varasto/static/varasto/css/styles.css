@@ -100,13 +100,27 @@ h5 {
 
 /* perusform1 leveys */
 .perusform1 {
-    width: 280px;
+    width: 350px;
 }
 /* -- fontti */
 .perusform1, .perusform1 p {
     font-family: Nunito, sans-serif;
     font-weight: 400;
     font-size: 17px;
+}
+
+/* tuotelistaform */
+.formEntry {
+    margin-bottom: 20px; 
+}
+#formEntryJarjestys {
+    margin-bottom: 10px;
+}
+.formSelections {
+    float: right;
+}
+.tuotelistaForm .formSelections select {
+    width: 195px;
 }
 
 /* -- raseko-punainen reunaviiva - formeissa */
