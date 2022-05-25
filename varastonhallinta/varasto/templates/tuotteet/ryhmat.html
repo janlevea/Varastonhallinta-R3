@@ -5,14 +5,46 @@
 {% endblock %}
 {% if object_list %}
     {% block h5title %}
-    Määrä: {{ object_list|length }}
+    Näytä poistetut ryhmät: 
+    {% if poistetut == "ei" %}
+        Ei
+    {% elif poistetut == "kylla" %}
+        Kyllä
+    {% else %}
+        Kaikki
+    {% endif %}
+    <br/>
+    Tuoteryhmien määrä: {{ object_list|length }}
     {% endblock %}
 {% endif %}
 {% block content %}
 
 <form method="GET">
-    <div class="perusform1">
-        {{ form }}
+    <div class="perusform1 tuotelistaForm">
+        <div class ="formEntry">
+            {{ form.poistetut.label }}:
+            <span class="formSelections">
+                {% for radio in form.poistetut %}
+                    &emsp;{{ radio }}
+                {% endfor %}<br/>
+            </span>
+        </div>
+        <div class="formEntry">
+            {{ form.jarjestys.label }}
+            <span class="formSelections">
+                {{ form.jarjestys }}
+            </span>
+        </div>
+        <div class="formEntry">
+            <span class="formSelections">
+                {% for radio in form.tapa %}
+                    {{ radio }}
+                    {% if forloop.counter == 1 %}
+                        &emsp;
+                    {% endif %}
+                {% endfor %}
+            </span>
+        </div>
         <input type="submit" value="OK">
         <br/><br/>
     </div>

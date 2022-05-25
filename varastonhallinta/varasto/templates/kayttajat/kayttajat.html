@@ -5,20 +5,52 @@
 {% endblock %}
 {% if object_list %}
     {% block h5title %}
+        Aktiiviset:
+        {% if aktiiviset == "kylla" %}
+            Kyllä
+        {% elif aktiiviset == "ei" %}
+            Ei
+        {% else %}
+            Kaikki
+        {% endif %}<br/>
+        {% if staffi %}
+            Henkilökunta<br/>
+        {% endif %}
+        {% if admini %}
+            Admin<br/>
+        {% endif %}
         Määrä: {{ object_list|length }}
     {% endblock %}
 {% endif %}
 {% block content %}
 <form method="GET">
-    <div class="perusform1">
-        {{ form }}
-
-        {% comment %} 
-        TODO: Aktiivinen: Kyllä/Ei yhdelle riville 
-        {% endcomment %}
-
-        <div class="formValinnat">
-            {{ formValinnat }}
+    <div class="perusform1 kayttajalistaForm">
+        <div class="formEntry">
+            {{ form.aktiiviset.label }}
+            <span class="formSelections">
+                {% for radio in form.aktiiviset %}
+                    &emsp;{{ radio }}
+                {% endfor %}
+            </span>
+            <span class="formSelections">
+                {% for checkbox in form.valinnat %}
+                    &emsp;{{ checkbox }}
+                {% endfor %}
+            </span>
+        </div>
+        <br/>
+        <div class="formEntry">
+            {{ form.jarjestys.label }}
+            <span class="formSelections">
+                {{ form.jarjestys }}
+            </span>
+        </div>
+        <div class="formEntry">
+            <span class="formSelections">
+                {% for radio in form.tapa %}
+                    &emsp;{{ radio }}
+                {% endfor %}
+            </span>
         </div>
         <input type="submit" value="OK">
         <br/><br/>
