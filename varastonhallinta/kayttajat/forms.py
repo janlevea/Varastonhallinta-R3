@@ -111,7 +111,32 @@ class UserAdminChangeForm(forms.ModelForm):
         # field does not have access to the initial value
         return self.initial["password"]
 
-class KayttajaJarjestys(forms.Form):
+class KayttajaValinnat(forms.Form):
+    aktiiviset_valinta = (
+        ("kylla", "Kyllä"),
+        ("ei", "Ei"),
+        ("kaikki", "Kaikki")
+    )
+    aktiiviset = forms.ChoiceField(
+        choices = aktiiviset_valinta,
+        widget = forms.RadioSelect,
+        required = False,
+        initial = "kylla",
+        label = "Aktiivinen:",
+    )
+
+    valintaVaihtoehdot = (
+        ("staff", "Henkilökunta"),
+        ("admin", "Admin"),
+    )
+    valinnat = forms.MultipleChoiceField(
+        choices = valintaVaihtoehdot,
+        widget = forms.CheckboxSelectMultiple,
+        initial= "",
+        label = "",
+        required = False,
+    )
+
     jarjestysVaihtoehdot = (
         ("liittynyt", "Liittynyt"),
         ("opiskelijanumero", "Opiskelijanumero"),
@@ -127,26 +152,6 @@ class KayttajaJarjestys(forms.Form):
     )
     tapa = forms.ChoiceField(choices=tavat, widget=forms.RadioSelect, required=False, initial="laskeva", label="")
 
-class KayttajaValinnat(forms.Form):
-    aktiivinenBool = (
-        ("True", "Kyllä"),
-        ("False", "Ei")
-    )
-    aktiiviset = forms.ChoiceField(
-        choices = aktiivinenBool,
-        widget = forms.RadioSelect,
-        initial = "True",
-        label = "Aktiivinen:",
-    )
-
-    valintaVaihtoehdot = (
-        ("staff", "Henkilökunta"),
-        ("admin", "Admin"),
-    )
-    valinnat = forms.MultipleChoiceField(
-        choices = valintaVaihtoehdot,
-        widget = forms.CheckboxSelectMultiple,
-        initial= "",
-        label = "",
-        required = False,
-    )
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['jarjestys'].widget.attrs.update({'class': 'rasekoblueborder roundedborder'})

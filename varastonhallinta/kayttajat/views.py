@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 
 from kayttajat.models import Kayttaja
-from .forms import Rekisteroidy, KayttajaJarjestys, KayttajaValinnat
+from .forms import Rekisteroidy, KayttajaValinnat
 
 @login_required
 def profiili(request, opiskelijanumero):
@@ -13,31 +13,41 @@ def profiili(request, opiskelijanumero):
 @login_required
 def kayttajalista(request):
     # Hae käyttäjät, laskeva liittymisaika järjestys
-    queryset = Kayttaja.objects.all().order_by("-liittynyt")
+    kayttajat = Kayttaja.objects.filter(aktiivinen=True).order_by("-liittynyt")
     # Alusta formit
-    form = KayttajaJarjestys()
-    formValinnat = KayttajaValinnat()
+    form = KayttajaValinnat()
 
     jarjestys = "Liittymisaika"
     valittuJarjestys = "liittynyt"
     tapa = "laskeva"
     merkki = "-"
 
+    aktiiviset = "kylla"
+
+    staffi = False
+    admini = False
+
     if request.GET:
-        form = KayttajaJarjestys(request.GET)
-        formValinnat = KayttajaValinnat(request.GET)
+        form = KayttajaValinnat(request.GET)
         valittuJarjestys = request.GET['jarjestys']
         tapa = request.GET['tapa']
         aktiiviset = request.GET['aktiiviset']
         valinnat = request.GET.getlist('valinnat')
 
-        queryset = queryset.filter(aktiivinen=aktiiviset)
+        if aktiiviset == "kylla":
+            kayttajat = Kayttaja.objects.filter(aktiivinen=True)
+        elif aktiiviset == "ei":
+            kayttajat = Kayttaja.objects.filter(aktiivinen=False)
+        else:
+            kayttajat = Kayttaja.objects.all()
 
         if "staff" in valinnat:
-            queryset = queryset.filter(staff=True)
+            staffi = True
+            kayttajat = kayttajat.filter(staff=True)
 
         if "admin" in valinnat:
-            queryset = queryset.filter(admin=True)
+            admini = True
+            kayttajat = kayttajat.filter(admin=True)
 
         if tapa == "nouseva":
             merkki = ""
@@ -46,32 +56,32 @@ def kayttajalista(request):
 
         if valittuJarjestys == "liittynyt" or valittuJarjestys == "":
             jarjestys = "Liittymisaika"
-            queryset = queryset.order_by(f"{merkki}liittynyt")
+            kayttajat = kayttajat.order_by(f"{merkki}liittynyt")
 
         elif valittuJarjestys == "opiskelijanumero":
             jarjestys = "Opiskelijanumero"
-            queryset = queryset.order_by(f"{merkki}opiskelijanumero")
+            kayttajat = kayttajat.order_by(f"{merkki}opiskelijanumero")
 
         elif valittuJarjestys == "etunimi":
             jarjestys = "Etunimi"
-            queryset = queryset.order_by(f"{merkki}etunimi")
+            kayttajat = kayttajat.order_by(f"{merkki}etunimi")
 
         elif valittuJarjestys == "sukunimi":
             jarjestys = "Sukunimi"
-            queryset = queryset.order_by(f"{merkki}sukunimi")
+            kayttajat = kayttajat.order_by(f"{merkki}sukunimi")
 
         elif valittuJarjestys == "last_login":
             jarjestys = "Viimeisin kirjautuminen"
-            queryset = queryset.order_by(f"{merkki}last_login")
-    else:
-        queryset = queryset.filter(aktiivinen=True)
+            kayttajat = kayttajat.order_by(f"{merkki}last_login")
 
     context = {
-        "object_list": queryset,
+        "object_list": kayttajat,
         "form": form,
-        "formValinnat": formValinnat,
         "jarjestys": jarjestys,
         "tapa": tapa,
+        "aktiiviset": aktiiviset,
+        "staffi": staffi,
+        "admini": admini,
     }
 
     return render(request, "kayttajat/kayttajat.html", context)
