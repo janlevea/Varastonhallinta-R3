@@ -48,7 +48,18 @@
             </svg>
         </div>
     </a>
+    <br><br>
+    <a href="{% url "kayttajat:kayttajalista" %}" class="btn btn-primary btn-lg button-blue" role="button">
+        <div class="buttontext">
+            Käyttäjälista
+            <svg class="i-chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="50" height="35" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5">
+                <path d="M12 30 L24 16 12 2" />
+            </svg>
+        </div>
+    </a>
 </div>
+{% comment %} 
 <br/>Linkkejä:
 <br/>Käyttäjälista: <a href="{% url "kayttajat:kayttajalista" %}">/kayttajat/lista</a>
-{% endblock content %}
+{% endcomment %}
+{% endblock content %} 
