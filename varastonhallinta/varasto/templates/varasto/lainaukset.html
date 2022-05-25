@@ -15,8 +15,21 @@
 {% endif %}
 {% block content %}
 <form method="GET">
-    <div class="perusform1">
-        {{ form }}
+    <div class="perusform1 lainauksetForm">
+        <div class="formEntry">
+            {% for radio in form.avoimet_vai_suljetut %}
+                {{ radio }}&emsp;
+            {% endfor %}
+        </div>
+        <div class="formEntry">
+            {{ form.jarjestys.label }}<br/>
+            {{ form.jarjestys }}
+        </div>
+        <div class="formEntry">
+            {% for radio in form.tapa %}
+                {{ radio }}&ensp; 
+            {% endfor %}
+        </div>
         <input type="submit" value="OK">
         <br/><br/>
     </div>

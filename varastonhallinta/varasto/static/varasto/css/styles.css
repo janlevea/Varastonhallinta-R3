@@ -126,6 +126,19 @@ h5 {
     width: 195px;
     height: 31px;
 }
+/* */
+
+.lainauksetForm {
+    width: 280px;
+}
+.lainauksetForm .formEntry {
+    margin-bottom: 10px;
+}
+
+.lainauksetForm select {
+    width: 93%;
+    height: 38px;
+}
 
 /* -- raseko-punainen reunaviiva - formeissa */
 .perusform1 #id_username, .perusform1 #id_password, /* kirjautuminen */
