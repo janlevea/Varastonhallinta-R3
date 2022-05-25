@@ -14,7 +14,10 @@
 <div class="buttons">
     <a href="{% url "varasto:uusiLainaus" %}" class="btn btn-primary btn-lg button-red" role="button">
         <div class="buttontext">
-            Uusi lainaus
+            <svg id="i-plus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="40" height="25" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5">
+                <path d="M16 2 L16 30 M2 16 L30 16" />
+            </svg>
+            &emsp;Uusi lainaus
             {% comment %} svg - nuolet painikkeiden oikeassa reunassa {% endcomment %}
             <svg class="i-chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="50" height="35" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5">
                 <path d="M12 30 L24 16 12 2" />
@@ -24,7 +27,10 @@
     <br><br>
     <a href="{% url "varasto:lainauksenPalautus" %}" class="btn btn-primary btn-lg button-red" role="button">
         <div class="buttontext">
-            Lainauksen palautus
+            <svg id="i-minus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="40" height="25" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5">
+                <path d="M2 16 L30 16" />
+            </svg>
+            &emsp;Lainauksen palautus
             <svg class="i-chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="50" height="35" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5">
                 <path d="M12 30 L24 16 12 2" />
             </svg>
@@ -33,7 +39,10 @@
     <br><br>
     <a href="{% url "tuotteet:lista" %}" class="btn btn-primary btn-lg button-blue" role="button">
         <div class="buttontext">
-            Tuotteet
+            <svg id="i-archive" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="40" height="25" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5">
+                <path d="M4 10 L4 28 28 28 28 10 M2 4 L2 10 30 10 30 4 Z M12 15 L20 15" />
+            </svg>            
+            &emsp;Tuotteet
             <svg class="i-chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="50" height="35" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5">
                 <path d="M12 30 L24 16 12 2" />
             </svg>
@@ -42,7 +51,10 @@
     <br><br>
     <a href="{% url "varasto:lainaukset" %}" class="btn btn-primary btn-lg button-blue" role="button">
         <div class="buttontext">
-            Lainaukset
+            <svg id="i-book" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="40" height="25" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5">
+                <path d="M16 7 C16 7 9 1 2 6 L2 28 C9 23 16 28 16 28 16 28 23 23 30 28 L30 6 C23 1 16 7 16 7 Z M16 7 L16 28" />
+            </svg>
+            &emsp;Lainaukset
             <svg class="i-chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="50" height="35" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5">
                 <path d="M12 30 L24 16 12 2" />
             </svg>
@@ -51,7 +63,10 @@
     <br><br>
     <a href="{% url "kayttajat:kayttajalista" %}" class="btn btn-primary btn-lg button-blue" role="button">
         <div class="buttontext">
-            Käyttäjälista
+            <svg id="i-user" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="40" height="25" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5">
+                <path d="M22 11 C22 16 19 20 16 20 13 20 10 16 10 11 10 6 12 3 16 3 20 3 22 6 22 11 Z M4 30 L28 30 C28 21 22 20 16 20 10 20 4 21 4 30 Z" />
+            </svg>
+            &emsp;Käyttäjälista
             <svg class="i-chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="50" height="35" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5">
                 <path d="M12 30 L24 16 12 2" />
             </svg>
