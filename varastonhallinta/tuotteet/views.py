@@ -7,14 +7,13 @@ from .forms import LisaaTuote, LisaaRyhma, TuoteValinnat, TuoteryhmaJarjestys
 
 from stringToBCode import string2barcode
 
-# TODO: poistetut on/off radio?
 @login_required
 def ryhmat(request):
-    # Hae tuoteryhmät, laskeva lisäysaika järjestys
-    queryset = Tuoteryhma.objects.filter(poistettu = False).order_by("-lisaysaika")
+    # Hae tuoteryhmät, laskeva lisäysaika järjestys, ei poistettuja
+    ryhmat = Tuoteryhma.objects.filter(poistettu = False).order_by("-lisaysaika")
     # Alusta formi
     form = TuoteryhmaJarjestys()
-
+    poistetut = "ei"
     jarjestys = "Lisäysaika"
     valittuJarjestys = "lisaysaika"
     tapa = "laskeva"
@@ -22,8 +21,16 @@ def ryhmat(request):
 
     if request.GET:
         form = TuoteryhmaJarjestys(request.GET)
+        poistetut = request.GET['poistetut']
         valittuJarjestys = request.GET['jarjestys']
         tapa = request.GET['tapa']
+
+        if poistetut == "ei":
+            ryhmat = Tuoteryhma.objects.filter(poistettu=False)
+        elif poistetut == "kylla":
+            ryhmat = Tuoteryhma.objects.filter(poistettu=True)
+        else:
+            ryhmat = Tuoteryhma.objects.all()
 
         if tapa == "nouseva":
             merkki = ""
@@ -32,26 +39,28 @@ def ryhmat(request):
 
         if valittuJarjestys == "lisaysaika" or valittuJarjestys == "":
             jarjestys = "Lisäysaika"
-            queryset = queryset.order_by(f"{merkki}lisaysaika")
+            ryhmat = ryhmat.order_by(f"{merkki}lisaysaika")
         
         elif valittuJarjestys == "nimi":
             jarjestys = "Tuoteryhmän nimi"
-            queryset = queryset.order_by(f"{merkki}nimi")
+            ryhmat = ryhmat.order_by(f"{merkki}nimi")
 
         elif valittuJarjestys == "lisaaja":
             jarjestys = "Ryhmän lisääjä"
-            queryset = queryset.order_by(f"{merkki}lisaaja")
+            ryhmat = ryhmat.order_by(f"{merkki}lisaaja")
 
         elif valittuJarjestys == "id":
             jarjestys = "Ryhmän ID"
-            queryset = queryset.order_by(f"{merkki}id")
+            ryhmat = ryhmat.order_by(f"{merkki}id")
 
-    for i in queryset:
+    for i in ryhmat:
         i.tuotemaara = Tuote.objects.filter(tuoteryhma=i.id, poistettu = False).count()
 
     context = {
-        "object_list": queryset, 
-        "form": form, "jarjestys": jarjestys, "tapa": tapa,
+        "object_list": ryhmat, 
+        "form": form, 
+        "poistetut": poistetut, 
+        "jarjestys": jarjestys, "tapa": tapa,
     }
     return render(request, "tuotteet/ryhmat.html", context)
 
@@ -166,7 +175,7 @@ def poistaTuote(request, pk):
         tuote.poistoaika = timezone.now()
         tuote.poistaja = request.user
         tuote.save()
-        return render(request, "tuotteet/tuote_poistettu.html", {"ryhma": False}) # Vahvistussivu poistolle - TODO: Näytä tuotteen tietoja tällä sivulla
+        return render(request, "tuotteet/tuote_poistettu.html", {"ryhma": False}) # Vahvistussivu poistolle - # TODO: Näytä tuotteen tietoja tällä sivulla
     return render(request, "tuotteet/poista_tuote.html", {"tuote": tuote})
 
 @login_required
@@ -181,7 +190,7 @@ def poistaRyhma(request, pk):
         valittu_tuoteryhma.poistoaika = timezone.now()
         valittu_tuoteryhma.poistaja = request.user
         valittu_tuoteryhma.save()
-        return render(request, "tuotteet/tuote_poistettu.html", {"ryhma": True}) # Vahvistussivu poistolle - TODO: Näytä ryhmän tiedot tällä sivulla
+        return render(request, "tuotteet/tuote_poistettu.html", {"ryhma": True}) # Vahvistussivu poistolle - # TODO: Näytä ryhmän tiedot tällä sivulla
     return render(request, "tuotteet/poista_ryhma.html", {"tuoteryhma": valittu_tuoteryhma})
 
 @login_required
@@ -202,25 +211,3 @@ def lisaaRyhma(request):
     else:
         form = LisaaRyhma()
     return render(request, "tuotteet/lisaa_ryhma.html", {"form": form, "current_datetime": current_datetime})
-
-
-# '''
-# temp: Tämä enkoodaa viivakoodi stringit ja tallentaa tietokantaan
-# '''
-# @login_required
-# def enkoodaaViivakoodit(request):
-#     '''
-#     testistring = "A-0040-Z"
-#     enkoodattu = string2barcode(testistring, codeType="B")
-#     print(enkoodattu)
-#     #enkoodattu = "ÌA-0040-ZÇÎ"
-#     return render(request, "test.html", {"enkoodattu": enkoodattu})
-#     '''
-
-#     tuotteet = Tuote.objects.all()
-#     for tuote in tuotteet:
-#         tuote.viivakoodi_encoded = string2barcode(tuote.viivakoodi_plaintxt, codeType="B")
-#         tuote.save()
-#         print(tuote.viivakoodi_encoded)
-#     print(tuotteet)
-#     return HttpResponse(tuotteet)

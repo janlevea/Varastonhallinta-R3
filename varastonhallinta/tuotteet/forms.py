@@ -75,6 +75,16 @@ class TuoteValinnat(forms.Form):
         self.fields['jarjestys'].widget.attrs.update({'class': 'rasekoblueborder roundedborder'})
 
 class TuoteryhmaJarjestys(forms.Form):
+    poistettu_valinta = (
+        ("ei", "Ei"),
+        ("kylla", "Kyllä"),
+        ("kaikki", "Kaikki")
+    )
+    poistetut = forms.ChoiceField(
+        choices=poistettu_valinta,
+        widget=forms.RadioSelect, required=False,
+        initial="ei", label="Poistetut")
+
     jarjestysVaihtoehdot = (
         ("lisaysaika", "Lisäysaika"),
         ("nimi", "Nimi"),
@@ -100,6 +110,9 @@ class TuoteryhmaJarjestys(forms.Form):
         initial="laskeva", 
         label=""
     )
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['jarjestys'].widget.attrs.update({'class': 'rasekoblueborder roundedborder'})
 
 ##### Varmaan tarpeeton:
 # class MuutaTuotetta(forms.ModelForm):
