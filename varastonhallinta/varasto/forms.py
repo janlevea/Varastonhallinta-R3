@@ -11,6 +11,7 @@ from tuotteet.models import Tuote
 
 # Varastotapahtuma modelista tehty formi uusi_lainaus -sivulle
 class UusiLainaus(forms.ModelForm):
+    # TODO: viim_palautuspaivalle datepicker
     viim_palautuspaiva = forms.DateField(
         initial = (timezone.now() + timedelta(days=14))
     ) # Alusta oletuksena viim_palautuspaiva 14-päivän päähän
