@@ -69,6 +69,11 @@ class TuoteValinnat(forms.Form):
     )
     tapa = forms.ChoiceField(choices=tavat, widget=forms.RadioSelect, required=False, initial="nouseva", label="")
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['valittuRyhma'].widget.attrs.update({'class': 'rasekoblueborder roundedborder'})
+        self.fields['jarjestys'].widget.attrs.update({'class': 'rasekoblueborder roundedborder'})
+
 class TuoteryhmaJarjestys(forms.Form):
     jarjestysVaihtoehdot = (
         ("lisaysaika", "Lisäysaika"),

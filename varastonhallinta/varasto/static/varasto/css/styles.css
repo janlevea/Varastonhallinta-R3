@@ -117,13 +117,14 @@ h5 {
     margin-bottom: 20px; 
 }
 #formEntryJarjestys {
-    margin-bottom: 10px;
+    margin-bottom: 22px;
 }
 .formSelections {
     float: right;
 }
 .tuotelistaForm .formSelections select {
     width: 195px;
+    height: 31px;
 }
 
 /* -- raseko-punainen reunaviiva - formeissa */
