@@ -11,11 +11,6 @@ from tuotteet.models import Tuote
 
 # Varastotapahtuma modelista tehty formi uusi_lainaus -sivulle
 class UusiLainaus(forms.ModelForm):
-    # TODO: viim_palautuspaivalle datepicker
-    viim_palautuspaiva = forms.DateField(
-        initial = (timezone.now() + timedelta(days=14))
-    ) # Alusta oletuksena viim_palautuspaiva 14-päivän päähän
-    
     class Meta:
         model = Varastotapahtuma
         fields = [
@@ -24,17 +19,27 @@ class UusiLainaus(forms.ModelForm):
             "tuote", "maara", 
             "viim_palautuspaiva"
         ]
+        widgets = {
+            'viim_palautuspaiva': forms.DateInput(
+                attrs={'type': 'date'}),
+        }
 
     avoimetTuotteet = Tuote.objects.filter(poistettu = False)
     tuote = forms.ModelChoiceField(queryset=avoimetTuotteet)
 
     def __init__(self, *args, **kwargs):
+        viim_palautuspaiva_initial = timezone.now() + timedelta(days=14) 
+
         super().__init__(*args, **kwargs)
         # Aseta css-luokkia formin tyylittelyä varten
         self.fields['asiakas'].widget.attrs.update({'class': 'rasekoredborder roundedborder bottom-marg'})
         self.fields['tuote'].widget.attrs.update({'class': 'rasekoblueborder roundedborder'})
         self.fields['maara'].widget.attrs.update({'class': 'rasekoblueborder roundedborder bottom-marg'})
-        self.fields['viim_palautuspaiva'].widget.attrs.update({'class': 'blackborder roundedborder bottom-marg'})        
+        self.fields['viim_palautuspaiva'].widget.attrs.update(
+            {
+                'class': 'blackborder roundedborder bottom-marg',
+                'value': viim_palautuspaiva_initial.date
+            })
 
 def haeLainaajat():
     ### Näytä valinnassa vain ne asiakkaat joilla on avoimia lainauksia:
