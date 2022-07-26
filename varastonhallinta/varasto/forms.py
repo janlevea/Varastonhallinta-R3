@@ -41,6 +41,8 @@ class UusiLainaus(forms.ModelForm):
                 'value': viim_palautuspaiva_initial.date
             })
 
+# TODO: PalautaLainaus form: Ei näytä asiakkaita vain 1x. Jos tämän funktion ottaa käyttöön se rikkoo manage.py:n toiminnot
+# django.db.utils.OperationalError: no such table: varasto_varastotapahtuma (migrate, makemigrations, jnejne)
 def haeLainaajat():
     ### Näytä valinnassa vain ne asiakkaat joilla on avoimia lainauksia:
     avoimetVarastotapahtumat = Varastotapahtuma.objects.filter(avoin = True)
@@ -62,7 +64,10 @@ class PalautaLainaus(forms.ModelForm):
             "asiakas"
         ]
 
-    asiakkaat_queryset = haeLainaajat()
+    avoimetVarastotapahtumat = Varastotapahtuma.objects.filter(avoin = True)
+    asiakkaat_idLista = avoimetVarastotapahtumat.values_list("asiakas", flat=True)
+    asiakkaat_queryset = Kayttaja.objects.filter(pk__in=asiakkaat_idLista)
+
     asiakas = forms.ModelChoiceField(
         queryset=asiakkaat_queryset, 
         label="Asiakkaat joilla avoimia lainauksia:", 
@@ -72,7 +77,7 @@ class PalautaLainaus(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['asiakas'].widget.attrs.update({'class': 'rasekoredborder roundedborder bottom-marg'})
-        self.fields['asiakas'].queryset = haeLainaajat() # Päivitä asiakaslista ladattaessa sivu uudelleen
+        self.fields['asiakas'].queryset = self.asiakkaat_queryset # Päivitä asiakaslista ladattaessa sivu uudelleen
 
 class LainausJarjestys(forms.Form):
     avoimet_suljetut = (

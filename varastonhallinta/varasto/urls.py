@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views
+from varasto import views
 
 app_name = "varasto"
 urlpatterns = [
@@ -10,9 +10,6 @@ urlpatterns = [
     # Yksittäisten lainausten tiedot:
     # varasto/lainaus.html
     path("lainaus/<int:pk>/", views.lainaus, name="lainaus"),
-
-    # varasto/palauta_lainaus.html
-    path("palauta_lainaus/<int:pk>", views.palautaLainaus, name="palautaLainaus"),
 
     # varasto/lainaukset.html - Kaikki avoimet lainaukset
     path("lainaukset/", views.lainaukset, name="lainaukset"),
