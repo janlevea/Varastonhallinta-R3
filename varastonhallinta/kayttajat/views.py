@@ -5,11 +5,10 @@ from django.contrib.auth.decorators import login_required
 from kayttajat.models import Kayttaja
 from .forms import Rekisteroidy, KayttajaValinnat
 
-# BUG: Katsoessa toisen käyttäjän profiilia näyttää katsottavan käyttäjän nimen yläkulmassa kirjautuneena
 @login_required
 def profiili(request, opiskelijanumero):
     kayttaja = get_object_or_404(Kayttaja, opiskelijanumero=opiskelijanumero)
-    return render(request, "kayttajat/profiili.html", {"user": kayttaja})
+    return render(request, "kayttajat/profiili.html", {"profuser": kayttaja})
 
 @login_required
 def kayttajalista(request):

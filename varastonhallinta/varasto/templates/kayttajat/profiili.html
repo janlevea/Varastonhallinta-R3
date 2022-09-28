@@ -7,7 +7,7 @@
 <svg id="i-user" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="25" height="25" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
     <path d="M22 11 C22 16 19 20 16 20 13 20 10 16 10 11 10 6 12 3 16 3 20 3 22 6 22 11 Z M4 30 L28 30 C28 21 22 20 16 20 10 20 4 21 4 30 Z" />
 </svg>
-Käyttäjälle: {{ user.opiskelijanumero }}
+Käyttäjälle: {{ profuser.opiskelijanumero }}
 {% endblock %}
 {% block content %}
 <div class="container" id="kayttajatiedot_container">
@@ -16,7 +16,7 @@ Käyttäjälle: {{ user.opiskelijanumero }}
             Nimi:
         </div>
         <div class="col">
-            {{ user.get_kokonimi }}
+            {{ profuser.get_kokonimi }}
         </div>
     </div>
     <div class="row">
@@ -24,16 +24,16 @@ Käyttäjälle: {{ user.opiskelijanumero }}
             Sähköposti:
         </div>
         <div class="col">
-            <a href="mailto:{{ user.email }}">{{ user.email }}</a>
+            <a href="mailto:{{ profuser.email }}">{{ profuser.email }}</a>
         </div>
     </div>
     <div class="row">
         <div class="col">
             Kirjautunut:
         </div>
-        {% if not user.last_login == none %}
+        {% if not profuser.last_login == none %}
         <div class="col">
-            {{ user.last_login|date:"d.m.Y H:i" }}
+            {{ profuser.last_login|date:"d.m.Y H:i" }}
         </div>
         {% else %}
         <div class="col">
@@ -46,7 +46,7 @@ Käyttäjälle: {{ user.opiskelijanumero }}
             Liittynyt:
         </div>
         <div class="col">
-            {{ user.liittynyt|date:"d.m.Y H:i" }}
+            {{ profuser.liittynyt|date:"d.m.Y H:i" }}
         </div>
     </div>
     <div class="row">
@@ -54,7 +54,7 @@ Käyttäjälle: {{ user.opiskelijanumero }}
             Aktiivinen:
         </div>
         <div class="col">
-            {% if user.is_aktiivinen %}
+            {% if profuser.is_aktiivinen %}
                 <svg id="i-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="15" height="15" fill="none" stroke="green" stroke-linecap="round" stroke-linejoin="round" stroke-width="4">
                     <path d="M2 20 L12 28 30 4" />
                 </svg>
@@ -68,7 +68,7 @@ Käyttäjälle: {{ user.opiskelijanumero }}
             Henkilökunta:
         </div>
         <div class="col">
-            {% if user.is_staff %}
+            {% if profuser.is_staff %}
                 <svg id="i-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="15" height="15" fill="none" stroke="green" stroke-linecap="round" stroke-linejoin="round" stroke-width="4">
                     <path d="M2 20 L12 28 30 4" />
                 </svg>
@@ -82,7 +82,7 @@ Käyttäjälle: {{ user.opiskelijanumero }}
             Admin:
         </div>
         <div class="col">
-            {% if user.is_admin %}
+            {% if profuser.is_admin %}
                 <svg id="i-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="15" height="15" fill="none" stroke="green" stroke-linecap="round" stroke-linejoin="round" stroke-width="4">
                     <path d="M2 20 L12 28 30 4" />
                 </svg>
@@ -96,7 +96,7 @@ Käyttäjälle: {{ user.opiskelijanumero }}
         # Ryhmien näyttäminen --- Ryhmät tällä hetkellä poissa käytöstä
         <div class="col">
             Ryhmät:
-            {% for group in user.groups.all %}
+            {% for group in profuser.groups.all %}
                 &ensp;[{{ group }}]
                 {% if not forloop.last %}
                 ,
