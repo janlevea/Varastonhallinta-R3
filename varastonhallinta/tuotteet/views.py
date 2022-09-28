@@ -73,6 +73,8 @@ def ryhma(request, pk):
 
     return render(request, "tuotteet/ryhma.html", {"tuoteryhma": tuoteryhma, "tuotteet": tuotteet, "naytanimi": False})
 
+# TODO: Varastotilanteen katsominen etäältä
+
 @login_required
 def lista(request):
     form = TuoteValinnat()
