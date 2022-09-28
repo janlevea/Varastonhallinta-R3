@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required # Sivut vaativat kirja
 
 from kayttajat.models import Kayttaja
 from varasto.models import Varastotapahtuma
-from .forms import UusiLainaus, PalautaLainaus, LainausJarjestys
+from varasto.forms import UusiLainaus, LainausJarjestys, PalautaLainaus
 
 @login_required
 def index(request): # Varastonhallinnan etusivu
